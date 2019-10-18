@@ -1,0 +1,43 @@
+/* Div e Form LOGIN e Cadastro */
+#formLogin,#formCadastro {
+    font-size: 1.3em;
+}
+
+#divCadastro {
+    margin-top: 15%;
+    display: none;
+}
+
+#divLogin {
+    margin-top: 15%;
+}
+
+.col h1{
+    margin-bottom: 0;
+}
+#divA {
+    margin-bottom: 1em;
+}
+
+.col input {
+    background-color: #EDEFF0;
+    box-sizing: border-box;
+    padding: 1.3em;
+}
+
+.col button{
+    font-size: 1em;
+}
+
+.col div {
+    margin-bottom: 1em;
+}
+
+/* Alert */
+#divErroLogin {
+    display: none;
+}
+
+#divErroCadastro {
+    display: none;
+}
