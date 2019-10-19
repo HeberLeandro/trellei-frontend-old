@@ -1,8 +1,10 @@
-// Divs Login, Cadastro, Alert
+// Divs Login, Cadastro, Alerts
 var divLogin = document.getElementById("divLogin");
 var divCadastro = document.getElementById("divCadastro");
-var divErroLogin = document.getElementById("divErroLogin");
 
+var alertErroLogin = document.getElementById("alertErroLogin");
+var alertErroCadastro = document.getElementById("alertErroCadastro");
+var alertSucessoCadastro = document.getElementById("alertSucessoCadastro");
 // Forms
 var formLogin = document.getElementById("formLogin");
 var formCadastro = document.getElementById("formCadastro");
@@ -38,13 +40,18 @@ formCadastro.addEventListener("submit",function(e){
         var url = "http://tads-trello.herokuapp.com/api/trello/users/new";
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            var obj = JSON.parse(this.responseText);
-            console.log(obj)
+            if (this.readyState == 4 && this.status == 200) {
+                var obj = JSON.parse(this.responseText);
+                alert("Usuário Cadastrado com sucesso!");
+            }
+        
+            else if (this.readyState == 4 && this.status == 400) {
+                alert("Este usuário ja foi cadastrado.");
+                formCadastro.reset();
+                nomeCadastro.focus();
             }
         }
         
-        console.log(JSON.stringify(usuario));
         
         xhttp.open("POST", url, true);
         xhttp.setRequestHeader("Content-type", "application/json");
@@ -69,8 +76,9 @@ formLogin.addEventListener("submit",function(e){
                 formLogin.submit();
             }
             else if (this.readyState == 4 && this.status == 400){
-                divErroLogin.style.display = "block";
+                alert("Login ou Senha incorretos.");
                 formLogin.reset();
+                usernameLogin.focus();
             }
         }
         

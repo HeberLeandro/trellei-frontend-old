@@ -4,12 +4,12 @@
 }
 
 #divCadastro {
-    margin-top: 15%;
+    margin-top: 10%;
     display: none;
 }
 
 #divLogin {
-    margin-top: 15%;
+    margin-top: 10%;
 }
 
 .col h1{
@@ -34,10 +34,10 @@
 }
 
 /* Alert */
-#divErroLogin {
+#alertErroLogin {
     display: none;
 }
 
-#divErroCadastro {
+#alertErroCadastro {
     display: none;
 }
