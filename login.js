@@ -1,10 +1,15 @@
-// Divs Login, Cadastro, Alerts
+// Divs Login, Cadastro
 var divLogin = document.getElementById("divLogin");
 var divCadastro = document.getElementById("divCadastro");
 
+//Alerts & Btns
 var alertErroLogin = document.getElementById("alertErroLogin");
 var alertErroCadastro = document.getElementById("alertErroCadastro");
 var alertSucessoCadastro = document.getElementById("alertSucessoCadastro");
+var btnErroLogin = document.getElementById("btnErroLogin");
+var btnErroCadastro = document.getElementById("btnErroCadastro");
+var btnSucessoCadastro = document.getElementById("btnSucessoCadastro");
+
 // Forms
 var formLogin = document.getElementById("formLogin");
 var formCadastro = document.getElementById("formCadastro");
@@ -42,13 +47,15 @@ formCadastro.addEventListener("submit",function(e){
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var obj = JSON.parse(this.responseText);
-                alert("Usuário Cadastrado com sucesso!");
+                alertSucessoCadastro.style.display = "block";
+                formCadastro.reset();
+                nomeCadastro.focus();
             }
         
             else if (this.readyState == 4 && this.status == 400) {
-                alert("Este usuário ja foi cadastrado.");
-                formCadastro.reset();
-                nomeCadastro.focus();
+                alertErroCadastro.style.display = "block";
+                usernameCadastro.value = "";
+                usernameCadastro.focus();
             }
         }
         
@@ -70,19 +77,16 @@ formLogin.addEventListener("submit",function(e){
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                var obj = JSON.parse(this.responseText);
-                console.log(obj);
+                var token = JSON.parse(this.responseText);
                 formLogin.reset();
                 formLogin.submit();
             }
             else if (this.readyState == 4 && this.status == 400){
-                alert("Login ou Senha incorretos.");
+                alertErroLogin.style.display = "block";
                 formLogin.reset();
                 usernameLogin.focus();
             }
         }
-        
-        console.log(JSON.stringify(usuario));
         
         xhttp.open("POST", url, true);
         xhttp.setRequestHeader("Content-type", "application/json");
@@ -99,4 +103,17 @@ mostrarCadastro.addEventListener("click", function(){
 mostrarLogin.addEventListener("click", function(){
     divCadastro.style.display = "none";
     divLogin.style.display = "block";
+});
+
+//Alerts Close
+btnErroLogin.addEventListener("click", function(){
+    alertErroLogin.style.display = "none";
+});
+
+btnErroCadastro.addEventListener("click", function(){
+    alertErroCadastro.style.display = "none";
+});
+
+btnSucessoCadastro.addEventListener("click", function(){
+    alertSucessoCadastro.style.display = "none";
 });

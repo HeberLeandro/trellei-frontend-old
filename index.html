@@ -15,31 +15,34 @@
   </head>
   <body>
     <div class="container">
-      <!-- <div class="alert alert-warning fade in alert-dismissible show" id="alertErroLogin">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-           <span aria-hidden="true" style="font-size:20px">×</span>
-        </button> <h5>Login ou Senha incorretos.</h5>
-      </div>
+      <div class="row justify-content-md-center" id="divGridLayout">
+        <!-- Alerts -->
+        <div class="alert alert-warning col-sm-12 col-md-12 col-lg-12" id="alertErroLogin">
+          <button type="button" class="close" id="btnErroLogin">
+           <span aria-hidden="true">&times;</span>
+          </button> <h5>Login ou Senha incorretos.</h5>
+        </div>
+    
+        <div class="alert alert-primary col-sm-12 col-md-12 col-lg-12" id="alertErroCadastro">
+          <button type="button" class="close" id="btnErroCadastro">
+            <span aria-hidden="true">&times;</span>
+          </button> <h5>Esse nome de usuário já está sendo ultilizado!</h5>
+        </div>
+  
+        <div class="alert alert-success col-sm-12 col-md-12 col-lg-12" id="alertSucessoCadastro">
+          <button type="button" class="close" id="btnSucessoCadastro">
+            <span aria-hidden="true">&times;</span>
+          </button> <h5>Novo usuário cadastrado com sucesso!</h5>
+        </div>
+        <!-- -->
 
-      <div class="alert alert-warning fade in alert-dismissible show" id="alertErroCadastro">
-          <button type="button" class="hidden" data-dismiss="alert" aria-label="Hidden">
-             <span aria-hidden="true" style="font-size:20px">×</span>
-          </button> <h5>Esse Usuário já foi castrado!</h5>
-      </div>
-
-      <div class="alert alert-success alert-dismissible" id="alertSucessoCadastro">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Hidden">
-        <span aria-hidden="true" style="font-size:20px">×</span>
-      </button> <h5>Novo usuário cadastrado com sucesso!</h5>
-      </div> -->
-
-      <div class="row justify-content-md-center py-5" id="divGridLayout">
-        <div class="col col-lg-6" id="divLogin"> 
+        <!-- Div Login -->
+        <div class="col col-sm-12 col-md-8 col-lg-8" id="divLogin"> 
           <h1>Fazer Login</h1>
           <div id="divA">
             <a id="mostrarCadastro" href="#">Criar uma conta</a>     
           </div>
-            <form id="formLogin" action="mainpage.html">
+          <form id="formLogin" action="mainpage.html"> 
             <div class="form-group">
               <label>Usuário</label>
               <input type="text" class="form-control" id="usernameLogin" placeholder="Digite o usuario" required>
@@ -48,37 +51,43 @@
               <label>Senha</label>
               <input type="password" class="form-control" id="senhaLogin" placeholder="Digite a senha" required minlength="4">
             </div>
+            <div class="custom-control custom-checkbox checkbox-lg">
+                <input type="checkbox" class="custom-control-input" id="exampleCheck1">
+                <label class="custom-control-label" for="exampleCheck1">Mantenha-me conectado</label>
+            </div>
             <button type="submit" class="btn btn-primary">Entrar</button>
           </form> 
         </div>
 
-        <div class="col col-lg-6" id="divCadastro">
-            <h1>Cria uma Conta</h1>
-            <div id="divA">
-              <a id="mostrarLogin" href="#">Fazer login</a>     
-            </div>
-              <form id="formCadastro">
-              <div class="form-group">
-                  <label>Nome</label>
-                  <input type="text" class="form-control" id="nomeCadastro" placeholder="Digite seu nome" required>
-              </div>
-              <div class="form-group">
-                <label>Usuário</label>
-                <input type="text" class="form-control" id="usernameCadastro" placeholder="Digite seu nome de usuario" required>
-              </div>
-              <div class="form-group">
-                <label>Senha</label>
-                <input type="password" class="form-control" id="senhaCadastro" placeholder="Digite sua senha" required minlength="4">
-              </div>
-              <button type="submit" class="btn btn-primary">Cadastrar</button>
-            </form> 
+        <!-- Div Cadastro -->
+        <div class="col col-sm-12 col-md-8 col-lg-8" id="divCadastro">
+          <h1>Criar uma Conta</h1>
+          <div id="divA">
+            <a id="mostrarLogin" href="#">Fazer login</a>     
           </div>
-        </div> 
+          <form id="formCadastro" class="was-validated">
+            <div class="form-group">
+              <label>Nome</label>
+              <input type="text" class="form-control" id="nomeCadastro" placeholder="Digite seu nome" required>
+              <div class="invalid-feedback">Por favor preencha este campo.</div>
+            </div>
+            <div class="form-group">
+              <label>Usuário</label>
+              <input type="text" class="form-control" id="usernameCadastro" placeholder="Digite seu nome de usuario" required>
+              <div class="invalid-feedback">Por favor preencha este campo.</div>
+            </div>
+            <div class="form-group">
+              <label>Senha</label>
+              <input type="password" class="form-control" id="senhaCadastro" placeholder="Digite sua senha" required minlength="4">
+              <div class="invalid-feedback">Por favor preencha este campo.</div>
+            </div>
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+            </form> 
+        </div>
 
       </div> 
-
     </div>
-
+    
     <!-- My JavaStript-->
     <script src="login.js"></script>
     <!-- Optional JavaScript -->

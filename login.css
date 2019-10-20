@@ -1,43 +1,63 @@
 /* Div e Form LOGIN e Cadastro */
-#formLogin,#formCadastro {
-    font-size: 1.3em;
-}
+    #formLogin,#formCadastro {
+        font-size: 1.6em;
+    }
 
-#divCadastro {
-    margin-top: 10%;
-    display: none;
-}
+    #divCadastro {
+        margin-top: 10%;
+        display: none;
+    }
 
-#divLogin {
-    margin-top: 10%;
-}
+    #divLogin {
+        margin-top: 10%;
+    }
 
-.col h1{
-    margin-bottom: 0;
-}
-#divA {
-    margin-bottom: 1em;
-}
+    .col h1{
+        margin-bottom: 0;
+        font-size: 3em;
+    }
+    #divA {
+        margin-bottom: 1em;
+    }
 
-.col input {
-    background-color: #EDEFF0;
-    box-sizing: border-box;
-    padding: 1.3em;
-}
+    #divA a{
+        font-size: 1.2em;
+    }
 
-.col button{
-    font-size: 1em;
-}
+    .col input {
+        background-color: #EDEFF0;
+        box-sizing: border-box;
+        padding: 1.3em;
+    }
 
-.col div {
-    margin-bottom: 1em;
-}
+    .checkbox-lg .custom-control-label::before, 
+    .checkbox-lg .custom-control-label::after {
+        width: 1.55rem;
+        height: 1.55rem;
+    }
+
+    .checkbox-lg .custom-control-label {
+        padding-left: 0.5em;
+        font-size: 0.9em;
+    }
+
+    .col button{
+        font-size: 1em;
+    }
+
+    .col div {
+        margin-bottom: 1em;
+    }
 
 /* Alert */
-#alertErroLogin {
-    display: none;
-}
+    #alertErroLogin {
+        display: none;
+    }
 
-#alertErroCadastro {
-    display: none;
-}
+    #alertErroCadastro {
+        display: none;
+    }
+
+    #alertSucessoCadastro {
+        display: none;
+    }
