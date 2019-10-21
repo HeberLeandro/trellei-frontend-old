@@ -42,7 +42,7 @@ formCadastro.addEventListener("submit",function(e){
         "password": senhaCadastro.value
     }
         
-        var url = "http://tads-trello.herokuapp.com/api/trello/users/new";
+        var url = "https://tads-trello.herokuapp.com/api/trello/users/new";
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -73,7 +73,7 @@ formLogin.addEventListener("submit",function(e){
         "password": senhaLogin.value
     }
         
-        var url = "http://tads-trello.herokuapp.com/api/trello/login";
+        var url = "https://tads-trello.herokuapp.com/api/trello/login";
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
