@@ -22,16 +22,16 @@ var senhaCadastro = document.getElementById("senhaCadastro");
 //Campos do form Login
 var usernameLogin = document.getElementById("usernameLogin");
 var senhaLogin = document.getElementById("senhaLogin");
+var manterConectado = document.getElementById("manterConectado");
 
 //elemeto a
 var mostrarCadastro = document.getElementById("mostrarCadastro");
 var mostrarLogin = document.getElementById("mostrarLogin");
 
-/*
-
-            LEMBRAR DO MANTER CONECTADO NO LOGIN.
-
-*/ 
+/* Verifica sessão aberta */
+if(localStorage.getItem("token")){
+    formLogin.submit();
+}
 
 //evento do form Cadastro
 formCadastro.addEventListener("submit",function(e){
@@ -42,27 +42,28 @@ formCadastro.addEventListener("submit",function(e){
         "password": senhaCadastro.value
     }
         
-        var url = "https://tads-trello.herokuapp.com/api/trello/users/new";
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                var obj = JSON.parse(this.responseText);
-                alertSucessoCadastro.style.display = "block";
-                formCadastro.reset();
-                nomeCadastro.focus();
-            }
-        
-            else if (this.readyState == 4 && this.status == 400) {
-                alertErroCadastro.style.display = "block";
-                usernameCadastro.value = "";
-                usernameCadastro.focus();
-            }
+    var url = "https://tads-trello.herokuapp.com/api/trello/users/new";
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var obj = JSON.parse(this.responseText);
+            alertSucessoCadastro.style.display = "block";
+            formCadastro.reset();
+            nomeCadastro.focus();
         }
-        
-        
-        xhttp.open("POST", url, true);
-        xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.send(JSON.stringify(usuario));
+    
+        else if (this.readyState == 4 && this.status == 400) {
+            alertErroCadastro.style.display = "block";
+            usernameCadastro.value = "";
+            usernameCadastro.focus();
+        }
+    }
+    
+    
+    xhttp.open("POST", url, true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(JSON.stringify(usuario));
+
 });
 
 //evento do form Login
@@ -72,25 +73,29 @@ formLogin.addEventListener("submit",function(e){
         "username": usernameLogin.value,
         "password": senhaLogin.value
     }
-        
-        var url = "https://tads-trello.herokuapp.com/api/trello/login";
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                var token = JSON.parse(this.responseText);
-                formLogin.reset();
-                formLogin.submit();
-            }
-            else if (this.readyState == 4 && this.status == 400){
-                alertErroLogin.style.display = "block";
-                formLogin.reset();
-                usernameLogin.focus();
-            }
+    
+    var url = "https://tads-trello.herokuapp.com/api/trello/login";
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var obj = JSON.parse(this.responseText);
+            if(manterConectado.checked) localStorage.setItem("token", JSON.stringify(obj.token));
+
+            else sessionStorage.setItem("token", JSON.stringify(obj.token));
+            
+            formLogin.reset();
+            formLogin.submit();
         }
-        
-        xhttp.open("POST", url, true);
-        xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.send(JSON.stringify(usuario));
+        else if (this.readyState == 4 && this.status == 400){
+            alertErroLogin.style.display = "block";
+            formLogin.reset();
+            usernameLogin.focus();
+        }
+    }
+    
+    xhttp.open("POST", url, true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(JSON.stringify(usuario));
 });
 
 
