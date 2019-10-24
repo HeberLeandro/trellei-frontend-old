@@ -31,7 +31,11 @@ var mostrarLogin = document.getElementById("mostrarLogin");
 /* Verifica sessão aberta */
 if(localStorage.getItem("token")){
     formLogin.submit();
+} 
+else if(sessionStorage.getItem("token")){
+    formLogin.submit();
 }
+
 
 //evento do form Cadastro
 formCadastro.addEventListener("submit",function(e){

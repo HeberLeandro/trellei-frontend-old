@@ -1,3 +1,22 @@
 #mainContainer{
     padding: 0;
 }
+
+#homeIcon{
+    width: 2rem;
+    height: 2rem;
+}
+
+#divHomeIcon{
+    width: 2.2rem;
+    height: 2.2rem;
+}
+
+#homeIcon:hover{
+    width: 2.2rem;
+    height: 2.2rem;
+    cursor: pointer;
+}
+.navbar-collapse {
+    justify-content: flex-end;
+}
