@@ -29,13 +29,51 @@ var mostrarCadastro = document.getElementById("mostrarCadastro");
 var mostrarLogin = document.getElementById("mostrarLogin");
 
 /* Verifica sessão aberta */
-if(localStorage.getItem("token")){
-    formLogin.submit();
-} 
-else if(sessionStorage.getItem("token")){
-    formLogin.submit();
-}
+function validaToken(){
+    var tokenValido = false;
+    if(localStorage.getItem("token")){
+        var token = JSON.parse(localStorage.getItem("token"));
+        var url = "https://tads-trello.herokuapp.com/api/trello/users/"+token;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var user = this.responseText;
+                sessionStorage.setItem("user", user);
+                tokenValido = true;
+            }
+            else if (this.readyState == 4 && this.status == 400) {
+                localStorage.removeItem("token");
+            }
+        }
+    
+        xhttp.open("GET", url, true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify(url));
+    }
 
+    if(sessionStorage.getItem("token")){
+        var token = JSON.parse(sessionStorage.getItem("token"));
+        var url = "https://tads-trello.herokuapp.com/api/trello/users/"+token;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var user = this.responseText;
+                sessionStorage.setItem("user", user);
+                tokenValido = true;
+                if (tokenValido) {
+                    formLogin.submit();
+                }
+            }
+            else if (this.readyState == 4 && this.status == 400) {
+                sessionStorage.removeItem("token");
+            }
+        }
+    
+        xhttp.open("GET", url, true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify(url));
+    }
+};
 
 //evento do form Cadastro
 formCadastro.addEventListener("submit",function(e){

@@ -12,21 +12,35 @@
 
     <title>Trelei</title>
   </head>
-  <body>
-    <div class="container-fluid" id="mainContainer">
-        <div class="navbar bg-primary">
-            <div class="nav-item">
-              <div id="divHomeIcon">
-                <img src="ibagens/home.png" alt="Home" id="homeIcon"> 
+  <body onload="verificaSessao()">
+    <div id="background"> 
+
+      <div class="container-fluid bg-transparent" id="mainContainer">
+          <div class="navbar">
+              <div class="nav-item bg-transparent">
+                <div id="divHomeIcon">
+                  <img src="ibagens/home.png" alt="Home" id="homeIcon"> 
+                </div>
               </div>
-            </div>
-              <!-- Toggler/collapsibe Button -->
-            <button class="navbar-toggler bg-secondary" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-        </div> 
-        
-    </div>
+              <div class="nav-item dropdown">
+                  <button id="menuUser" data-toggle="dropdown">
+                    <div id="divMenuUser">
+                      <span>
+                        H
+                      </span>
+                    </div>
+                      
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#">Link 1</a>
+                        <a class="dropdown-item" href="#">Link 2</a>
+                        <a class="dropdown-item" href="#">Link 3</a>
+                      </div>
+                  </button>
+              </div>
+          </div> 
+      </div>
+
+  </div>
 
     <!-- My js -->
     <script src="mainpage.js"></script>
