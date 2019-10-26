@@ -3,12 +3,12 @@
 }
 
 #backgroud, html, body {
-    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     height: 100%;
 }
 
 #background {
-    background-color: rgb(0, 121, 191);
+    /* background-color: rgb(0, 121, 191); */
     /* background-color: rgb(81, 152, 57); */
     height: 100%;
 }
@@ -24,6 +24,7 @@
     width: 2.3rem;
     height: 2.3rem;
     padding: 0.3rem;
+    margin-left: 0.3rem;
     border-radius: 0.1rem;
     background-color: rgba(255, 255, 255, 0.30);
 }
@@ -56,4 +57,15 @@ button#menuUser {
     justify-content: center;
     font-size: 1.1rem;
     background-color: #dfe1e6;
+}
+
+#divUserHome{
+    background-color: white;
+    position: absolute;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+div.col {
+
 }
