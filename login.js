@@ -29,10 +29,35 @@ var mostrarCadastro = document.getElementById("mostrarCadastro");
 var mostrarLogin = document.getElementById("mostrarLogin");
 
 /* Verifica sessão aberta */
-function verificaSessao(){
-    if(localStorage.getItem("token") || sessionStorage.getItem("token")){
-        //formLogin.submit();
-    }  
+function verificaSessaoAberta(){
+    var token;
+    if(sessionStorage.getItem("token")){
+        token = JSON.parse(sessionStorage.getItem("token"));
+    }else if (localStorage.getItem("token")) {
+        token = JSON.parse(localStorage.getItem("token"));
+    }else{
+        return;
+    }
+    buscarUsuario(token);
+}
+
+//Pegar Nome do usuario
+function buscarUsuario(token){
+    var url = "https://tads-trello.herokuapp.com/api/trello/users/"+token;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var user = this.responseText;
+            if(user != ""){
+                sessionStorage.setItem("user",user);
+                formLogin.submit();
+            }
+        }
+    }
+    
+    xhttp.open("GET", url, true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(JSON.stringify(url)); 
 }
 
 //evento do form Cadastro
@@ -81,14 +106,13 @@ formLogin.addEventListener("submit",function(e){
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var obj = JSON.parse(this.responseText);
-            if(manterConectado.checked) localStorage.setItem("token", JSON.stringify(obj.token));
+            var token = JSON.stringify(obj.token);
+            if(manterConectado.checked) localStorage.setItem("token", token);
 
-            else sessionStorage.setItem("token", JSON.stringify(obj.token));
-            
-            formLogin.reset();
-            formLogin.submit();
-        }
-        else if (this.readyState == 4 && this.status == 400){
+            else sessionStorage.setItem("token", token);
+            buscarUsuario(JSON.parse(token));
+
+        }else if (this.readyState == 4 && this.status == 400){
             alertErroLogin.style.display = "block";
             formLogin.reset();
             usernameLogin.focus();
