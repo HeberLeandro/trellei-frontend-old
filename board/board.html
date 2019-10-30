@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="board.css">
+  <title></title>
+</head>
+
+<body onload="verificaSessao()">
+  <div id="background">
+    <div class="container-fluid bg-transparent" id="mainContainer">
+      <div class="navbar">
+        <div class="nav-item bg-transparent">
+          <div id="divHomeIcon">
+            <img src="../ibagens/homepage.png" alt="Home" id="homeIcon">
+          </div>
+        </div>
+        <div class="nav-item dropdown">
+          <button id="menuUser" data-toggle="dropdown">
+            <div id="divMenuUser">
+              <span></span>
+            </div>
+          </button>
+
+          <div class="dropdown-menu dropdown-menu-right">
+            <div>
+              <div id="divUserName" class="text-center border-bottom">
+                <h6 id="H6Name"></h6>
+                <span id="spanUsername"></span>
+              </div>
+              <a class="dropdown-item" id="Logout" href="#">Sair da conta</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- my js -->
+    <script src="board.js"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"></script>
+</body>
+
+</html>
