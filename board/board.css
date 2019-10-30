@@ -35,6 +35,16 @@
     cursor: pointer;
 }
 
+#logo img{
+    filter: opacity(70%);
+    height: 1.5rem;
+    width: 4.5rem;
+}
+#logo img:hover{
+    filter: opacity(90%);
+    cursor: pointer;
+}
+
 button#menuUser {
     justify-content: flex-end;
     padding: 0;

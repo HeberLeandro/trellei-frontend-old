@@ -50,7 +50,7 @@ function verificaSessao(){
 }
 
 function getBoards(){
-    var url =  "http://tads-trello.herokuapp.com/api/trello/boards/"+token;
+    var url =  "https://tads-trello.herokuapp.com/api/trello/boards/"+token;
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
