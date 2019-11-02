@@ -1,3 +1,7 @@
+//Nav items
+var homeIcon = document.getElementById("homeIcon");
+var imgLogo = document.getElementById("imgLogo");
+
 //Menu user
 var title = document.getElementsByTagName("title");
 var divMenuUser = document.getElementById("divMenuUser");
@@ -22,44 +26,20 @@ function verificaSessao(){
     var user = JSON.parse(sessionStorage.getItem("user"));
     var name = user.name;
     var tmp = name.split(" ");
-    for (let i = 0; i < tmp.length; i++){
+    for (let i = 0; i < tmp.length && i < 2; i++){
         spanMenuUser.innerHTML += tmp[i][0];
     }
     spanMenuUser.setAttribute("title", name + "("+ user.username +")");
     spanUsername.innerText = "("+ user.username + ")";
     H6Name.innerText = user.name;
 
-    var url = window.location.href;
-    var idBoard = url.split("?");
-
-    console.log(idBoard[1]);
-    console.log(token);
-
-    if (idBoard[1] == null) {
-        window.location = "../user/mainpage.html";
+    if (sessionStorage.getItem("BoardClicked")) {
+        Board = JSON.parse(sessionStorage.getItem("BoardClicked"));
+        background.style.background = Board.bg;
+        title[0].innerText = "Board | " + Board.name;
     }else{
-        getBoard(idBoard[1]);
+        window.location = "../index.html";
     }
-}
-
-function getBoard(idBoard){
-    var url = "https://tads-trello.herokuapp.com/api/trello/boards/"+ token+"/"+idBoard;
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            Board = JSON.parse(this.responseText);
-            console.log(Board[0]);
-            background.style.backgroundColor = Board[0].color;
-            title[0].innerText = "Board | " + Board[0].name;
-
-        }else if (this.readyState == 4 && this.status == 400){
-            alert("Erro buscar quadro");
-        }
-    }
-    
-    xhttp.open("GET", url, true);
-    xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send(JSON.stringify(url));
 }
 
 //sair da Conta
@@ -67,4 +47,14 @@ Logout.addEventListener("click", function(){
     sessionStorage.removeItem("token");
     localStorage.removeItem("token");
     window.location = "../index.html";
+});
+
+//voltar para home
+
+imgLogo.addEventListener("click", function(){
+    window.location = "../user/mainpage.html";
+});
+
+homeIcon.addEventListener("click", function(){
+    window.location = "../user/mainpage.html";
 });

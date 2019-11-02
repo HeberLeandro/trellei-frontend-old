@@ -40,7 +40,7 @@ function verificaSessao(){
     var user = JSON.parse(sessionStorage.getItem("user"));
     var name = user.name;
     var tmp = name.split(" ");
-    for (let i = 0; i < tmp.length; i++){
+    for (let i = 0; i < tmp.length && i < 2; i++){
         spanMenuUser.innerHTML += tmp[i][0];
     }
     spanMenuUser.setAttribute("title", name + "("+ user.username +")");
@@ -75,7 +75,7 @@ function listarNovoBoard(board){
     var span = document.createElement("span");
     li.setAttribute("class", "col col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 list-group-item");
     div.setAttribute("class", "quadro");
-    div.setAttribute("id", board.id);
+    //div.setAttribute("id", board.id);
     span.innerHTML = board.name;
     div.style.backgroundColor = board.color;
 
@@ -83,7 +83,13 @@ function listarNovoBoard(board){
     li.appendChild(div);
     listaQuadros.insertAdjacentElement("afterbegin", li);
     div.addEventListener("click", function(){
-        window.location = "../board/board.html?" + this.getAttribute("id");
+        var BoardClicked = {
+            "id":board.id,
+            "name":board.name,
+            "bg":board.color
+        };
+        sessionStorage.setItem("BoardClicked", JSON.stringify(BoardClicked));
+        window.location = "../board/board.html";
     });
 }
 

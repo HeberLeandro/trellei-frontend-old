@@ -76,7 +76,8 @@ formCadastro.addEventListener("submit",function(e){
             var obj = JSON.parse(this.responseText);
             alertSucessoCadastro.style.display = "block";
             formCadastro.reset();
-            nomeCadastro.focus();
+            divCadastro.style.display = "none";
+            divLogin.style.display = "block";
         }
     
         else if (this.readyState == 4 && this.status == 400) {
