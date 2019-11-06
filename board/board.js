@@ -3,6 +3,7 @@ var homeIcon = document.getElementById("homeIcon");
 var imgLogo = document.getElementById("imgLogo");
 
 //Menu user
+var spanName = document.getElementById("spanName");
 var title = document.getElementsByTagName("title");
 var divMenuUser = document.getElementById("divMenuUser");
 var spanMenuUser = divMenuUser.firstElementChild;
@@ -36,7 +37,8 @@ function verificaSessao(){
     if (sessionStorage.getItem("BoardClicked")) {
         Board = JSON.parse(sessionStorage.getItem("BoardClicked"));
         background.style.background = Board.bg;
-        title[0].innerText = "Board | " + Board.name;
+        title[0].innerText = Board.name + " | Trellei";
+        spanName.innerText = Board.name;
     }else{
         window.location = "../index.html";
     }
@@ -50,7 +52,6 @@ Logout.addEventListener("click", function(){
 });
 
 //voltar para home
-
 imgLogo.addEventListener("click", function(){
     window.location = "../user/mainpage.html";
 });

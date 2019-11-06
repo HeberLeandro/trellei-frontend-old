@@ -78,3 +78,44 @@ button#menuUser {
     padding-bottom: 0.5rem;
     margin: 0 0.3rem 0.3rem;
 }
+
+/* Board Header */
+.row {
+    margin: 0;
+}
+#spanName {
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    color: white;
+    font-size: 1.3rem;
+    padding: 0 0.5rem;
+}
+
+#divBoardName{
+    display: inline-flex;
+}
+
+#boardHeader {
+    display: flex;
+    padding: 0.5rem;
+    justify-content: space-between;
+}
+
+#divMenuBoard{
+    display: inline-flex;
+}
+
+#menuBoard {
+    height: 2rem;
+    padding: 0;
+    background-color: rgba(255, 255, 255, 0.20);
+}
+
+#menuBoard span{
+    color: white;
+    height: 100%;
+    padding: 0.3rem;
+    margin: 0.3rem;
+    font-size: 1rem;
+}
