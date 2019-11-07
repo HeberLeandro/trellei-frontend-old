@@ -125,6 +125,7 @@ formNovoQuadro.addEventListener("submit", function(e){
         if (this.readyState == 4 && this.status == 200) {
             var obj = JSON.parse(this.responseText);
             listaQuadros[length] = obj;
+            console.log(obj);
             listarNovoBoard(obj);
             novoQuadrobg.style.display = "none";
 
