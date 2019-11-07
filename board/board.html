@@ -15,8 +15,8 @@
 </head>
 
 <body onload="verificaSessao()">
-  <div id="background">
-    <div class="container-fluid bg-transparent" id="mainContainer">
+  <div class="position-stick" id="background">
+    <div class="container-fluid bg-transparent position-absolute" id="mainContainer">
       <div class="navbar">
         <div class="nav-item bg-transparent">
           <div id="divHomeIcon">
@@ -47,26 +47,37 @@
 
       <div class="row">
         <div class="col col-12" id="boardHeader">
-          <div id="divBoardName" class="border-right">
+          <div id="divBoardName">
             <span id="spanName"></span>
-          </div>
-          <div id="divMenuBoard" class="dropdown">
-            <button class="btn" data-toggle="dropdown" id="menuBoard">
-              <span>Opções do Quadro</span>
-            </button>
+            <span class="form-control" id="spanSize"></span>
+            <input class="form-control" id="changeName" maxlength="55" />
 
-            <div class="dropdown-menu dropdown-menu-right">
-              <div>
-                <div id="divUserName" class="text-center border-bottom">
-                  <a class="dropdown-item" href="#">Renomear Quadro</a>
-                </div>
-                <a class="dropdown-item" id="Logout" href="#">Alterar Cor do Quadro</a>
+          </div>
+          <div id="divMenuBoard">
+            <div class="dropdown">
+              <button class="btn" data-toggle="dropdown" id="btnMudarCor">Mudar Cor</button>
+              <div class="dropdown-menu dropdown-menu-left">
+                <a class="dropdown-item" href="#">Cor</a>
+              </div>
+            </div>
+            <div class="dropdown">
+              <button class="btn" data-toggle="dropdown" id="btnApagarQuadro">Apagar Quadro</button>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="#">Apagar</a>
               </div>
             </div>
 
           </div>
-        </div>
+        </div> <!-- Col -->
       </div><!-- Row -->
+      <div class="row border border-primary teste justify-content-center ">
+        <div class="col-6 m-1 d-inline-block">
+          AAAA
+        </div>
+        <div class="col-6 m-1 d-inline-block">
+          AAAA
+        </div>
+      </div>
 
     </div><!-- CONTEINER MAIN -->
   </div><!-- BG DIV -->

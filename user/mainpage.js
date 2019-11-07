@@ -94,9 +94,13 @@ function listarNovoBoard(board){
 }
 
 //Abilitar/Desabilitar Botão
+inputNomeDoQuadro.addEventListener("keypress", function(){
+    btnCriarQuadro.disabled = false;
+});
 inputNomeDoQuadro.addEventListener("keyup", function(){
-    if(inputNomeDoQuadro.value == "") btnCriarQuadro.disabled = true;
-    else btnCriarQuadro.disabled = false;
+    if (inputNomeDoQuadro.value == "") {
+        btnCriarQuadro.disabled = true;
+    }
 });
 
 //abre janela para criação do novo quadro

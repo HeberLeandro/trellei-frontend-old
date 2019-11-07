@@ -1,6 +1,7 @@
 /* Div Princinpais */
 #mainContainer{
     padding: 0;
+    height: 100%;
 }
 
 #backgroud, html, body {
@@ -69,6 +70,12 @@ button#menuUser {
     background-color: #dfe1e6;
 }
 
+/* Container Interno*/
+#containerInterno{
+    height: 100%;
+    padding: 0;
+}
+
 /*dropdown menu*/
 #H6Name{
     margin: 0;
@@ -84,7 +91,6 @@ button#menuUser {
     margin: 0;
 }
 #spanName {
-    font-weight: bold;
     display: inline-flex;
     align-items: center;
     color: white;
@@ -93,7 +99,43 @@ button#menuUser {
 }
 
 #divBoardName{
-    display: inline-flex;
+    display: flex;
+    max-width: calc(100% - 35rem);
+    border-radius: 0.25rem;
+    width: auto;
+    cursor: pointer;
+}
+
+#divBoardName:hover{
+    background-color:rgba(255, 255, 255, 0.20);
+}
+
+.form-control{
+    width: auto;
+}
+#changeName {
+    display: none;
+    width: 4rem;
+    min-width: 4rem;
+    text-align: left;
+}
+
+#spanSize {
+    display: inline-block;
+    position: absolute;
+    padding-right: 1.5rem !important;
+    visibility: hidden;
+}
+
+#changeName,
+#spanSize {
+    margin: 0;
+    white-space: pre;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    font-size: 1.3rem;
+    font: inherit;
+    overflow: hidden;
 }
 
 #boardHeader {
@@ -102,20 +144,24 @@ button#menuUser {
     justify-content: space-between;
 }
 
-#divMenuBoard{
+/* Mudar Cor/Excluir Board */
+
+#divMenuBoard {
     display: inline-flex;
 }
 
-#menuBoard {
-    height: 2rem;
-    padding: 0;
+#btnMudarCor,
+#btnApagarQuadro {
+    color: white;
+    margin-left: 0.5rem;
     background-color: rgba(255, 255, 255, 0.20);
 }
 
-#menuBoard span{
-    color: white;
-    height: 100%;
-    padding: 0.3rem;
-    margin: 0.3rem;
-    font-size: 1rem;
+#btnMudarCor:hover,
+#btnApagarQuadro:hover {
+    background-color: rgba(255, 255, 255, 0.30);
 }
+
+/* Listas */
+
+

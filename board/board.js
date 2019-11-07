@@ -9,6 +9,10 @@ var divMenuUser = document.getElementById("divMenuUser");
 var spanMenuUser = divMenuUser.firstElementChild;
 var background = document.getElementById("background");
 
+//Change Name
+var inputChangeName = document.getElementById("changeName");
+var spanSize = document.getElementById("spanSize");
+
 //Dropdowns itens
 var Logout = document.getElementById("Logout");
 var H6Name = document.getElementById("H6Name");
@@ -58,4 +62,11 @@ imgLogo.addEventListener("click", function(){
 
 homeIcon.addEventListener("click", function(){
     window.location = "../user/mainpage.html";
+});
+
+//mudar nome do quadro
+inputChangeName.addEventListener("keydown", function(){
+    spanSize.innerText = inputChangeName.value;
+    console.log(window.getComputedStyle(spanSize).width);
+    inputChangeName.style.width = window.getComputedStyle(spanSize).width;
 });
