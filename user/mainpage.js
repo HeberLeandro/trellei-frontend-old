@@ -11,8 +11,6 @@ var spanUsername= document.getElementById("spanUsername");
 var listaQuadros = document.getElementById("listaQuadros");
 var listaDeEventos;
 
-//btns de cores
-var btnCorAzul = document.getElementById("btnCorAzul");
 
 //quadros
 var criarQuadro = document.getElementById("criarQuadro");
@@ -125,7 +123,6 @@ formNovoQuadro.addEventListener("submit", function(e){
         if (this.readyState == 4 && this.status == 200) {
             var obj = JSON.parse(this.responseText);
             listaQuadros[length] = obj;
-            console.log(obj);
             listarNovoBoard(obj);
             novoQuadrobg.style.display = "none";
 
@@ -160,12 +157,6 @@ novoQuadro.addEventListener("click", function(e){
     e.stopPropagation();
 });
 
-btnCorAzul.addEventListener("click", function(e){
-    e.stopPropagation();
-    cor = getComputedStyle(btnCorAzul);
-    bgQuadro.style.backgroundColor = cor.backgroundColor;
-
-});
 
 //mudar Cor do Novo board
 function mudarCor(btn){

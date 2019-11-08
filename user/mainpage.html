@@ -53,12 +53,12 @@
             </button>
             <form id="formNovoQuadro" class="my-2">
               <div id="quadroANDcores">
-                <div id="bgQuadro" class="">
-                  <input type="text" class="form-control" placeholder="Insira o nome do quadro" id="nomeDoQuadro"/>
+                <div id="bgQuadro">
+                  <input type="text" class="form-control" placeholder="Insira o nome do quadro" maxlength="25" id="nomeDoQuadro"/>
                 </div>
                 <ul id="listaDeCores" class="row">
-                  <li class="col col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3"><button type="button" id="btnCorAzul"
-                      title="azul"></button></li>
+                  <li class="col col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3"><button type="button" onclick="mudarCor(this)"
+                      id="btnCorAzul" title="azul"></button></li>
                   <li class="col col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3"><button type="button" onclick="mudarCor(this)"
                       id="btnCorLaranja" title="laranja"></button></li>
                   <li class="col col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3"><button type="button" onclick="mudarCor(this)"

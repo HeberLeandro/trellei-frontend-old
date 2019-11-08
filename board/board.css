@@ -163,13 +163,12 @@ button#menuUser {
 }
 
 /* Listas */
-#listaDeListas{
+#allListas{
     max-height: 89%;
-    height: 100%;
 }
 
 #divCriarLista {
-    height: 4rem;
+    height: 3rem;
     border-radius: 0.3rem;
     -webkit-user-select: none;
     -webkit-touch-callout:none; 
@@ -185,10 +184,116 @@ button#menuUser {
 }
 
 .lista {
-    max-height: 95%;
-    min-height: 15%;
-    height: 15%;
-    background-color: white;
+    display: flex;
+    max-height: 40rem;
+    height: 100%;
+    background-color: transparent;
     border-radius: 0.25rem;
-    margin-right: 0.5rem
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 0;
+}
+
+.inside-lista {
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    min-height: 5rem;
+    overflow-y: auto;
+
+}
+
+.divNomeLista {
+    height: 3rem;
+    border-radius: 0.25rem;
+    padding: 0.3rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nome-lista{
+    font-weight: 600;
+}
+
+.subMenu-lista{
+    
+}
+
+.card {
+    margin-top: 0.5rem;
+    padding: 0.3rem;
+}
+.card .card{ 
+    margin: 0;
+    width: 50%;
+    height: 0.5rem;
+}
+
+/* CRIAR LISTA = CRIAR QUADRO*/
+
+#formNovaLista{
+    width: auto;
+    box-sizing: border-box;
+    margin: auto;
+}
+
+#nomeDaLista{
+    color: white;
+    font-weight: bold;
+    margin: 0.5rem;
+    width: 100%;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    box-shadow: none;
+    box-sizing: border-box;
+}
+
+#nomeDaLista:hover{
+    background-color:rgba(255, 255, 255, 0.10); 
+}
+
+#nomeDaLista:focus{
+   background-color: rgba(255, 255, 255, 0.20);
+}
+
+#nomeDaLista::-webkit-input-placeholder{
+    color: rgba(255, 255, 255, 0.60);
+}
+
+#novaListabg{
+    display: none;
+    width: 100%;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 1;
+}
+
+#novaLista{
+    color: white;
+    margin: auto;   
+}
+
+#btnCriarLista{
+    width: auto;
+    background-color: #007bff;
+    color: rgb(255, 255, 255);
+    font-weight: 500;
+    display: block;
+}
+
+#btnCriarLista:disabled{
+    background-color: #f4f5f7;
+    color: #a5adba;
+}
+
+#quadroANDcores{
+    padding-top: 1rem;
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+#divListaTxt{
+    color: white;
+    width: 90%;
+    display: inline-flex;
+    border-radius: 0.3rem;
 }

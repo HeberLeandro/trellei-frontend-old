@@ -15,7 +15,7 @@
 </head>
 
 <body onload="verificaSessao()">
-  <div class="position-stick" id="background">
+  <div id="background">
     <div class="container-fluid bg-transparent position-absolute" id="mainContainer">
       <div class="navbar">
         <div class="nav-item bg-transparent">
@@ -44,6 +44,19 @@
           </div>
         </div>
       </div><!-- NAVBAR -->
+      <div id="novaListabg" class="row position-absolute align-items-center">
+          <div id="novaLista" class="col col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+            <button type="button" id="btnCloseNovaLista" class="close mb-1 ml-1 text-white">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <form id="formNovaLista" class="my-2">
+              <div id="divListaTxt" class="form-group">
+                <input type="text" class="form-control" placeholder="Insira o nome da Lista" maxlength="30" id="nomeDaLista"/>
+              </div>
+              <input type="submit" id="btnCriarLista" value="Adicionar Lista" class="form-control" disabled/>
+            </form>
+          </div>
+        </div>
 
       <div class="row">
         <div class="col col-12" id="boardHeader">
@@ -70,14 +83,87 @@
           </div>
         </div> <!-- Col -->
       </div><!-- Row -->
-      <div class="row overflow-auto px-3 py-1" id="listaDeListas">
-        <div class="lista border col-3">
-          
+
+      <div class="row overflow-auto px-3 py-1" id="allListas">
+
+        <div class="lista flex-column col-2">
+          <div class="bg-dark inside-lista">
+            <div class="divNomeLista bg-warning align-items-center">
+              <span class="nome-lista">Teste</span>
+              <div class="subMenu-lista dropright">
+                <button class="btn" data-toggle="dropdown" id="btnSubMenuList">...</button>
+                <div class="dropdown-menu dropdown-menu-left">
+                  <a class="dropdown-item" href="#">Renomear lista</a>
+                  <a class="dropdown-item" href="#">Excluir Lista</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card bg-success"></div>
+              ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
+            </div>
+            <div class="card">
+                <div class="card bg-success"></div>
+                ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
+              </div>
+              <div class="card">
+                  <div class="card bg-success"></div>
+                  ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
+                </div>
+                <div class="card">
+                    <div class="card bg-success"></div>
+                    ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
+                  </div>
+                  <div class="card">
+                      <div class="card bg-success"></div>
+                      ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
+                    </div>
+                    <div class="card">
+                        <div class="card bg-success"></div>
+                        ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
+                      </div>
+                      <div class="card">
+                          <div class="card bg-success"></div>
+                          ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
+                        </div>
+                        <div class="card">
+                            <div class="card bg-success"></div>
+                            ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
+                          </div>
+                          <div class="card">
+                              <div class="card bg-success"></div>
+                              ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
+                            </div>
+                            <div class="card">
+                                <div class="card bg-success"></div>
+                                ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
+                              </div>
+                              <div class="card">
+                                  <div class="card bg-success"></div>
+                                  ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
+                                </div>
+                                <div class="card">
+                                    <div class="card bg-success"></div>
+                                    ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
+                                  </div>
+                                  <div class="card">
+                                      <div class="card bg-success"></div>
+                                      ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
+                                    </div>
+                                    <div class="card">
+                                        <div class="card bg-success"></div>
+                                        ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
+                                      </div>
+          </div>
         </div>
-        <div class="col-2" id="divCriarLista">
-          <span>Criar nova Lista</span>
+
+
+
+        <div class="col-2 " id="divCriarLista">
+          <span>Adicionar Lista</span>
         </div>
-      </div>
+      </div> <!-- Row das Listas-->
 
     </div><!-- CONTEINER MAIN -->
   </div><!-- BG DIV -->
