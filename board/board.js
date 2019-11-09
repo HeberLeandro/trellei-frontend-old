@@ -1,8 +1,5 @@
 //Para criação da nova Lista
-var divListaText = document.getElementById("divListaTxt");
-var novaListabg = document.getElementById("novaListabg");
 var inputNomeDaLista = document.getElementById("nomeDaLista");
-var btnCloseNovaLista = document.getElementById("btnCloseNovaLista");
 var btnCriarLista = document.getElementById("btnCriarLista");
 var formNovaLista = document.getElementById("formNovaLista");
 var novaLista = document.getElementById("novaLista");
@@ -54,14 +51,13 @@ function verificaSessao(){
     if (sessionStorage.getItem("BoardClicked")) {
         Board = JSON.parse(sessionStorage.getItem("BoardClicked"));
         background.style.background = Board.bg;
-        divListaText.style.background = Board.bg;
         title[0].innerText = Board.name + " | Trellei";
         spanName.innerText = Board.name;
     }else{
         window.location = "../index.html";
     }
 
-    getListas();
+    //getListas();
 }
 
 function adicionarLista(lista) {
@@ -69,26 +65,13 @@ function adicionarLista(lista) {
     divLista.setAttribute("class", "lista flex-column col-2");
     divLista.setAttribute("id", lista.id);
 
-    var divListInterna = document.createElement("div");
-    divListInterna.setAttribute("class", "bg-dark inside-lista");
-
     var divNomeLista = document.createElement("div");
-    divNomeLista.setAttribute("class", "divNomeLista bg-warning align-items-center");
+    divNomeLista.setAttribute("class", "divNomeLista align-items-center");
     var span = document.createElement("span");
     span.setAttribute("class", "nome-lista");
     span.innerText = lista.name;
-
-    var divSubMenu = document.createElement("div");
-    divSubMenu.setAttribute("class", "subMenu-lista dropright");
-    divSubMenu.innerHTML = '<button class="btn" data-toggle="dropdown" id="btnSubMenuList">...</button>' +
-                            '<div class="dropdown-menu dropdown-menu-left">' +
-                                '<a class="dropdown-item" href="#">Renomear lista</a>' +
-                                '<a class="dropdown-item" href="#">Excluir Lista</a> </div>';
     divNomeLista.appendChild(span);
-    divNomeLista.appendChild(divSubMenu);
-
-    divListInterna.appendChild(divNomeLista);
-    divLista.appendChild(divListInterna);
+    divLista.appendChild(divNomeLista);
 
     addLista.insertAdjacentElement("beforebegin", divLista);
     
@@ -137,32 +120,6 @@ inputChangeName.addEventListener("keydown", function(){
     spanSize.innerText = inputChangeName.value;
     console.log(window.getComputedStyle(spanSize).width);
     inputChangeName.style.width = window.getComputedStyle(spanSize).width;
-});
-
-//abre janela para criação da nova Lista
-addLista.addEventListener("click", function(){
-    novaListabg.style.display = "flex";
-    inputNomeDaLista.focus();
-});
-
-//fecha criação da nova Lista
-novaListabg.addEventListener("click", function(){
-    this.style.display = "none";
-    inputNomeDaLista.value = "";
-});
-
-btnCloseNovaLista.addEventListener("click", function(){
-    novaListabg.style.display = "none";
-    inputNomeDaLista.value = "";
-    btnCriarLista.disabled = true;
-});
-
-formNovaLista.addEventListener("click",function(e){
-    e.stopPropagation();
-});
-
-novaLista.addEventListener("click", function(e){
-    e.stopPropagation();
 });
 
 //Abilitar/Desabilitar Botão quer Cria Lista

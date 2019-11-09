@@ -167,60 +167,36 @@ button#menuUser {
     max-height: 89%;
 }
 
-#divCriarLista {
-    height: 3rem;
-    border-radius: 0.3rem;
-    -webkit-user-select: none;
-    -webkit-touch-callout:none; 
-    -moz-user-select:none; 
-    -ms-user-select:none; 
-    user-select:none;     
-    cursor: pointer;
-    background-color:#ebecee;
-    display: inline-flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-}
-
 .lista {
     display: flex;
     max-height: 40rem;
+    min-height: 4rem;
     height: 100%;
     background-color: transparent;
     border-radius: 0.25rem;
-    margin-right: 0.5rem;
-    margin-bottom: 0.5rem;
-    padding: 0;
-}
-
-.inside-lista {
-    border-radius: 0.25rem;
+    margin: 0rem 0.5rem 1rem 0;
     padding: 0.5rem;
-    min-height: 5rem;
     overflow-y: auto;
-
+    background-color: rgb(255, 255, 255);
 }
 
 .divNomeLista {
-    height: 3rem;
     border-radius: 0.25rem;
     padding: 0.3rem;
     display: flex;
     justify-content: space-between;
+    background-color: #e9e9e9;
 }
 
 .nome-lista{
     font-weight: 600;
 }
 
-.subMenu-lista{
-    
-}
-
 .card {
     margin-top: 0.5rem;
     padding: 0.3rem;
+    background-color: #e9e9e9;
+    border: none;
 }
 .card .card{ 
     margin: 0;
@@ -230,6 +206,40 @@ button#menuUser {
 
 /* CRIAR LISTA = CRIAR QUADRO*/
 
+#divCriarLista {
+    display: inline-block;
+    max-height: 40rem;
+    min-height: 4rem;
+    height: 100%;
+    padding: 0;
+    max-width: 100%;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    -webkit-user-select: none;
+    -webkit-touch-callout:none; 
+    -moz-user-select:none; 
+    -ms-user-select:none; 
+    user-select:none;     
+    cursor: pointer;
+}
+
+#divFormList{
+    
+}
+
+#cardAddList{
+    min-height: 2rem;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    background-color: white;
+}
+
+#cardAddList span{
+    text-align: center;
+}
+
 #formNovaLista{
     width: auto;
     box-sizing: border-box;
@@ -237,34 +247,9 @@ button#menuUser {
 }
 
 #nomeDaLista{
-    color: white;
-    font-weight: bold;
-    margin: 0.5rem;
-    width: 100%;
-    border: none;
-    background-color: rgba(255, 255, 255, 0);
-    box-shadow: none;
+    color: black;
+    font-weight: 500;
     box-sizing: border-box;
-}
-
-#nomeDaLista:hover{
-    background-color:rgba(255, 255, 255, 0.10); 
-}
-
-#nomeDaLista:focus{
-   background-color: rgba(255, 255, 255, 0.20);
-}
-
-#nomeDaLista::-webkit-input-placeholder{
-    color: rgba(255, 255, 255, 0.60);
-}
-
-#novaListabg{
-    display: none;
-    width: 100%;
-    margin: 0;
-    background-color: rgba(0, 0, 0, 0.75);
-    z-index: 1;
 }
 
 #novaLista{
@@ -283,17 +268,4 @@ button#menuUser {
 #btnCriarLista:disabled{
     background-color: #f4f5f7;
     color: #a5adba;
-}
-
-#quadroANDcores{
-    padding-top: 1rem;
-    display: flex;
-    margin-bottom: 1rem;
-}
-
-#divListaTxt{
-    color: white;
-    width: 90%;
-    display: inline-flex;
-    border-radius: 0.3rem;
 }

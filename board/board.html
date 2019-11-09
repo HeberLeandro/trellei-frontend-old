@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous">
 
   <link rel="stylesheet" href="board.css">
   <title></title>
@@ -43,21 +43,8 @@
             </div>
           </div>
         </div>
-      </div><!-- NAVBAR -->
-      <div id="novaListabg" class="row position-absolute align-items-center">
-          <div id="novaLista" class="col col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
-            <button type="button" id="btnCloseNovaLista" class="close mb-1 ml-1 text-white">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <form id="formNovaLista" class="my-2">
-              <div id="divListaTxt" class="form-group">
-                <input type="text" class="form-control" placeholder="Insira o nome da Lista" maxlength="30" id="nomeDaLista"/>
-              </div>
-              <input type="submit" id="btnCriarLista" value="Adicionar Lista" class="form-control" disabled/>
-            </form>
-          </div>
-        </div>
-
+      </div>
+      <!-- NAVBAR -->
       <div class="row">
         <div class="col col-12" id="boardHeader">
           <div id="divBoardName">
@@ -81,106 +68,60 @@
             </div>
 
           </div>
-        </div> <!-- Col -->
-      </div><!-- Row -->
+        </div>
+        <!-- Col -->
+      </div>
+      <!-- Row -->
 
       <div class="row overflow-auto px-3 py-1" id="allListas">
 
         <div class="lista flex-column col-2">
-          <div class="bg-dark inside-lista">
-            <div class="divNomeLista bg-warning align-items-center">
-              <span class="nome-lista">Teste</span>
-              <div class="subMenu-lista dropright">
-                <button class="btn" data-toggle="dropdown" id="btnSubMenuList">...</button>
-                <div class="dropdown-menu dropdown-menu-left">
-                  <a class="dropdown-item" href="#">Renomear lista</a>
-                  <a class="dropdown-item" href="#">Excluir Lista</a>
-                </div>
-              </div>
-            </div>
+          <div class="divNomeLista align-items-center">
+            <span class="nome-lista">Teste</span>
+          </div>
 
-            <div class="card">
-              <div class="card bg-success"></div>
-              ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
-            </div>
-            <div class="card">
-                <div class="card bg-success"></div>
-                ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
-              </div>
-              <div class="card">
-                  <div class="card bg-success"></div>
-                  ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
-                </div>
-                <div class="card">
-                    <div class="card bg-success"></div>
-                    ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
-                  </div>
-                  <div class="card">
-                      <div class="card bg-success"></div>
-                      ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
-                    </div>
-                    <div class="card">
-                        <div class="card bg-success"></div>
-                        ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
-                      </div>
-                      <div class="card">
-                          <div class="card bg-success"></div>
-                          ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
-                        </div>
-                        <div class="card">
-                            <div class="card bg-success"></div>
-                            ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
-                          </div>
-                          <div class="card">
-                              <div class="card bg-success"></div>
-                              ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
-                            </div>
-                            <div class="card">
-                                <div class="card bg-success"></div>
-                                ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
-                              </div>
-                              <div class="card">
-                                  <div class="card bg-success"></div>
-                                  ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
-                                </div>
-                                <div class="card">
-                                    <div class="card bg-success"></div>
-                                    ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
-                                  </div>
-                                  <div class="card">
-                                      <div class="card bg-success"></div>
-                                      ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
-                                    </div>
-                                    <div class="card">
-                                        <div class="card bg-success"></div>
-                                        ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
-                                      </div>
+          <div class="card">
+            <div class="card bg-success"></div>
+            ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
           </div>
         </div>
 
+        <div class="col-2" id="divCriarLista" data-toggle="collapse" href="#divFormList">
+           <div class="card" id="cardAddList">
+            <span>Adicionar Lista</span>
+            <div class="collapse" id="divFormList" onclick="event.stopPropagation()">
 
-
-        <div class="col-2 " id="divCriarLista">
-          <span>Adicionar Lista</span>
+              <form action="" method="post" id="formCreateList">
+                  <input autofocus type="text" class="form-control mr-1" id="nomeDaLista" placeholder="Nome da lista" required maxlength="30">
+                  <div class="d-flex justify-content-between">
+                      <input type="submit" class="btn btn-success mt-2"  value="Criar">
+                      <button type="button" class="close mr-1" aria-label="Close" onclick="resetForm()">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+              </form>
+            </div>
+          </div> 
         </div>
-      </div> <!-- Row das Listas-->
 
-    </div><!-- CONTEINER MAIN -->
-  </div><!-- BG DIV -->
+      </div>
+      <!-- Row das Listas-->
+
+    </div>
+    <!-- CONTEINER MAIN -->
+  </div>
+  <!-- BG DIV -->
 
 
   <!-- my js -->
   <script src="board.js"></script>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
     crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
 </body>
 
