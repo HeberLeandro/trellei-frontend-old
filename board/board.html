@@ -81,21 +81,34 @@
           </div>
 
           <div class="card">
-            <div class="card bg-success"></div>
-            ALowaaa 123 aosidhaoiushdouahsiudhaushdasoduhaiushd
+            <span>Teste</span>
+          </div>
+
+          <div class="card add-card text-nao-selecionavel" onclick="hideMe('spanAddCard')" data-toggle="collapse" href="#divFormCard">
+            <span id="spanAddCard">+ Adicionar cartão</span>
+            <div class="collapse" id="divFormCard" onclick="event.stopPropagation()">
+              <form method="post" id="formNovoCard">
+                  <input autofocus type="text" class="form-control mr-1" id="inputNomeDoCard" placeholder="Titulo do cartão" required maxlength="30">
+                  <div class="d-flex justify-content-between">
+                      <input type="submit" class="btn mt-2 form-control" id="btnCriarCard" disabled value="Criar">
+                      <button type="button" class="close mr-1" aria-label="Close" onclick="resetForm('spanAddCard','btnCriarCard', 'formNovoCard', 'divFormCard')">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+              </form>
+            </div>
           </div>
         </div>
 
-        <div class="col-2" id="divCriarLista" data-toggle="collapse" href="#divFormList">
+        <div class="col-2 justify-content-center text-nao-selecionavel" id="divCriarLista" onclick="hideMe('spanAddLista')" data-toggle="collapse" href="#divFormLista">
            <div class="card" id="cardAddList">
-            <span>Adicionar Lista</span>
-            <div class="collapse" id="divFormList" onclick="event.stopPropagation()">
-
-              <form action="" method="post" id="formCreateList">
-                  <input autofocus type="text" class="form-control mr-1" id="nomeDaLista" placeholder="Nome da lista" required maxlength="30">
+            <span id="spanAddLista">Adicionar Lista</span>
+            <div class="collapse" id="divFormLista" onclick="event.stopPropagation()">
+              <form method="post" id="formNovaLista">
+                  <input autofocus type="text" class="form-control mr-1" id="inputNomeDaLista" placeholder="Nome da lista" required maxlength="30">
                   <div class="d-flex justify-content-between">
-                      <input type="submit" class="btn btn-success mt-2"  value="Criar">
-                      <button type="button" class="close mr-1" aria-label="Close" onclick="resetForm()">
+                      <input type="submit" class="btn mt-2 form-control" id="btnCriarLista" disabled value="Criar">
+                      <button type="button" class="close mr-1" aria-label="Close" onclick="resetForm('spanAddLista','btnCriarLista', 'formNovaLista', 'divFormLista')">
                           <span aria-hidden="true">&times;</span>
                       </button>
                   </div>

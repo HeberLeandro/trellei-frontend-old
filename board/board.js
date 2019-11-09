@@ -1,8 +1,8 @@
 //Para criação da nova Lista
-var inputNomeDaLista = document.getElementById("nomeDaLista");
+var inputNomeDaLista = document.getElementById("inputNomeDaLista");
 var btnCriarLista = document.getElementById("btnCriarLista");
 var formNovaLista = document.getElementById("formNovaLista");
-var novaLista = document.getElementById("novaLista");
+var divFormList = document.getElementById("divFormLista");
 
 //div add Lista
 var addLista = document.getElementById("divCriarLista");
@@ -57,7 +57,7 @@ function verificaSessao(){
         window.location = "../index.html";
     }
 
-    //getListas();
+    getListas();
 }
 
 function adicionarLista(lista) {
@@ -73,8 +73,23 @@ function adicionarLista(lista) {
     divNomeLista.appendChild(span);
     divLista.appendChild(divNomeLista);
 
+    //add card/ div collapse
+    var divAddCard = document.createElement("div");
+    divAddCard.setAttribute("class", "card add-card text-nao-selecionavel");
+    divAddCard.setAttribute("onclick", "hideMe('spanAddCard')");
+    divAddCard.setAttribute("data-toggle", "collapse");
+    divAddCard.setAttribute("href","#divFormCard");
+    divAddCard.innerHTML = '<span id="spanAddCard">+ Adicionar cartão</span>' +
+                            '<div class="collapse" id="divFormCard" onclick="event.stopPropagation()">'+
+                                '<form method="post" id="formNovoCard">'+
+                                    '<input autofocus type="text" class="form-control mr-1" id="inputNomeDoCard" placeholder="Titulo do cartão" required maxlength="30">' +
+                                    '<div class="d-flex justify-content-between">'+
+                                        '<input type="submit" class="btn mt-2 form-control" id="btnCriarCard" disabled value="Criar">'+
+                                        '<button type="button" class="close mr-1" aria-label="Close" onclick="resetForm(\'spanAddCard\',\'btnCriarCard\', \'formNovoCard\', \'divFormCard\')">'+
+                                            '<span aria-hidden="true">&times;</span> </button> </div> </form> </div>';
+
+    divLista.appendChild(divAddCard);
     addLista.insertAdjacentElement("beforebegin", divLista);
-    
 }
 
 function getListas(){
@@ -97,6 +112,21 @@ function getListas(){
     xhttp.open("GET", url, true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send(JSON.stringify(url));
+}
+
+function resetForm(span, btn, form, div){
+    document.getElementById(form).reset();
+    document.getElementById(btn).disabled = true;
+    document.getElementById(span).style.display = "block";
+    document.getElementById(div).className = "collapse";
+}
+
+function hideMe(element){
+    if(typeof(element)  === 'string'){
+        document.getElementById(element).style.display = "none";
+    }else{
+        element.style.display = "none";
+    }
 }
 
 //sair da Conta
@@ -147,11 +177,11 @@ formNovaLista.addEventListener("submit", function(e){
             var obj = JSON.parse(this.responseText);
             console.log(obj);
             adicionarLista(obj);
-            novaListabg.style.display = "none";
+            resetForm("spanAddLista");
 
         }else if (this.readyState == 4 && this.status == 400){
             alert("Erro ao criar nova lista");
-            novaListabg.style.display = "none";
+            resetForm();
         }
     }
     
