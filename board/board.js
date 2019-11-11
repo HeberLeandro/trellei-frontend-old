@@ -5,7 +5,7 @@ var formNovaLista = document.getElementById("formNovaLista");
 var divFormList = document.getElementById("divFormLista");
 
 //div add Lista
-var addLista = document.getElementById("divCriarLista");
+var addLista = document.getElementById("liCriarLista");
 
 //Nav items
 var homeIcon = document.getElementById("homeIcon");
@@ -84,9 +84,9 @@ function getListas(){
 }
 
 function adicionarLista(lista) {
-    var divLista = document.createElement("div");
-    divLista.setAttribute("class", "lista flex-column col col-11 col-sm-5 col-md-3 col-lg-2 col-xl-2");
-    divLista.setAttribute("id", lista.id);
+    var liLista = document.createElement("li");
+    liLista.setAttribute("class", "lista flex-column col col col-11 col-sm-5 col-md-3 col-lg-2 col-xl-2");
+    liLista.setAttribute("id", lista.id);
 
     var divNomeLista = document.createElement("div");
     divNomeLista.setAttribute("class", "divNomeLista align-items-center");
@@ -94,7 +94,7 @@ function adicionarLista(lista) {
     span.setAttribute("class", "nome-lista");
     span.innerText = lista.name;
     divNomeLista.appendChild(span);
-    divLista.appendChild(divNomeLista);
+    liLista.appendChild(divNomeLista);
 
     //add card/ div collapse
     var divAddCard = document.createElement("div");
@@ -112,8 +112,8 @@ function adicionarLista(lista) {
                                         '<button type="button" class="close mr-1" aria-label="Close" onclick="resetForm(\'spanAddCard'+lista.id+'\',\'btnCriarCard'+lista.id+'\', \'formNovoCard'+lista.id+'\', \'divFormCard'+lista.id+'\')">'+
                                             '<span aria-hidden="true">&times;</span> </button> </div> </form> </div>';
 
-    divLista.appendChild(divAddCard);
-    addLista.insertAdjacentElement("beforebegin", divLista);
+    liLista.appendChild(divAddCard);
+    addLista.insertAdjacentElement("beforebegin", liLista);
     addEvents(lista.id);
     getCards(lista.id, divAddCard);
 

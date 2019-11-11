@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   <link rel="stylesheet" href="board.css">
   <title></title>
@@ -16,7 +16,7 @@
 
 <body onload="verificaSessao()">
   <div id="background">
-    <div class="container-fluid bg-transparent position-absolute" id="mainContainer">
+    <div class="container-fluid bg-transparent" id="mainContainer">
       <div class="navbar">
         <div class="nav-item bg-transparent">
           <div id="divHomeIcon">
@@ -24,7 +24,7 @@
           </div>
         </div>
         <div class="nav-item" id="logo">
-          <img src="../imagens/Trellei.png" alt="Trellei" id="imgLogo">
+          <img src="../imagens/Trellei.png" id="imgLogo" alt="Trellei">
         </div>
         <div class="nav-item dropdown">
           <button id="menuUser" data-toggle="dropdown">
@@ -33,80 +33,95 @@
             </div>
           </button>
 
-          <div class="dropdown-menu dropdown-menu-right">
-            <div>
-              <div id="divUserName" class="text-center border-bottom">
-                <h6 id="H6Name"></h6>
-                <span id="spanUsername"></span>
-              </div>
-              <a class="dropdown-item" id="Logout" href="#">Sair da conta</a>
+          <div class="dropdown-menu dropdown-menu-right align-items-center">
+            <div id="divUserName" class="text-center border-bottom">
+              <h6 id="H6Name"></h6>
+              <span id="spanUsername"></span>
             </div>
+            <a class="dropdown-item" id="Logout" href="#">Sair da conta</a>
           </div>
         </div>
-      </div>
-      <!-- NAVBAR -->
-      <div class="row">
-        <div class="col col-12" id="boardHeader">
-          <div id="divBoardName">
-            <span id="spanName"></span>
-            <span class="form-control" id="spanSize"></span>
-            <input class="form-control" id="inputNomeQuadro" maxlength="50" />
+      </div> <!-- NAV BAR-->
 
-          </div>
-          <div id="divMenuBoard">
-            <div class="dropdown">
-              <button class="btn" data-toggle="dropdown" id="btnMudarCor">Mudar Cor</button>
-              <div class="dropdown-menu dropdown-menu-left">
-                <a class="dropdown-item" href="#">Cor</a>
-              </div>
+      <div class="container-fluid position-fixed overflow-auto pb-5" id="insideBoard">
+        <div class="row">
+          <div class="col col-12" id="boardHeader">
+            <div id="divBoardName">
+              <span id="spanName"></span>
+              <span class="form-control" id="spanSize"></span>
+              <input class="form-control" id="inputNomeQuadro" maxlength="50" />
+
             </div>
-            <div class="dropdown">
-              <button class="btn" data-toggle="dropdown" id="btnApagarQuadro">Apagar Quadro</button>
-              <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" href="#">Apagar</a>
+            <div id="divMenuBoard">
+              <div class="dropdown">
+                <button class="btn" data-toggle="dropdown" id="btnMudarCor">Mudar Cor</button>
+                <div class="dropdown-menu dropdown-menu-left">
+                  <a class="dropdown-item" href="#">Cor</a>
+                </div>
               </div>
+              <div class="dropdown">
+                <button class="btn" data-toggle="dropdown" id="btnApagarQuadro">Apagar Quadro</button>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" href="#">Apagar</a>
+                </div>
+              </div>
+
             </div>
+          </div> <!-- Col -->
 
-          </div>
-        </div>
-        <!-- Col -->
-      </div>
-      <!-- Row -->
+        </div> <!-- Row -->
 
-      <div class="row overflow-auto px-3 py-1 justify-content-center justify-content-md-start justify-content-lg-start justify-content-xl-start" id="allListas">
-          <div class="col col-11 col-sm-5 col-md-3 col-lg-2 col-xl-2 justify-content-center text-nao-selecionavel" id="divCriarLista" onclick="hideMe('spanAddLista')" data-toggle="collapse" href="#divFormLista">
-            <div class="card" id="cardAddList">
-              <span id="spanAddLista">+ Adicionar Lista</span>
-              <div class="collapse" id="divFormLista" onclick="event.stopPropagation()">
-                <form method="post" id="formNovaLista">
-                    <input autofocus type="text" class="form-control mr-1" id="inputNomeDaLista" placeholder="Nome da lista" required maxlength="30">
-                    <div class="d-flex justify-content-between">
+        <div class="row justify-content-center ">
+          <div class="col col-12 align-items-center" id="divMeusQuadros">
+            <ul class="row list-group list-group-horizontal " id="allListas">
+
+              <li class="col col col-11 col-sm-5 col-md-3 col-lg-2 col-xl-2 text-nao-selecionavel" id="liCriarLista" onclick="hideMe('spanAddLista')" data-toggle="collapse" href="#divFormLista">
+                <div class="card" id="cardAddList">
+                  <span id="spanAddLista">+ Adicionar Lista</span>
+                  <div class="collapse" id="divFormLista" onclick="event.stopPropagation()">
+                    <form method="post" id="formNovaLista">
+                      <input autofocus type="text" class="form-control mr-1" id="inputNomeDaLista"
+                        placeholder="Nome da lista" required maxlength="30">
+                      <div class="d-flex justify-content-between">
                         <input type="submit" class="btn mt-2 form-control" id="btnCriarLista" disabled value="Criar">
-                        <button type="button" class="close mr-1" aria-label="Close" onclick="resetForm('spanAddLista','btnCriarLista', 'formNovaLista', 'divFormLista')">
-                            <span aria-hidden="true">&times;</span>
+                        <button type="button" class="close mr-1" aria-label="Close"
+                          onclick="resetForm('spanAddLista','btnCriarLista', 'formNovaLista', 'divFormLista')">
+                          <span aria-hidden="true">&times;</span>
                         </button>
-                    </div>
-                </form>
-              </div>
-            </div> 
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </li>
+            </ul>
+
           </div>
 
-        </div> <!-- Row das Listas-->
-      
-    </div> <!-- CONTEINER MAIN -->
-    
+        </div>
+      </div>
+
+
+    </div>
+  </div><!-- background -->
+
+
+  </div> <!-- CONTEINER MAIN -->
+
   </div> <!-- BG DIV -->
-  
+
 
   <!-- my js -->
   <script src="board.js"></script>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
     crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
 </body>
 

@@ -1,7 +1,14 @@
-/* Div Princinpais */
+/*Texto não selscionavel*/
+.text-nao-selecionavel{
+    -webkit-user-select: none;
+    -webkit-touch-callout:none; 
+    -moz-user-select:none; 
+    -ms-user-select:none; 
+    user-select:none; 
+}
+
 #mainContainer{
     padding: 0;
-    height: 100%;
 }
 
 #backgroud, html, body {
@@ -25,7 +32,7 @@
 #homeIcon{
     width: 2.3rem;
     height: 2.3rem;
-    padding: 0.3rem;    
+    padding: 0.3rem;
     border-radius: 0.1rem;
     background-color: rgba(255, 255, 255, 0.30);
 }
@@ -70,21 +77,6 @@ button#menuUser {
     background-color: #dfe1e6;
 }
 
-/* Container Interno*/
-#containerInterno{
-    height: 100%;
-    padding: 0;
-}
-
-/*Texto não selscionavel*/
-.text-nao-selecionavel{
-    -webkit-user-select: none;
-    -webkit-touch-callout:none; 
-    -moz-user-select:none; 
-    -ms-user-select:none; 
-    user-select:none; 
-}
-
 /*dropdown menu*/
 #H6Name{
     margin: 0;
@@ -93,6 +85,13 @@ button#menuUser {
 #divUserName{
     padding-bottom: 0.5rem;
     margin: 0 0.3rem 0.3rem;
+}
+
+#insideBoard{
+    background-color: transparent;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0;
 }
 
 /* Board Header */
@@ -152,7 +151,6 @@ button#menuUser {
 }
 
 /* Mudar Cor/Excluir Board */
-
 #divMenuBoard {
     display: inline-flex;
 }
@@ -170,10 +168,6 @@ button#menuUser {
 }
 
 /* Listas */
-#allListas{
-    max-height: 83%;
-}
-
 .lista {
     display: flex;
     max-height: 40rem;
@@ -208,7 +202,7 @@ button#menuUser {
     cursor: pointer;
 }
 
-.left {
+.sub-menu-lista {
     right: 0;
     top: 0;
     padding: 0.5rem;
@@ -216,17 +210,16 @@ button#menuUser {
 
 /* CRIAR LISTA */
 
-#divCriarLista {
-    display: inline-block;
-    max-height: 40rem;
-    min-height: 4rem;
-    height: 100%;
+#liCriarLista {
     padding: 0;
     max-width: 100%;
     overflow: hidden;
     justify-content: center;
     align-items: center;    
     cursor: pointer;
+    border-radius: 0.25rem;
+    background-color: transparent;
+    border: none;
 }
 
 .collapse,
@@ -238,7 +231,6 @@ button#menuUser {
 
 #cardAddList{
     min-height: 2rem;
-    height: 100%;
     width: 100%;
     margin: 0;
     background-color: rgba(255, 255, 255, 0.39);
@@ -272,13 +264,6 @@ button#menuUser {
     display: block;
 }
 
-#btnCriarCard{
-    width: auto;
-    background-color: #007bff;
-    color: rgb(255, 255, 255);
-    font-weight: 500;
-    display: block;
-}
 
 /*Criar Cards*/
 
@@ -305,3 +290,4 @@ button#menuUser {
     font-weight: 500;
     display: block;
 }
+
