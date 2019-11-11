@@ -37,12 +37,12 @@
 }
 
 #logo img{
-    filter: opacity(70%);
+    filter: opacity(80%);
     height: 1.5rem;
     width: 4.5rem;
 }
 #logo img:hover{
-    filter: opacity(90%);
+    filter: opacity(100%);
     cursor: pointer;
 }
 

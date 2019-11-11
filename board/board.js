@@ -18,8 +18,8 @@ var divMenuUser = document.getElementById("divMenuUser");
 var spanMenuUser = divMenuUser.firstElementChild;
 var background = document.getElementById("background");
 
-//Change Name
-var inputChangeName = document.getElementById("changeName");
+//Mudar nome do Quadro
+var inputNomeQuadro = document.getElementById("inputNomeQuadro");
 var spanSize = document.getElementById("spanSize");
 
 //Dropdowns itens
@@ -30,6 +30,7 @@ var spanUsername= document.getElementById("spanUsername");
 var Listas;
 var Board;
 var token;
+
 function verificaSessao(){
     if(sessionStorage.getItem("token")){
         token = JSON.parse(sessionStorage.getItem("token"));
@@ -60,38 +61,6 @@ function verificaSessao(){
     getListas();
 }
 
-function adicionarLista(lista) {
-    var divLista = document.createElement("div");
-    divLista.setAttribute("class", "lista flex-column col-2");
-    divLista.setAttribute("id", lista.id);
-
-    var divNomeLista = document.createElement("div");
-    divNomeLista.setAttribute("class", "divNomeLista align-items-center");
-    var span = document.createElement("span");
-    span.setAttribute("class", "nome-lista");
-    span.innerText = lista.name;
-    divNomeLista.appendChild(span);
-    divLista.appendChild(divNomeLista);
-
-    //add card/ div collapse
-    var divAddCard = document.createElement("div");
-    divAddCard.setAttribute("class", "card add-card text-nao-selecionavel");
-    divAddCard.setAttribute("onclick", "hideMe('spanAddCard')");
-    divAddCard.setAttribute("data-toggle", "collapse");
-    divAddCard.setAttribute("href","#divFormCard");
-    divAddCard.innerHTML = '<span id="spanAddCard">+ Adicionar cartão</span>' +
-                            '<div class="collapse" id="divFormCard" onclick="event.stopPropagation()">'+
-                                '<form method="post" id="formNovoCard">'+
-                                    '<input autofocus type="text" class="form-control mr-1" id="inputNomeDoCard" placeholder="Titulo do cartão" required maxlength="30">' +
-                                    '<div class="d-flex justify-content-between">'+
-                                        '<input type="submit" class="btn mt-2 form-control" id="btnCriarCard" disabled value="Criar">'+
-                                        '<button type="button" class="close mr-1" aria-label="Close" onclick="resetForm(\'spanAddCard\',\'btnCriarCard\', \'formNovoCard\', \'divFormCard\')">'+
-                                            '<span aria-hidden="true">&times;</span> </button> </div> </form> </div>';
-
-    divLista.appendChild(divAddCard);
-    addLista.insertAdjacentElement("beforebegin", divLista);
-}
-
 function getListas(){
     var url =  " https://tads-trello.herokuapp.com/api/trello/lists/"+token+"/board/"+Board.id;
     var xhttp = new XMLHttpRequest();
@@ -114,6 +83,79 @@ function getListas(){
     xhttp.send(JSON.stringify(url));
 }
 
+function adicionarLista(lista) {
+    var divLista = document.createElement("div");
+    divLista.setAttribute("class", "lista flex-column col col-11 col-sm-5 col-md-3 col-lg-2 col-xl-2");
+    divLista.setAttribute("id", lista.id);
+
+    var divNomeLista = document.createElement("div");
+    divNomeLista.setAttribute("class", "divNomeLista align-items-center");
+    var span = document.createElement("span");
+    span.setAttribute("class", "nome-lista");
+    span.innerText = lista.name;
+    divNomeLista.appendChild(span);
+    divLista.appendChild(divNomeLista);
+
+    //add card/ div collapse
+    var divAddCard = document.createElement("div");
+    divAddCard.setAttribute("class", "card add-card text-nao-selecionavel");
+    divAddCard.setAttribute("id", "divAddCard"+lista.id);
+    divAddCard.setAttribute("onclick", "hideMe('spanAddCard"+lista.id+"')");
+    divAddCard.setAttribute("data-toggle", "collapse");
+    divAddCard.setAttribute("href","#divFormCard"+lista.id);
+    divAddCard.innerHTML = '<span id="spanAddCard'+lista.id+'" class="span-Add-Card">+ Adicionar cartão</span>' +
+                            '<div class="collapse" id="divFormCard'+lista.id+'" onclick="event.stopPropagation()">'+
+                                '<form method="post" id="formNovoCard'+lista.id+'">'+
+                                    '<input autofocus type="text" class="form-control mr-1" id="inputNomeDoCard'+lista.id+'" placeholder="Titulo do cartão" required maxlength="30">' +
+                                    '<div class="d-flex justify-content-between">'+
+                                        '<input type="submit" class="mt-2 form-control btn-Criar-Card btn" id="btnCriarCard'+lista.id+'" disabled value="Criar">'+
+                                        '<button type="button" class="close mr-1" aria-label="Close" onclick="resetForm(\'spanAddCard'+lista.id+'\',\'btnCriarCard'+lista.id+'\', \'formNovoCard'+lista.id+'\', \'divFormCard'+lista.id+'\')">'+
+                                            '<span aria-hidden="true">&times;</span> </button> </div> </form> </div>';
+
+    divLista.appendChild(divAddCard);
+    addLista.insertAdjacentElement("beforebegin", divLista);
+    addEvents(lista.id);
+    getCards(lista.id, divAddCard);
+
+}
+
+function getCards(lista_id, element){
+
+    var url =  "https://tads-trello.herokuapp.com/api/trello/cards/"+token+"/list/"+lista_id;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var cards = JSON.parse(this.responseText);
+            for (let i = 0; i < cards.length; i++) {
+                adicionarCard(cards[i], element);
+            }
+
+        }else if (this.readyState == 4 && this.status == 400){
+            alert("Erro Buscar Cartões");
+        }
+    }
+    
+    xhttp.open("GET", url, true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(JSON.stringify(url));
+
+}
+
+//Adiciona Cards as suas respectivas Listas
+function adicionarCard(card, element){
+    var divCard = document.createElement("div");
+    divCard.setAttribute("class", "card text-nao-selecionavel");
+    divCard.setAttribute("id", card.id);
+    var span = document.createElement("span");
+    span.innerText = card.name;
+
+    divCard.appendChild(span);
+
+    element.insertAdjacentElement("beforebegin", divCard);
+}
+
+
+//função para resetar os form que cria lista e cartões
 function resetForm(span, btn, form, div){
     document.getElementById(form).reset();
     document.getElementById(btn).disabled = true;
@@ -127,6 +169,57 @@ function hideMe(element){
     }else{
         element.style.display = "none";
     }
+}
+
+//Função para adicionar eventos nos forms das listas, para criação de cards
+function addEvents(lista_id){
+    let form = document.getElementById('formNovoCard'+lista_id);
+    let inputText = document.getElementById('inputNomeDoCard'+lista_id);
+    let btnSubmit = document.getElementById('btnCriarCard'+lista_id);
+
+    //Abilitar/Desabilitar Botão quer Cria Lista
+    inputText.addEventListener("keypress", function(){
+        btnSubmit.disabled = false;
+    });
+
+    inputText.addEventListener("keyup", function(){
+        if (inputText.value == "") {
+            btnSubmit.disabled = true;
+        }
+    });
+
+    //Criar Card
+    form.addEventListener("submit", function(e){
+        e.preventDefault();
+
+        var data = new Date();
+        var DiaMesAno = data.getDate() + "/" + (data.getMonth()+1) + "/" + data.getFullYear();
+
+        var card = {
+            "name": inputText.value,
+            "data": DiaMesAno,
+            "token": token,
+            "list_id": lista_id
+        }
+    
+        var url =  "https://tads-trello.herokuapp.com/api/trello/cards/new";
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var obj = JSON.parse(this.responseText);
+                resetForm('spanAddCard'+lista_id,'btnCriarCard'+lista_id,'formNovoCard'+lista_id,'divFormCard'+lista_id);
+                adicionarCard(obj, document.getElementById("divAddCard"+lista_id));
+
+    
+            }else if (this.readyState == 4 && this.status == 400){
+                alert("Erro ao criar novo Cartão");
+            }
+        }
+        
+        xhttp.open("POST", url, true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify(card));
+    });
 }
 
 //sair da Conta
@@ -146,10 +239,9 @@ homeIcon.addEventListener("click", function(){
 });
 
 //mudar nome do quadro
-inputChangeName.addEventListener("keydown", function(){
-    spanSize.innerText = inputChangeName.value;
-    console.log(window.getComputedStyle(spanSize).width);
-    inputChangeName.style.width = window.getComputedStyle(spanSize).width;
+inputNomeQuadro.addEventListener("keydown", function(){
+    spanSize.innerText = inputNomeQuadro.value;
+    inputNomeQuadro.style.width = window.getComputedStyle(spanSize).width;
 });
 
 //Abilitar/Desabilitar Botão quer Cria Lista
@@ -177,11 +269,10 @@ formNovaLista.addEventListener("submit", function(e){
             var obj = JSON.parse(this.responseText);
             console.log(obj);
             adicionarLista(obj);
-            resetForm("spanAddLista");
+            resetForm('spanAddLista','btnCriarLista', 'formNovaLista', 'divFormLista');
 
         }else if (this.readyState == 4 && this.status == 400){
             alert("Erro ao criar nova lista");
-            resetForm();
         }
     }
     

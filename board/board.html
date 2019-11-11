@@ -50,7 +50,7 @@
           <div id="divBoardName">
             <span id="spanName"></span>
             <span class="form-control" id="spanSize"></span>
-            <input class="form-control" id="changeName" maxlength="55" />
+            <input class="form-control" id="inputNomeQuadro" maxlength="50" />
 
           </div>
           <div id="divMenuBoard">
@@ -73,58 +73,30 @@
       </div>
       <!-- Row -->
 
-      <div class="row overflow-auto px-3 py-1" id="allListas">
-
-        <div class="lista flex-column col-2">
-          <div class="divNomeLista align-items-center">
-            <span class="nome-lista">Teste</span>
+      <div class="row overflow-auto px-3 py-1 justify-content-center justify-content-md-start justify-content-lg-start justify-content-xl-start" id="allListas">
+          <div class="col col-11 col-sm-5 col-md-3 col-lg-2 col-xl-2 justify-content-center text-nao-selecionavel" id="divCriarLista" onclick="hideMe('spanAddLista')" data-toggle="collapse" href="#divFormLista">
+            <div class="card" id="cardAddList">
+              <span id="spanAddLista">+ Adicionar Lista</span>
+              <div class="collapse" id="divFormLista" onclick="event.stopPropagation()">
+                <form method="post" id="formNovaLista">
+                    <input autofocus type="text" class="form-control mr-1" id="inputNomeDaLista" placeholder="Nome da lista" required maxlength="30">
+                    <div class="d-flex justify-content-between">
+                        <input type="submit" class="btn mt-2 form-control" id="btnCriarLista" disabled value="Criar">
+                        <button type="button" class="close mr-1" aria-label="Close" onclick="resetForm('spanAddLista','btnCriarLista', 'formNovaLista', 'divFormLista')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </form>
+              </div>
+            </div> 
           </div>
 
-          <div class="card">
-            <span>Teste</span>
-          </div>
-
-          <div class="card add-card text-nao-selecionavel" onclick="hideMe('spanAddCard')" data-toggle="collapse" href="#divFormCard">
-            <span id="spanAddCard">+ Adicionar cartão</span>
-            <div class="collapse" id="divFormCard" onclick="event.stopPropagation()">
-              <form method="post" id="formNovoCard">
-                  <input autofocus type="text" class="form-control mr-1" id="inputNomeDoCard" placeholder="Titulo do cartão" required maxlength="30">
-                  <div class="d-flex justify-content-between">
-                      <input type="submit" class="btn mt-2 form-control" id="btnCriarCard" disabled value="Criar">
-                      <button type="button" class="close mr-1" aria-label="Close" onclick="resetForm('spanAddCard','btnCriarCard', 'formNovoCard', 'divFormCard')">
-                          <span aria-hidden="true">&times;</span>
-                      </button>
-                  </div>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-2 justify-content-center text-nao-selecionavel" id="divCriarLista" onclick="hideMe('spanAddLista')" data-toggle="collapse" href="#divFormLista">
-           <div class="card" id="cardAddList">
-            <span id="spanAddLista">Adicionar Lista</span>
-            <div class="collapse" id="divFormLista" onclick="event.stopPropagation()">
-              <form method="post" id="formNovaLista">
-                  <input autofocus type="text" class="form-control mr-1" id="inputNomeDaLista" placeholder="Nome da lista" required maxlength="30">
-                  <div class="d-flex justify-content-between">
-                      <input type="submit" class="btn mt-2 form-control" id="btnCriarLista" disabled value="Criar">
-                      <button type="button" class="close mr-1" aria-label="Close" onclick="resetForm('spanAddLista','btnCriarLista', 'formNovaLista', 'divFormLista')">
-                          <span aria-hidden="true">&times;</span>
-                      </button>
-                  </div>
-              </form>
-            </div>
-          </div> 
-        </div>
-
-      </div>
-      <!-- Row das Listas-->
-
-    </div>
-    <!-- CONTEINER MAIN -->
-  </div>
-  <!-- BG DIV -->
-
+        </div> <!-- Row das Listas-->
+      
+    </div> <!-- CONTEINER MAIN -->
+    
+  </div> <!-- BG DIV -->
+  
 
   <!-- my js -->
   <script src="board.js"></script>
