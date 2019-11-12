@@ -1,3 +1,4 @@
+var divUserHome = document.getElementById("divUserHome");
 //Menu user
 var divMenuUser = document.getElementById("divMenuUser");
 var spanMenuUser = divMenuUser.firstElementChild;
@@ -84,25 +85,16 @@ function listarNovoBoard(board){
         var BoardClicked = {
             "id":board.id,
             "name":board.name,
-            "bg":board.color
+            "color":board.color
         };
         sessionStorage.setItem("BoardClicked", JSON.stringify(BoardClicked));
         window.location = "../board/board.html";
     });
 }
 
-//Abilitar/Desabilitar Botão
-inputNomeDoQuadro.addEventListener("keypress", function(){
-    btnCriarQuadro.disabled = false;
-});
-inputNomeDoQuadro.addEventListener("keyup", function(){
-    if (inputNomeDoQuadro.value == "") {
-        btnCriarQuadro.disabled = true;
-    }
-});
-
 //abre janela para criação do novo quadro
 criarQuadro.addEventListener("click", function(){
+    divUserHome.classList.remove("overflow-auto");
     novoQuadrobg.style.display = "flex";
     inputNomeDoQuadro.focus();
 });
@@ -125,10 +117,12 @@ formNovoQuadro.addEventListener("submit", function(e){
             listaQuadros[length] = obj;
             listarNovoBoard(obj);
             novoQuadrobg.style.display = "none";
+            divUserHome.classList.add("overflow-auto");
 
         }else if (this.readyState == 4 && this.status == 400){
             alert("Erro ao criar novo quadro");
             novoQuadrobg.style.display = "none";
+            divUserHome.classList.add("overflow-auto");
         }
     }
     
@@ -141,12 +135,13 @@ formNovoQuadro.addEventListener("submit", function(e){
 novoQuadrobg.addEventListener("click", function(){
     this.style.display = "none";
     inputNomeDoQuadro.value = "";
+    divUserHome.classList.add("overflow-auto");
 });
 
 btnCloseNovoQuadro.addEventListener("click", function(){
     novoQuadrobg.style.display = "none";
     inputNomeDoQuadro.value = "";
-    btnCriarQuadro.disabled = true;
+    divUserHome.classList.add("overflow-auto");
 });
 
 formNovoQuadro.addEventListener("click",function(e){

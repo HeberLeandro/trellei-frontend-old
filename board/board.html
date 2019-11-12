@@ -49,31 +49,53 @@
             <div id="divBoardName">
               <span id="spanName"></span>
               <span class="form-control" id="spanSize"></span>
-              <input class="form-control" id="inputNomeQuadro" maxlength="50" />
+              <input class="form-control" type="search" id="inputNomeQuadro" maxlength="50" />
 
             </div>
             <div id="divMenuBoard">
               <div class="dropdown">
                 <button class="btn" data-toggle="dropdown" id="btnMudarCor">Mudar Cor</button>
                 <div class="dropdown-menu dropdown-menu-left">
-                  <a class="dropdown-item" href="#">Cor</a>
+                  <ul class="row dropdown-item p-0 justify-content-center list-group list-group-horizontal">
+                    <li class=" col-3 d-inline-block m-1 p-0 bg-primary">
+                      Cor 1
+                    </li>
+                    <li class="col-3 d-inline-block m-1 p-0 bg-success">
+                      Cor 2
+                    </li>
+                    <li class="col-3 d-inline-block m-1 p-0 bg-warning">
+                      Cor 3
+                    </li>
+                    <li class="col-3 d-inline-block m-1 p-0 bg-secondary">
+                      Cor 4
+                    </li>
+                    <li class="col-3 d-inline-block m-1 p-0 bg-danger">
+                      Cor 5
+                    </li>
+                    <li class="col-3 d-inline-block m-1 p-0 bg-info">
+                      Cor 6
+                    </li>
+                    <li class="col-3 d-inline-block m-1 p-0 bg-dark">
+                      Cor 7
+                    </li>
+                    <li class="col-3 d-inline-block m-1 p-0 bg-success">
+                      Cor 8
+                    </li>
+                    <li class="col-3 d-inline-block m-1 p-0 bg-primary">
+                      Cor 9
+                    </li>
+                  </ul>
                 </div>
               </div>
-              <div class="dropdown">
-                <button class="btn" data-toggle="dropdown" id="btnApagarQuadro">Apagar Quadro</button>
-                <div class="dropdown-menu dropdown-menu-right">
-                  <a class="dropdown-item" href="#">Apagar</a>
-                </div>
-              </div>
-
+              <button class="btn" id="btnApagarQuadro">Apagar Quadro</button>
             </div>
           </div> <!-- Col -->
 
         </div> <!-- Row -->
 
-        <div class="row justify-content-center ">
-          <div class="col col-12 align-items-center" id="divMeusQuadros">
-            <ul class="row list-group list-group-horizontal " id="allListas">
+        <div class="row">
+          <div class="col col-12 p-2">
+            <ul class="row list-group list-group-horizontal justify-content-center justify-content-md-start justify-content-lg-start justify-content-xl-start" id="allListas">
 
               <li class="col col col-11 col-sm-5 col-md-3 col-lg-2 col-xl-2 text-nao-selecionavel" id="liCriarLista" onclick="hideMe('spanAddLista')" data-toggle="collapse" href="#divFormLista">
                 <div class="card" id="cardAddList">
@@ -83,7 +105,7 @@
                       <input autofocus type="text" class="form-control mr-1" id="inputNomeDaLista"
                         placeholder="Nome da lista" required maxlength="30">
                       <div class="d-flex justify-content-between">
-                        <input type="submit" class="btn mt-2 form-control" id="btnCriarLista" disabled value="Criar">
+                        <input type="submit" class="btn mt-2 form-control" id="btnCriarLista" value="Criar">
                         <button type="button" class="close mr-1" aria-label="Close"
                           onclick="resetForm('spanAddLista','btnCriarLista', 'formNovaLista', 'divFormLista')">
                           <span aria-hidden="true">&times;</span>

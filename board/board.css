@@ -99,30 +99,32 @@ button#menuUser {
     margin: 0;
 }
 #spanName {
-    display: inline-flex;
-    align-items: center;
+    display: block;
+    text-align: center;
+    min-width: 5rem;
     color: white;
     font-size: 1.3rem;
     padding: 0 0.5rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
 }
 
 #divBoardName{
     display: flex;
-    max-width: calc(100% - 35rem);
+    max-width: calc(100% - 14rem);
     border-radius: 0.25rem;
     width: auto;
-    cursor: pointer;
 }
 
-#divBoardName:hover{
+#spanName:hover{
     background-color:rgba(255, 255, 255, 0.20);
 }
 
 #inputNomeQuadro {
     display: none;
-    width: 4rem;
-    min-width: 4rem;
-    text-align: left;
+    width: 5rem;
+    min-width: 5rem;
+    text-align: center;
 }
 
 #spanSize {
@@ -139,7 +141,7 @@ button#menuUser {
     white-space: pre;
     padding: 0.5rem;
     box-sizing: border-box;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font: inherit;
     overflow: hidden;
 }
@@ -159,12 +161,20 @@ button#menuUser {
 #btnApagarQuadro {
     color: white;
     margin-left: 0.5rem;
+    padding: 0.3rem 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 600;
     background-color: rgba(255, 255, 255, 0.20);
 }
 
 #btnMudarCor:hover,
 #btnApagarQuadro:hover {
     background-color: rgba(255, 255, 255, 0.30);
+}
+
+#btnMudarCor:focus,
+#btnApagarQuadro:focus{
+    box-shadow: none;
 }
 
 /* Listas */
@@ -291,3 +301,18 @@ button#menuUser {
     display: block;
 }
 
+/*Web kit scroll bar*/
+
+::-webkit-scrollbar{
+    width: 7px;
+    background-color: rgba(228, 228, 228, 0.13);
+    border-radius: 0.25rem;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #a1a1a1a1;
+    border-radius: 10px;
+}
+
+#inputNomeQuadro::-webkit-search-cancel-button{
+    -webkit-appearance: none;
+}

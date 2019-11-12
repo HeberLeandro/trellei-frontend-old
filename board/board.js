@@ -51,7 +51,7 @@ function verificaSessao(){
 
     if (sessionStorage.getItem("BoardClicked")) {
         Board = JSON.parse(sessionStorage.getItem("BoardClicked"));
-        background.style.background = Board.bg;
+        background.style.background = Board.color;
         title[0].innerText = Board.name + " | Trellei";
         spanName.innerText = Board.name;
     }else{
@@ -108,7 +108,7 @@ function adicionarLista(lista) {
                                 '<form method="post" id="formNovoCard'+lista.id+'">'+
                                     '<input autofocus type="text" class="form-control mr-1" id="inputNomeDoCard'+lista.id+'" placeholder="Titulo do cartão" required maxlength="30">' +
                                     '<div class="d-flex justify-content-between">'+
-                                        '<input type="submit" class="mt-2 form-control btn-Criar-Card btn" id="btnCriarCard'+lista.id+'" disabled value="Criar">'+
+                                        '<input type="submit" class="mt-2 form-control btn-Criar-Card btn" id="btnCriarCard'+lista.id+'" value="Criar">'+
                                         '<button type="button" class="close mr-1" aria-label="Close" onclick="resetForm(\'spanAddCard'+lista.id+'\',\'btnCriarCard'+lista.id+'\', \'formNovoCard'+lista.id+'\', \'divFormCard'+lista.id+'\')">'+
                                             '<span aria-hidden="true">&times;</span> </button> </div> </form> </div>';
 
@@ -171,22 +171,18 @@ function hideMe(element){
     }
 }
 
+function showMe(element){
+    if(typeof(element)  === 'string'){
+        document.getElementById(element).style.display = "block";
+    }else{
+        element.style.display = "block";
+    }
+}
+
 //Função para adicionar eventos nos forms das listas, para criação de cards
 function addEvents(lista_id){
     let form = document.getElementById('formNovoCard'+lista_id);
     let inputText = document.getElementById('inputNomeDoCard'+lista_id);
-    let btnSubmit = document.getElementById('btnCriarCard'+lista_id);
-
-    //Abilitar/Desabilitar Botão quer Cria Lista
-    inputText.addEventListener("keypress", function(){
-        btnSubmit.disabled = false;
-    });
-
-    inputText.addEventListener("keyup", function(){
-        if (inputText.value == "") {
-            btnSubmit.disabled = true;
-        }
-    });
 
     //Criar Card
     form.addEventListener("submit", function(e){
@@ -238,21 +234,71 @@ homeIcon.addEventListener("click", function(){
     window.location = "../user/mainpage.html";
 });
 
-//mudar nome do quadro
+//altera largura do input, para novo nome do quadro
 inputNomeQuadro.addEventListener("keydown", function(){
     spanSize.innerText = inputNomeQuadro.value;
     inputNomeQuadro.style.width = window.getComputedStyle(spanSize).width;
 });
 
-//Abilitar/Desabilitar Botão quer Cria Lista
-inputNomeDaLista.addEventListener("keypress", function(){
-    btnCriarLista.disabled = false;
+//mostra o input para fazer a alteração do nome
+spanName.addEventListener("click", function(){
+    hideMe(spanName);
+    showMe(inputNomeQuadro);
+    inputNomeQuadro.value = spanName.innerText;
+    inputNomeQuadro.focus();
 });
-inputNomeDaLista.addEventListener("keyup", function(){
-    if (inputNomeDaLista.value == "") {
-        btnCriarLista.disabled = true;
+
+//Fechar o input mostra o name de volta
+inputNomeQuadro.addEventListener("search", function(e){
+    changeName();    
+    hideMe(inputNomeQuadro);
+    showMe(spanName);
+});
+
+inputNomeQuadro.addEventListener("focusout", function(e){
+    if(inputNomeQuadro.style.display != "none"){
+        changeName();    
+        hideMe(inputNomeQuadro);
+        showMe(spanName);
     }
 });
+
+//Muda o nome do quadro
+function changeName(){
+    if(inputNomeQuadro.value == spanName.innerText){
+        return;
+    }
+    else if(inputNomeQuadro.value != "" && inputNomeQuadro.value != " "){
+
+        var newName = {
+            "board_id": Board.id,
+            "name": inputNomeQuadro.value,
+            "token": token
+        }
+
+        var url =  "https://tads-trello.herokuapp.com/api/trello/boards/rename";
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var obj = JSON.parse(this.responseText);
+                console.log(obj);
+                Board.name = obj.name;
+                sessionStorage.setItem("BoardClicked", JSON.stringify(Board));
+                spanName.innerText = inputNomeQuadro.value;
+
+            }else if (this.readyState == 4 && this.status == 400){
+                alert("Erro ao Renomear Quadro");
+            }
+        }
+        
+        xhttp.open("PATCH", url, true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify(newName));
+
+    }
+}
+
+
 //criar nova Lista
 formNovaLista.addEventListener("submit", function(e){
     e.preventDefault();
