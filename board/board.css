@@ -104,7 +104,7 @@ button#menuUser {
     min-width: 5rem;
     color: white;
     font-size: 1.3rem;
-    padding: 0 0.5rem;
+    padding: 0.3rem 0.5rem;
     border-radius: 0.25rem;
     cursor: pointer;
 }
@@ -121,7 +121,6 @@ button#menuUser {
 }
 
 #inputNomeQuadro {
-    display: none;
     width: 5rem;
     min-width: 5rem;
     text-align: center;
@@ -143,6 +142,7 @@ button#menuUser {
     box-sizing: border-box;
     font-size: 1.4rem;
     font: inherit;
+    font-weight: 600;
     overflow: hidden;
 }
 
@@ -152,7 +152,21 @@ button#menuUser {
     justify-content: space-between;
 }
 
+/* DISPLAY NONE OR BLOCK */
+.display-none {
+    display: none !important;
+}
+
+.display-block {
+    display: block !important;
+}
+
+.display-flex {
+    display: flex !important;
+}
+
 /* Mudar Cor/Excluir Board */
+
 #divMenuBoard {
     display: inline-flex;
 }
@@ -177,13 +191,17 @@ button#menuUser {
     box-shadow: none;
 }
 
+.btn-colors {
+    width: 100%;
+    height: 100%;
+}
+
 /* Listas */
 .lista {
     display: flex;
     max-height: 40rem;
     min-height: 4rem;
     height: 100%;
-    background-color: transparent;
     border-radius: 0.25rem;
     margin: 0rem 0.5rem 1rem 0;
     padding: 0.5rem 0.5rem 0.5rem 0.5rem;
@@ -234,7 +252,7 @@ button#menuUser {
 
 .collapse,
 .collapsing{
-    background-color: white;
+    background-color:#ebecf0;
     border-radius: 0.25rem;
     padding: 0.7rem 0.5rem;
 }

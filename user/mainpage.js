@@ -74,13 +74,13 @@ function listarNovoBoard(board){
     var span = document.createElement("span");
     li.setAttribute("class", "col col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 list-group-item");
     div.setAttribute("class", "quadro");
-    //div.setAttribute("id", board.id);
     span.innerHTML = board.name;
     div.style.backgroundColor = board.color;
 
     div.appendChild(span);
     li.appendChild(div);
     listaQuadros.insertAdjacentElement("afterbegin", li);
+
     div.addEventListener("click", function(){
         var BoardClicked = {
             "id":board.id,
@@ -95,7 +95,7 @@ function listarNovoBoard(board){
 //abre janela para criação do novo quadro
 criarQuadro.addEventListener("click", function(){
     divUserHome.classList.remove("overflow-auto");
-    novoQuadrobg.style.display = "flex";
+    hideOrShow(novoQuadrobg, 'flex');
     inputNomeDoQuadro.focus();
 });
 
@@ -115,13 +115,15 @@ formNovoQuadro.addEventListener("submit", function(e){
         if (this.readyState == 4 && this.status == 200) {
             var obj = JSON.parse(this.responseText);
             listaQuadros[length] = obj;
-            listarNovoBoard(obj);
-            novoQuadrobg.style.display = "none";
+            hideOrShow(novoQuadrobg, 'none');
+            inputNomeDoQuadro.value = "";
             divUserHome.classList.add("overflow-auto");
+            listarNovoBoard(obj);
 
         }else if (this.readyState == 4 && this.status == 400){
             alert("Erro ao criar novo quadro");
-            novoQuadrobg.style.display = "none";
+            hideOrShow(novoQuadrobg, 'none');
+            inputNomeDoQuadro.value = "";
             divUserHome.classList.add("overflow-auto");
         }
     }
@@ -133,13 +135,13 @@ formNovoQuadro.addEventListener("submit", function(e){
 
 //fecha criação do novo quadro
 novoQuadrobg.addEventListener("click", function(){
-    this.style.display = "none";
+    hideOrShow(this, 'none');
     inputNomeDoQuadro.value = "";
     divUserHome.classList.add("overflow-auto");
 });
 
 btnCloseNovoQuadro.addEventListener("click", function(){
-    novoQuadrobg.style.display = "none";
+    hideOrShow(novoQuadrobg, 'none');
     inputNomeDoQuadro.value = "";
     divUserHome.classList.add("overflow-auto");
 });
@@ -157,6 +159,37 @@ novoQuadro.addEventListener("click", function(e){
 function mudarCor(btn){
     cor = getComputedStyle(btn);
     bgQuadro.style.backgroundColor = cor.backgroundColor;
+}
+
+function hideOrShow(element, display){
+    if (display == 'block'){
+        if(typeof(element)  === 'string'){
+            document.getElementById(element).classList.remove("display-none", "display-flex");
+            document.getElementById(element).classList.add("display-block");
+        }else{
+            element.classList.remove("display-none", "display-flex");
+            element.classList.add("display-block");
+        }
+    } 
+    else if (display == 'none'){
+        if(typeof(element)  === 'string'){
+            document.getElementById(element).classList.remove("display-block", "display-flex");
+            document.getElementById(element).classList.add("display-none");
+        }else{
+            element.classList.remove("display-block", "display-flex");
+            element.classList.add("display-none");
+        }
+    }
+    else if (display == 'flex'){
+        if(typeof(element)  === 'string'){
+            document.getElementById(element).classList.remove("display-none", "display-block" );
+            document.getElementById(element).classList.add("display-flex");
+        }else{
+            element.classList.remove("display-none","display-block");
+            element.classList.add("display-flex");
+        }
+    }
+
 }
 
 //sair da Conta

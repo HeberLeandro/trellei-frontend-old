@@ -100,7 +100,7 @@ function adicionarLista(lista) {
     var divAddCard = document.createElement("div");
     divAddCard.setAttribute("class", "card add-card text-nao-selecionavel");
     divAddCard.setAttribute("id", "divAddCard"+lista.id);
-    divAddCard.setAttribute("onclick", "hideMe('spanAddCard"+lista.id+"')");
+    divAddCard.setAttribute("onclick", "hideOrShow('spanAddCard"+lista.id+"', 'none')");
     divAddCard.setAttribute("data-toggle", "collapse");
     divAddCard.setAttribute("href","#divFormCard"+lista.id);
     divAddCard.innerHTML = '<span id="spanAddCard'+lista.id+'" class="span-Add-Card">+ Adicionar cartão</span>' +
@@ -158,25 +158,55 @@ function adicionarCard(card, element){
 //função para resetar os form que cria lista e cartões
 function resetForm(span, btn, form, div){
     document.getElementById(form).reset();
-    document.getElementById(btn).disabled = true;
-    document.getElementById(span).style.display = "block";
+    hideOrShow(document.getElementById(span), 'block');
     document.getElementById(div).className = "collapse";
 }
 
-function hideMe(element){
-    if(typeof(element)  === 'string'){
-        document.getElementById(element).style.display = "none";
-    }else{
-        element.style.display = "none";
-    }
-}
+// function hideOrShow(element, display){
+//     if (display == 'hide'){
+//         if(typeof(element)  === 'string'){
+//             document.getElementById(element).style.display = "none";
+//         }else{
+//             element.style.display = "none";
+//         }
+//     } else if (display == 'show'){
+//         if(typeof(element)  === 'string'){
+//             document.getElementById(element).style.display = "block";
+//         }else{
+//             element.style.display = "block";
+//         }
+//     }
+// }
 
-function showMe(element){
-    if(typeof(element)  === 'string'){
-        document.getElementById(element).style.display = "block";
-    }else{
-        element.style.display = "block";
+function hideOrShow(element, display){
+    if (display == 'block'){
+        if(typeof(element)  === 'string'){
+            document.getElementById(element).classList.remove("display-none", "display-flex");
+            document.getElementById(element).classList.add("display-block");
+        }else{
+            element.classList.remove("display-none", "display-flex");
+            element.classList.add("display-block");
+        }
+    } 
+    else if (display == 'none'){
+        if(typeof(element)  === 'string'){
+            document.getElementById(element).classList.remove("display-block", "display-flex");
+            document.getElementById(element).classList.add("display-none");
+        }else{
+            element.classList.remove("display-block", "display-flex");
+            element.classList.add("display-none");
+        }
     }
+    else if (display == 'flex'){
+        if(typeof(element)  === 'string'){
+            document.getElementById(element).classList.remove("display-none", "display-block" );
+            document.getElementById(element).classList.add("display-flex");
+        }else{
+            element.classList.remove("display-none","display-block");
+            element.classList.add("display-flex");
+        }
+    }
+
 }
 
 //Função para adicionar eventos nos forms das listas, para criação de cards
@@ -236,68 +266,116 @@ homeIcon.addEventListener("click", function(){
 
 //altera largura do input, para novo nome do quadro
 inputNomeQuadro.addEventListener("keydown", function(){
+    changeInputsize();
+});
+
+function changeInputsize(){
     spanSize.innerText = inputNomeQuadro.value;
     inputNomeQuadro.style.width = window.getComputedStyle(spanSize).width;
-});
+}
 
 //mostra o input para fazer a alteração do nome
 spanName.addEventListener("click", function(){
-    hideMe(spanName);
-    showMe(inputNomeQuadro);
+    hideOrShow(spanName, 'none');
+    hideOrShow(inputNomeQuadro, 'block');
     inputNomeQuadro.value = spanName.innerText;
+    changeInputsize();
     inputNomeQuadro.focus();
 });
 
 //Fechar o input mostra o name de volta
-inputNomeQuadro.addEventListener("search", function(e){
-    changeName();    
-    hideMe(inputNomeQuadro);
-    showMe(spanName);
+inputNomeQuadro.addEventListener("keyup", function(e){
+    if (e.keyCode == 13) {
+        changeName();    
+        hideOrShow(inputNomeQuadro, 'none');
+        hideOrShow(spanName, 'block');
+    }
 });
 
 inputNomeQuadro.addEventListener("focusout", function(e){
-    if(inputNomeQuadro.style.display != "none"){
+    if(inputNomeQuadro.classList.contains("display-block")){
         changeName();    
-        hideMe(inputNomeQuadro);
-        showMe(spanName);
+        hideOrShow(inputNomeQuadro, 'none');
+        hideOrShow(spanName, 'block');
     }
 });
 
-//Muda o nome do quadro
+//Muda o nome do Quadro
 function changeName(){
-    if(inputNomeQuadro.value == spanName.innerText){
-        return;
-    }
-    else if(inputNomeQuadro.value != "" && inputNomeQuadro.value != " "){
-
-        var newName = {
-            "board_id": Board.id,
-            "name": inputNomeQuadro.value,
-            "token": token
-        }
-
-        var url =  "https://tads-trello.herokuapp.com/api/trello/boards/rename";
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                var obj = JSON.parse(this.responseText);
-                console.log(obj);
-                Board.name = obj.name;
-                sessionStorage.setItem("BoardClicked", JSON.stringify(Board));
-                spanName.innerText = inputNomeQuadro.value;
-
-            }else if (this.readyState == 4 && this.status == 400){
-                alert("Erro ao Renomear Quadro");
+    var corte = inputNomeQuadro.value.split(" ");
+    var name = "";
+    for (let i = 0; i < corte.length; i++) {
+        if (corte[i] != "") {
+            if (i == 0) {
+                name += corte[i];
+            }else{
+                name += " " + corte[i];
             }
         }
-        
-        xhttp.open("PATCH", url, true);
-        xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.send(JSON.stringify(newName));
-
+    }
+    if(name == spanName.innerText){
+        return;
+    } else {
+        if (name != "") {
+            var newName = {
+                "board_id": Board.id,
+                "name": name,
+                "token": token
+            }
+    
+            var url =  "https://tads-trello.herokuapp.com/api/trello/boards/rename";
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var obj = JSON.parse(this.responseText);
+                    Board.name = obj.name;
+                    sessionStorage.setItem("BoardClicked", JSON.stringify(Board));
+                    spanName.innerText = name;
+    
+                }else if (this.readyState == 4 && this.status == 400){
+                    alert("Erro ao Renomear Quadro");
+                }
+            }
+            
+            xhttp.open("PATCH", url, true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.send(JSON.stringify(newName));
+         
+         }
     }
 }
 
+//Mudar Cor do Quadro
+function changeColor(btn){
+
+    cor = getComputedStyle(btn);
+    if (cor.backgroundColor == Board.color) {
+        return;
+    }
+    var newColor = {
+        "board_id": Board.id,
+        "color": cor.backgroundColor,
+        "token": token
+    }
+
+    var url =  "https://tads-trello.herokuapp.com/api/trello/boards/newcolor";
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var obj = JSON.parse(this.responseText);
+            Board.color = background.style.backgroundColor = cor.backgroundColor;
+            sessionStorage.setItem("BoardClicked", JSON.stringify(Board));
+
+        }else if (this.readyState == 4 && this.status == 400){
+            alert("Erro ao Renomear Quadro");
+        }
+    }
+    
+    xhttp.open("PATCH", url, true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(JSON.stringify(newColor));
+
+}
 
 //criar nova Lista
 formNovaLista.addEventListener("submit", function(e){
