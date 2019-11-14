@@ -295,6 +295,12 @@ button#menuUser {
 
 /*Criar Cards*/
 
+.textarea-nome-do-card{
+    min-height: 8rem;
+    resize: none;
+    word-wrap: break-word;
+}
+
 .add-card {
     background-color: transparent;
     box-shadow: none !important;

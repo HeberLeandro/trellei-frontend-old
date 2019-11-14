@@ -106,7 +106,7 @@ function adicionarLista(lista) {
     divAddCard.innerHTML = '<span id="spanAddCard'+lista.id+'" class="span-Add-Card">+ Adicionar cartão</span>' +
                             '<div class="collapse" id="divFormCard'+lista.id+'" onclick="event.stopPropagation()">'+
                                 '<form method="post" id="formNovoCard'+lista.id+'">'+
-                                    '<input autofocus type="text" class="form-control mr-1" id="inputNomeDoCard'+lista.id+'" placeholder="Titulo do cartão" required maxlength="30">' +
+                                    '<input autofocus type="text" class="form-control mr-1 textarea-nome-do-card" id="inputNomeDoCard'+lista.id+'" placeholder="Titulo do cartão" required maxlength="50"/>' +
                                     '<div class="d-flex justify-content-between">'+
                                         '<input type="submit" class="mt-2 form-control btn-Criar-Card btn" id="btnCriarCard'+lista.id+'" value="Criar">'+
                                         '<button type="button" class="close mr-1" aria-label="Close" onclick="resetForm(\'spanAddCard'+lista.id+'\',\'btnCriarCard'+lista.id+'\', \'formNovoCard'+lista.id+'\', \'divFormCard'+lista.id+'\')">'+
@@ -162,21 +162,6 @@ function resetForm(span, btn, form, div){
     document.getElementById(div).className = "collapse";
 }
 
-// function hideOrShow(element, display){
-//     if (display == 'hide'){
-//         if(typeof(element)  === 'string'){
-//             document.getElementById(element).style.display = "none";
-//         }else{
-//             element.style.display = "none";
-//         }
-//     } else if (display == 'show'){
-//         if(typeof(element)  === 'string'){
-//             document.getElementById(element).style.display = "block";
-//         }else{
-//             element.style.display = "block";
-//         }
-//     }
-// }
 
 function hideOrShow(element, display){
     if (display == 'block'){
@@ -233,7 +218,7 @@ function addEvents(lista_id){
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var obj = JSON.parse(this.responseText);
-                resetForm('spanAddCard'+lista_id,'btnCriarCard'+lista_id,'formNovoCard'+lista_id,'divFormCard'+lista_id);
+                inputText.value = "";
                 adicionarCard(obj, document.getElementById("divAddCard"+lista_id));
 
     
@@ -245,6 +230,13 @@ function addEvents(lista_id){
         xhttp.open("POST", url, true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.send(JSON.stringify(card));
+    });
+
+    inputText.addEventListener("keypress", function(e){
+        if(e.keyCode == 13){
+            console.log(e.keyCode);
+            
+        }
     });
 }
 
