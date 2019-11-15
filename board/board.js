@@ -85,7 +85,7 @@ function getListas(){
 
 function adicionarLista(lista) {
     var liLista = document.createElement("li");
-    liLista.setAttribute("class", "lista flex-column col col col-11 col-sm-5 col-md-3 col-lg-2 col-xl-2");
+    liLista.setAttribute("class", "lista flex-column col col col-11 col-sm-5 col-md-3 col-lg-3 col-xl-2");
     liLista.setAttribute("id", lista.id);
 
     var divNomeLista = document.createElement("div");
@@ -104,9 +104,10 @@ function adicionarLista(lista) {
     divAddCard.setAttribute("data-toggle", "collapse");
     divAddCard.setAttribute("href","#divFormCard"+lista.id);
     divAddCard.innerHTML = '<span id="spanAddCard'+lista.id+'" class="span-Add-Card">+ Adicionar cartão</span>' +
-                            '<div class="collapse" id="divFormCard'+lista.id+'" onclick="event.stopPropagation()">'+
+                            '<div class="collapse px-0" id="divFormCard'+lista.id+'" onclick="event.stopPropagation()">'+
                                 '<form method="post" id="formNovoCard'+lista.id+'">'+
-                                    '<input autofocus type="text" class="form-control mr-1 textarea-nome-do-card" id="inputNomeDoCard'+lista.id+'" placeholder="Titulo do cartão" required maxlength="50"/>' +
+                                    '<h6 class="resize-textarea" id="resizeTextarea'+lista.id+'"></h6>'+
+                                    '<textarea autofocus class="form-control mr-1 textarea-nome-do-card" id="inputNomeDoCard'+lista.id+'" placeholder="Titulo do cartão..." required maxlength="100"></textarea>' +
                                     '<div class="d-flex justify-content-between">'+
                                         '<input type="submit" class="mt-2 form-control btn-Criar-Card btn" id="btnCriarCard'+lista.id+'" value="Criar">'+
                                         '<button type="button" class="close mr-1" aria-label="Close" onclick="resetForm(\'spanAddCard'+lista.id+'\',\'btnCriarCard'+lista.id+'\', \'formNovoCard'+lista.id+'\', \'divFormCard'+lista.id+'\')">'+
@@ -198,16 +199,50 @@ function hideOrShow(element, display){
 function addEvents(lista_id){
     let form = document.getElementById('formNovoCard'+lista_id);
     let inputText = document.getElementById('inputNomeDoCard'+lista_id);
+    let resizeTextarea = document.getElementById('resizeTextarea'+lista_id);
 
     //Criar Card
     form.addEventListener("submit", function(e){
         e.preventDefault();
+        submitCard();
+    });
 
+    inputText.addEventListener("input", function(e){
+        resizeTextarea.innerText = inputText.value;
+        resizeTextarea.style.width = getComputedStyle(inputText).width;
+        console.log(getComputedStyle(inputText).width);
+        inputText.style.height = window.getComputedStyle(resizeTextarea).height;
+    });
+
+    inputText.addEventListener("keypress",function(e){
+        if (e.keyCode == 13) {
+            submitCard();
+        }
+    });
+
+    function submitCard(){
+        inputText.value = inputText.value.trim();
+        var corte = inputText.value.split(" ");
+        var name = "";
+        for (let i = 0; i < corte.length; i++) {
+            if (corte[i] != "" && corte[i] != "\n") {
+                if (i == 0) {
+                    name += corte[i];
+                }else{
+                    name += " " + corte[i];
+                }
+            }
+        }
+        if (name == "") {
+            inputText.value="";
+            inputText.focus();
+            return;
+        }
         var data = new Date();
         var DiaMesAno = data.getDate() + "/" + (data.getMonth()+1) + "/" + data.getFullYear();
 
         var card = {
-            "name": inputText.value,
+            "name": name,
             "data": DiaMesAno,
             "token": token,
             "list_id": lista_id
@@ -230,14 +265,7 @@ function addEvents(lista_id){
         xhttp.open("POST", url, true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.send(JSON.stringify(card));
-    });
-
-    inputText.addEventListener("keypress", function(e){
-        if(e.keyCode == 13){
-            console.log(e.keyCode);
-            
-        }
-    });
+    }
 }
 
 //sair da Conta

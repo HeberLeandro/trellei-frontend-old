@@ -203,7 +203,7 @@ button#menuUser {
     min-height: 4rem;
     height: 100%;
     border-radius: 0.25rem;
-    margin: 0rem 0.5rem 1rem 0;
+    margin: 0rem 0.8rem 1rem 0;
     padding: 0.5rem 0.5rem 0.5rem 0.5rem;
     overflow-y: auto;
     overflow-x: hidden;
@@ -294,11 +294,19 @@ button#menuUser {
 
 
 /*Criar Cards*/
-
+.resize-textarea,
 .textarea-nome-do-card{
-    min-height: 8rem;
+    min-height: 4rem;
+    padding: 0.5rem;
     resize: none;
     word-wrap: break-word;
+    overflow: hidden;
+}
+.resize-textarea{
+    padding: 0.7rem;
+    padding-top: 1rem;
+    position: absolute;
+    visibility: hidden;
 }
 
 .add-card {
