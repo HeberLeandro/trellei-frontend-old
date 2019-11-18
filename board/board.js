@@ -62,7 +62,7 @@ function verificaSessao(){
 }
 
 function getListas(){
-    var url =  " https://tads-trello.herokuapp.com/api/trello/lists/"+token+"/board/"+Board.id;
+    var url =  "https://tads-trello.herokuapp.com/api/trello/lists/"+token+"/board/"+Board.id;
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -268,12 +268,27 @@ function addEvents(lista_id){
     }
 }
 
-//sair da Conta
-Logout.addEventListener("click", function(){
-    sessionStorage.removeItem("token");
-    localStorage.removeItem("token");
-    window.location = "../index.html";
-});
+//Excluir quadro
+function excluirQuadro(){
+    var board = {
+        "board_id": Board.id,
+        "token": token
+    }
+
+    var url = "https://tads-trello.herokuapp.com/api/trello/boards/delete"
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            window.location.href ="../user/mainpage.html";
+        }else if(this.readyState == 4 && this.status == 400){
+            alert("Erro! Não foi possivel excluir esse Quadro.");
+        }
+    }
+
+    xhttp.open("DELETE", url, true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(JSON.stringify(board));
+}
 
 //voltar para home
 imgLogo.addEventListener("click", function(){
@@ -423,4 +438,11 @@ formNovaLista.addEventListener("submit", function(e){
     xhttp.open("POST", url, true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send(JSON.stringify(lista));
+});
+
+//sair da Conta
+Logout.addEventListener("click", function(){
+    sessionStorage.removeItem("token");
+    localStorage.removeItem("token");
+    window.location = "../index.html";
 });

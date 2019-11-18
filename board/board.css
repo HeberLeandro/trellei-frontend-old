@@ -171,8 +171,7 @@ button#menuUser {
     display: inline-flex;
 }
 
-#btnMudarCor,
-#btnApagarQuadro {
+.btn-headers {
     color: white;
     margin-left: 0.5rem;
     padding: 0.3rem 0.4rem;
@@ -181,13 +180,12 @@ button#menuUser {
     background-color: rgba(255, 255, 255, 0.20);
 }
 
-#btnMudarCor:hover,
-#btnApagarQuadro:hover {
+.btn-headers:hover {
+    color: white;
     background-color: rgba(255, 255, 255, 0.30);
 }
 
-#btnMudarCor:focus,
-#btnApagarQuadro:focus{
+.btn-headers:focus{
     box-shadow: none;
 }
 

@@ -50,56 +50,66 @@
               <span id="spanName"></span>
               <span class="form-control" id="spanSize"></span>
               <input class="form-control display-none" id="inputNomeQuadro" maxlength="50" />
-
             </div>
             <div id="divMenuBoard">
               <div class="dropdown">
-                <button class="btn" data-toggle="dropdown" id="btnMudarCor">Mudar Cor</button>
+                <button class="btn btn-headers" data-toggle="dropdown">Mudar Cor</button>
                 <div class="dropdown-menu dropdown-menu-left">
                   <ul class="row p-0 justify-content-center list-group list-group-horizontal">
                     <li class="col-3 d-inline-block m-1 p-0">
-                      <button class="btn btn-colors" onclick="changeColor(this)" style="background-color: rgb(0, 121, 191);"></button>
+                      <button class="btn btn-colors" onclick="changeColor(this)"
+                        style="background-color: rgb(0, 121, 191);"></button>
                     </li>
-                    <li class="col-3 d-inline-block m-1 p-0" >
-                      <button class="btn btn-colors" onclick="changeColor(this)" style="background-color: rgb(210, 136, 52);"></button>
-                    </li>
-                    <li class="col-3 d-inline-block m-1 p-0 ">
-                      <button class="btn btn-colors" onclick="changeColor(this)"  style="background-color: rgb(81, 152, 57);"></button>
-                    </li>
-                    <li class="col-3 d-inline-block m-1 p-0 " >
-                      <button class="btn btn-colors" onclick="changeColor(this)" style="background-color: rgb(176, 70, 50);"></button>
+                    <li class="col-3 d-inline-block m-1 p-0">
+                      <button class="btn btn-colors" onclick="changeColor(this)"
+                        style="background-color: rgb(210, 136, 52);"></button>
                     </li>
                     <li class="col-3 d-inline-block m-1 p-0 ">
-                      <button class="btn btn-colors" onclick="changeColor(this)" style="background-color: rgb(137, 96, 158);"></button>
-                    </li>
-                    <li class="col-3 d-inline-block m-1 p-0 " >
-                      <button class="btn btn-colors" onclick="changeColor(this)" style="background-color: rgb(205, 90, 145);"></button>
-                    </li>
-                    <li class="col-3 d-inline-block m-1 p-0 " >
-                      <button class="btn btn-colors" onclick="changeColor(this)" style="background-color: rgb(75, 191, 107);"></button>
-                    </li>
-                    <li class="col-3 d-inline-block m-1 p-0 " >
-                      <button class="btn btn-colors " onclick="changeColor(this)" style="background-color: rgb(0, 174, 204);"></button>
+                      <button class="btn btn-colors" onclick="changeColor(this)"
+                        style="background-color: rgb(81, 152, 57);"></button>
                     </li>
                     <li class="col-3 d-inline-block m-1 p-0 ">
-                      <button class="btn btn-colors" onclick="changeColor(this)" style="background-color: rgb(131, 140, 145);"></button>
+                      <button class="btn btn-colors" onclick="changeColor(this)"
+                        style="background-color: rgb(176, 70, 50);"></button>
+                    </li>
+                    <li class="col-3 d-inline-block m-1 p-0 ">
+                      <button class="btn btn-colors" onclick="changeColor(this)"
+                        style="background-color: rgb(137, 96, 158);"></button>
+                    </li>
+                    <li class="col-3 d-inline-block m-1 p-0 ">
+                      <button class="btn btn-colors" onclick="changeColor(this)"
+                        style="background-color: rgb(205, 90, 145);"></button>
+                    </li>
+                    <li class="col-3 d-inline-block m-1 p-0 ">
+                      <button class="btn btn-colors" onclick="changeColor(this)"
+                        style="background-color: rgb(75, 191, 107);"></button>
+                    </li>
+                    <li class="col-3 d-inline-block m-1 p-0 ">
+                      <button class="btn btn-colors " onclick="changeColor(this)"
+                        style="background-color: rgb(0, 174, 204);"></button>
+                    </li>
+                    <li class="col-3 d-inline-block m-1 p-0 ">
+                      <button class="btn btn-colors" onclick="changeColor(this)"
+                        style="background-color: rgb(131, 140, 145);"></button>
                     </li>
                   </ul>
                 </div>
               </div>
               <div>
-                <button class="btn" id="btnApagarQuadro">Apagar Quadro</button>
+                <button class="btn btn-headers" data-toggle="modal" data-target="#excluirQuadro">Excluir Quadro</button>
               </div>
             </div>
           </div> <!-- Col -->
-
         </div> <!-- Row -->
 
         <div class="row">
           <div class="col col-12 p-2">
-            <ul class="row list-group list-group-horizontal justify-content-center justify-content-md-start justify-content-lg-start justify-content-xl-start" id="allListas">
+            <ul
+              class="row list-group list-group-horizontal justify-content-center justify-content-md-start justify-content-lg-start justify-content-xl-start"
+              id="allListas">
 
-              <li class="col col col-11 col-sm-5 col-md-3 col-lg-3 col-xl-2 text-nao-selecionavel" id="liCriarLista" onclick="hideOrShow('spanAddLista', 'none')" data-toggle="collapse" href="#divFormLista">
+              <li class="col col col-11 col-sm-5 col-md-3 col-lg-3 col-xl-2 text-nao-selecionavel" id="liCriarLista"
+                onclick="hideOrShow('spanAddLista', 'none')" data-toggle="collapse" href="#divFormLista">
                 <div class="card" id="cardAddList">
                   <span id="spanAddLista">+ Adicionar Lista</span>
                   <div class="collapse" id="divFormLista" onclick="event.stopPropagation()">
@@ -118,21 +128,38 @@
                 </div>
               </li>
             </ul>
-
           </div>
 
         </div>
+
       </div>
 
-
-    </div>
+    </div><!-- CONTEINER MAIN -->
   </div><!-- background -->
+  
+  </div> 
 
 
-  </div> <!-- CONTEINER MAIN -->
-
-  </div> <!-- BG DIV -->
-
+  <!-- Modal-->
+  <div class="modal fade" id="excluirQuadro" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Tem certeza que deseja excluir?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Ao apagar o Quadro automaticamente as listas e cartões dentro dele serão excluídos em sequência.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+          <button type="button" class="btn btn-danger" onclick="excluirQuadro()">Sim</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- my js -->
   <script src="board.js"></script>
