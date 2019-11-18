@@ -106,6 +106,7 @@ button#menuUser {
     font-size: 1.3rem;
     padding: 0.3rem 0.5rem;
     border-radius: 0.25rem;
+    word-wrap: break-word;
     cursor: pointer;
 }
 

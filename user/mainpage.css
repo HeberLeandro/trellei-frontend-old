@@ -122,13 +122,17 @@ button#menuUser {
     -ms-user-select:none; 
     user-select:none;     
     cursor: pointer;
+    padding: 0.6rem;
+    overflow-y: scroll;
 }
 .quadro span{
     color: white;
     font-weight: bold;
     margin-top: 1rem;
     line-height: 2rem;
-    margin-left: 0.6rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow: hidden;
 }
 #divMeusQuadros{
     margin-top: 3rem;
@@ -280,4 +284,20 @@ button#menuUser {
 #btnCorCinza{
     background-color: rgb(131, 140, 145);
     cursor: pointer;
+}
+
+/*Web kit scroll bar*/
+
+::-webkit-scrollbar{
+    width: 7px;
+    background-color: rgba(228, 228, 228, 0.13);
+    border-radius: 0.25rem;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #a1a1a1a1;
+    border-radius: 10px;
+}
+
+#inputNomeQuadro::-webkit-search-cancel-button{
+    -webkit-appearance: none;
 }
