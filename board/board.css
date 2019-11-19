@@ -108,43 +108,54 @@ button#menuUser {
     border-radius: 0.25rem;
     word-wrap: break-word;
     cursor: pointer;
+    background-color:rgba(255, 255, 255, 0.20);
 }
 
 #divBoardName{
     display: flex;
+    position: relative;
+    top: 0;
+    left: 0;
     max-width: calc(100% - 14rem);
+    min-height: auto;
+    word-wrap: break-word;
+    width: 100%;
     border-radius: 0.25rem;
-    width: auto;
 }
 
 #spanName:hover{
-    background-color:rgba(255, 255, 255, 0.20);
+    background-color:rgba(255, 255, 255, 0.30);
 }
 
 #inputNomeQuadro {
     width: 5rem;
     min-width: 5rem;
+    width: auto;
     text-align: center;
 }
 
 #spanSize {
     display: inline-block;
-    position: absolute;
-    padding-right: 1.5rem !important;
+    position: absolute; 
     visibility: hidden;
-    width: auto;
+    padding-right: 1.5rem !important;
+    min-width: 5rem;
+    max-width: 100%;
+    height: auto;
 }
 
 #inputNomeQuadro,
 #spanSize {
     margin: 0;
-    white-space: pre;
     padding: 0.5rem;
     box-sizing: border-box;
     font-size: 1.4rem;
     font: inherit;
     font-weight: 600;
     overflow: hidden;
+    word-wrap: break-word;
+    min-height: 2.5rem;
+    resize: none;
 }
 
 #boardHeader {

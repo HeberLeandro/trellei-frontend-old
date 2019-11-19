@@ -46,10 +46,10 @@
       <div class="container-fluid position-fixed overflow-auto pb-5" id="insideBoard">
         <div class="row">
           <div class="col col-12" id="boardHeader">
-            <div id="divBoardName">
+            <div id="divBoardName" class="">
               <span id="spanName"></span>
-              <span class="form-control" id="spanSize"></span>
-              <input class="form-control display-none" id="inputNomeQuadro" maxlength="50" />
+              <h6 id="spanSize"></h6>
+              <textarea class="form-control display-none" id="inputNomeQuadro" maxlength="60"></textarea>
             </div>
             <div id="divMenuBoard">
               <div class="dropdown">
@@ -141,11 +141,11 @@
 
 
   <!-- Modal-->
-  <div class="modal fade" id="excluirQuadro" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+  <div class="modal fade" id="excluirQuadro">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Tem certeza que deseja excluir?</h5>
+          <h5 class="modal-title">Tem certeza que deseja excluir?</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -155,7 +155,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-          <button type="button" class="btn btn-danger" onclick="excluirQuadro()">Sim</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="excluirQuadro()">Sim</button>
         </div>
       </div>
     </div>

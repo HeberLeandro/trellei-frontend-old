@@ -307,6 +307,7 @@ inputNomeQuadro.addEventListener("keydown", function(){
 function changeInputsize(){
     spanSize.innerText = inputNomeQuadro.value;
     inputNomeQuadro.style.width = window.getComputedStyle(spanSize).width;
+    inputNomeQuadro.style.height = window.getComputedStyle(spanSize).height;
 }
 
 //mostra o input para fazer a alteração do nome

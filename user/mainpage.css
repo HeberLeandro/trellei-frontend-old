@@ -122,8 +122,8 @@ button#menuUser {
     -ms-user-select:none; 
     user-select:none;     
     cursor: pointer;
-    padding: 0.6rem;
-    overflow-y: scroll;
+    padding: 0.2rem 0.6rem;
+    overflow-y: auto;
 }
 .quadro span{
     color: white;
