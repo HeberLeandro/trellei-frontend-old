@@ -221,18 +221,49 @@ button#menuUser {
 }
 
 .divNomeLista {
+    position: relative;
     border-radius: 0.25rem;
-    padding: 0.3rem 0.3rem 0 0.3rem ;
     margin-bottom: 0.6rem;
     background-color: transparent;
     word-wrap: break-word;
 }
 
-.nome-lista{
-    font-weight: 600;
+.nome-lista-resize{
+    display: inline-block;
+    position: absolute; 
+    visibility: hidden;
+    padding-right: 1.5rem !important;
+    min-width: 5rem;
+    width: auto;
+    max-width: 100%;
+    word-wrap: break-word;
+    height: auto;
 }
 
- .card {
+.nome-lista{
+    word-wrap: break-word;
+    overflow: hidden;
+    padding: 0.3rem 0.3rem 0 0.3rem ;
+    min-width: 5rem;
+    max-width: 100%;
+    width: auto;
+    font-weight: 600;
+    background-color: transparent;
+    border: none;
+    resize: none;
+}
+
+.nome-lista:focus {
+    min-width: 5rem;
+    max-width: 100%;
+    background-color: rgb(255, 255, 255);
+    border: 1px;
+    outline-color: #007bff;
+    border-radius: 0.25rem;
+}
+
+
+.card {
     margin-bottom: 0.5rem;
     padding: 0.3rem 0.5rem;
     border: none;

@@ -90,10 +90,14 @@ function adicionarLista(lista) {
 
     var divNomeLista = document.createElement("div");
     divNomeLista.setAttribute("class", "divNomeLista align-items-center");
-    var span = document.createElement("span");
-    span.setAttribute("class", "nome-lista");
-    span.innerText = lista.name;
-    divNomeLista.appendChild(span);
+    var h6AuxSize = document.createElement("h6");
+    h6AuxSize.setAttribute("class", "nome-lista-resize");
+    h6AuxSize.setAttribute("id", "h6size"+lista.id);
+    divNomeLista.appendChild(h6AuxSize);
+    var textarea = document.createElement("textarea");
+    textarea.setAttribute("class", "nome-lista");
+    textarea.innerText = lista.name;
+    divNomeLista.appendChild(textarea);
     liLista.appendChild(divNomeLista);
 
     //add card/ div collapse
@@ -204,37 +208,27 @@ function addEvents(lista_id){
     //Criar Card
     form.addEventListener("submit", function(e){
         e.preventDefault();
-        submitCard();
+        submitCard(inputText.value);
+        inputText.value = "";
     });
 
     inputText.addEventListener("input", function(e){
         resizeTextarea.innerText = inputText.value;
         resizeTextarea.style.width = getComputedStyle(inputText).width;
-        console.log(getComputedStyle(inputText).width);
         inputText.style.height = window.getComputedStyle(resizeTextarea).height;
     });
 
-    inputText.addEventListener("keypress",function(e){
+    inputText.addEventListener("keydown",function(e){
         if (e.keyCode == 13) {
-            submitCard();
+            submitCard(inputText.value);
+            inputText.value = "";
         }
     });
 
-    function submitCard(){
-        inputText.value = inputText.value.trim();
-        var corte = inputText.value.split(" ");
-        var name = "";
-        for (let i = 0; i < corte.length; i++) {
-            if (corte[i] != "" && corte[i] != "\n") {
-                if (i == 0) {
-                    name += corte[i];
-                }else{
-                    name += " " + corte[i];
-                }
-            }
-        }
+    function submitCard(string){
+        var name = removeSpaces(string);
+        console.log(name);
         if (name == "") {
-            inputText.value="";
             inputText.focus();
             return;
         }
@@ -253,7 +247,6 @@ function addEvents(lista_id){
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var obj = JSON.parse(this.responseText);
-                inputText.value = "";
                 adicionarCard(obj, document.getElementById("divAddCard"+lista_id));
 
     
@@ -320,9 +313,9 @@ spanName.addEventListener("click", function(){
 });
 
 //Fechar o input mostra o name de volta
-inputNomeQuadro.addEventListener("keyup", function(e){
+inputNomeQuadro.addEventListener("keydown", function(e){
     if (e.keyCode == 13) {
-        changeName();    
+        changeName(inputNomeQuadro.value);    
         hideOrShow(inputNomeQuadro, 'none');
         hideOrShow(spanName, 'block');
     }
@@ -330,18 +323,17 @@ inputNomeQuadro.addEventListener("keyup", function(e){
 
 inputNomeQuadro.addEventListener("focusout", function(e){
     if(inputNomeQuadro.classList.contains("display-block")){
-        changeName();    
+        changeName(inputNomeQuadro.value);    
         hideOrShow(inputNomeQuadro, 'none');
         hideOrShow(spanName, 'block');
     }
 });
 
-//Muda o nome do Quadro
-function changeName(){
-    var corte = inputNomeQuadro.value.split(" ");
+function removeSpaces(string){
+    var corte = string.split(" ");
     var name = "";
     for (let i = 0; i < corte.length; i++) {
-        if (corte[i] != "") {
+        if (corte[i] != "" && corte[i] != "\n") {
             if (i == 0) {
                 name += corte[i];
             }else{
@@ -349,6 +341,12 @@ function changeName(){
             }
         }
     }
+    return name.trim();
+}
+
+//Muda o nome do Quadro
+function changeName(string){
+    var name = removeSpaces(string);
     if(name == spanName.innerText){
         return;
     } else {
