@@ -232,21 +232,23 @@ button#menuUser {
     display: inline-block;
     position: absolute; 
     visibility: hidden;
-    padding-right: 1.5rem !important;
+    padding: 1rem 1.5rem 0.6rem  1rem !important;
     min-width: 5rem;
     width: auto;
     max-width: 100%;
     word-wrap: break-word;
     height: auto;
+    min-height: 2rem;
 }
 
 .nome-lista{
+    min-height: 2rem;
     word-wrap: break-word;
     overflow: hidden;
     padding: 0.3rem 0.3rem 0 0.3rem ;
     min-width: 5rem;
     max-width: 100%;
-    width: auto;
+    width: 80%;
     font-weight: 600;
     background-color: transparent;
     border: none;

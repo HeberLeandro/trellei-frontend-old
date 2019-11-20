@@ -92,10 +92,13 @@ function adicionarLista(lista) {
     divNomeLista.setAttribute("class", "divNomeLista align-items-center");
     var h6AuxSize = document.createElement("h6");
     h6AuxSize.setAttribute("class", "nome-lista-resize");
-    h6AuxSize.setAttribute("id", "h6size"+lista.id);
+    h6AuxSize.setAttribute("id", "textNameResize"+lista.id);
     divNomeLista.appendChild(h6AuxSize);
     var textarea = document.createElement("textarea");
     textarea.setAttribute("class", "nome-lista");
+    textarea.setAttribute("id", "textName"+lista.id);
+    textarea.setAttribute("spellcheck", "false");
+    textarea.setAttribute("name", lista.name);
     textarea.innerText = lista.name;
     divNomeLista.appendChild(textarea);
     liLista.appendChild(divNomeLista);
@@ -123,6 +126,7 @@ function adicionarLista(lista) {
     getCards(lista.id, divAddCard);
 
 }
+
 
 function getCards(lista_id, element){
 
@@ -201,6 +205,8 @@ function hideOrShow(element, display){
 
 //Função para adicionar eventos nos forms das listas, para criação de cards
 function addEvents(lista_id){
+    let textareaName = document.getElementById('textName'+lista_id);
+    let textNameResize = document.getElementById('textNameResize'+lista_id);
     let form = document.getElementById('formNovoCard'+lista_id);
     let inputText = document.getElementById('inputNomeDoCard'+lista_id);
     let resizeTextarea = document.getElementById('resizeTextarea'+lista_id);
@@ -212,7 +218,7 @@ function addEvents(lista_id){
         inputText.value = "";
     });
 
-    inputText.addEventListener("input", function(e){
+    inputText.addEventListener("input", function(){
         resizeTextarea.innerText = inputText.value;
         resizeTextarea.style.width = getComputedStyle(inputText).width;
         inputText.style.height = window.getComputedStyle(resizeTextarea).height;
@@ -227,9 +233,7 @@ function addEvents(lista_id){
 
     function submitCard(string){
         var name = removeSpaces(string);
-        console.log(name);
         if (name == "") {
-            inputText.focus();
             return;
         }
         var data = new Date();
@@ -247,6 +251,7 @@ function addEvents(lista_id){
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var obj = JSON.parse(this.responseText);
+                form.reset();
                 adicionarCard(obj, document.getElementById("divAddCard"+lista_id));
 
     
@@ -258,6 +263,33 @@ function addEvents(lista_id){
         xhttp.open("POST", url, true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.send(JSON.stringify(card));
+    }
+
+    //Renomear Lista
+    textareaName.addEventListener("focusin", function(){
+        textNameResize.innerText = textareaName.value;
+        textNameResize.style.width = getComputedStyle(textareaName).width;
+        textareaName.style.height = window.getComputedStyle(textNameResize).height;
+    });
+
+    textareaName.addEventListener("input", function(){
+        textNameResize.innerText = textareaName.value;
+        textareaName.style.height = window.getComputedStyle(textNameResize).height;
+    });
+
+    textareaName.addEventListener("keydown", function(e){
+        if (e.keyCode == 13) {
+            changeNameList(lista_id, textareaName.value, textareaName.getAttribute("name"));
+        }
+    });
+
+}
+
+//Mudar no da Lista
+function changeNameList(list_id, newName, oldName){
+    name = removeSpaces(newName);
+    if (name == "") {
+        return;
     }
 }
 
@@ -315,7 +347,7 @@ spanName.addEventListener("click", function(){
 //Fechar o input mostra o name de volta
 inputNomeQuadro.addEventListener("keydown", function(e){
     if (e.keyCode == 13) {
-        changeName(inputNomeQuadro.value);    
+        changeNameBoard(inputNomeQuadro.value);    
         hideOrShow(inputNomeQuadro, 'none');
         hideOrShow(spanName, 'block');
     }
@@ -323,7 +355,7 @@ inputNomeQuadro.addEventListener("keydown", function(e){
 
 inputNomeQuadro.addEventListener("focusout", function(e){
     if(inputNomeQuadro.classList.contains("display-block")){
-        changeName(inputNomeQuadro.value);    
+        changeNameBoard(inputNomeQuadro.value);    
         hideOrShow(inputNomeQuadro, 'none');
         hideOrShow(spanName, 'block');
     }
@@ -345,8 +377,8 @@ function removeSpaces(string){
 }
 
 //Muda o nome do Quadro
-function changeName(string){
-    var name = removeSpaces(string);
+function changeNameBoard(newName){
+    var name = removeSpaces(newName);
     if(name == spanName.innerText){
         return;
     } else {
