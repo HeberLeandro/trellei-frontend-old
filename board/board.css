@@ -223,7 +223,6 @@ button#menuUser {
 .divNomeLista {
     position: relative;
     border-radius: 0.25rem;
-    margin-bottom: 0.6rem;
     background-color: transparent;
     word-wrap: break-word;
 }
@@ -232,7 +231,7 @@ button#menuUser {
     display: inline-block;
     position: absolute; 
     visibility: hidden;
-    padding: 1rem 1.5rem 0.6rem  1rem !important;
+    padding: 1rem 0.3rem 0.5rem 0.3rem !important;
     min-width: 5rem;
     width: auto;
     max-width: 100%;
@@ -245,7 +244,7 @@ button#menuUser {
     min-height: 2rem;
     word-wrap: break-word;
     overflow: hidden;
-    padding: 0.3rem 0.3rem 0 0.3rem ;
+    padding: 0.3rem 0.3rem 0 0.3rem;
     min-width: 5rem;
     max-width: 100%;
     width: 80%;
@@ -291,6 +290,7 @@ button#menuUser {
     border-radius: 0.25rem;
     background-color: transparent;
     border: none;
+    height: fit-content;
 }
 
 .collapse,
@@ -352,6 +352,11 @@ button#menuUser {
     visibility: hidden;
 }
 
+.div-cards{
+    border-radius: 0.25rem;
+    padding: 0 0.25rem 0 0;
+}
+
 .add-card {
     background-color: transparent;
     box-shadow: none !important;
@@ -365,7 +370,7 @@ button#menuUser {
     text-align: center;
     font-weight: bold;
     font-size: 0.8rem;
-    padding: 0.3rem;
+    padding: 0.5rem 0.3rem;
 }
 
 .btn-Criar-Card {

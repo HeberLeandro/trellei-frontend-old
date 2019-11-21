@@ -136,11 +136,11 @@
 
     </div><!-- CONTEINER MAIN -->
   </div><!-- background -->
-  
-  </div> 
+
+  </div>
 
 
-  <!-- Modal-->
+  <!-- Modal Apagar Quadro-->
   <div class="modal fade" id="excluirQuadro">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -156,6 +156,29 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="excluirQuadro()">Sim</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Inside Card -->
+  <div class="modal modal fade" id="modalCard">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 id="resizeCardText"></h6>
+          <textarea class="modal-title" id="textTituloCard">Testando Inside Cards</textarea>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <ul>
+            <li>Lista para comentários</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
         </div>
       </div>
     </div>

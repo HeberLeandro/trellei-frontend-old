@@ -104,6 +104,10 @@ function adicionarLista(lista) {
     h6AuxSize.innerText = textarea.value;
     divNomeLista.appendChild(textarea);
     liLista.appendChild(divNomeLista);
+    var divCards = document.createElement("div");
+    divCards.setAttribute("class", "overflow-auto div-cards");
+    divCards.setAttribute("id", "divCards"+lista.id);
+    liLista.appendChild(divCards);
     //add card/ div collapse
     var divAddCard = document.createElement("div");
     divAddCard.setAttribute("class", "card add-card text-nao-selecionavel");
@@ -126,7 +130,7 @@ function adicionarLista(lista) {
     h6AuxSize.style.width = getComputedStyle(textarea).width;
     textarea.style.height = window.getComputedStyle(h6AuxSize).height;
     addEvents(lista.id);
-    getCards(lista.id, divAddCard);
+    getCards(lista.id, divCards);
 
 }
 
@@ -158,12 +162,17 @@ function adicionarCard(card, element) {
     var divCard = document.createElement("div");
     divCard.setAttribute("class", "card text-nao-selecionavel");
     divCard.setAttribute("id", card.id);
+    divCard.setAttribute("data-toggle", "modal");
+    divCard.setAttribute("data-target", "#modalCard");
     var span = document.createElement("span");
     span.innerText = card.name;
 
     divCard.appendChild(span);
+    divCard.addEventListener("click", function(){
+        document.getElementById("resizeCardText").innerText = card.name;
+    });
 
-    element.insertAdjacentElement("beforebegin", divCard);
+    element.insertAdjacentElement("beforeend", divCard);
 }
 
 
@@ -254,7 +263,7 @@ function addEvents(lista_id) {
             if (this.readyState == 4 && this.status == 200) {
                 var obj = JSON.parse(this.responseText);
                 form.reset();
-                adicionarCard(obj, document.getElementById("divAddCard" + lista_id));
+                adicionarCard(obj, document.getElementById("divCards" + lista_id));
 
 
             } else if (this.readyState == 4 && this.status == 400) {
