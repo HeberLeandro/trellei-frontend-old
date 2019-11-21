@@ -28,6 +28,7 @@ var manterConectado = document.getElementById("manterConectado");
 var mostrarCadastro = document.getElementById("mostrarCadastro");
 var mostrarLogin = document.getElementById("mostrarLogin");
 
+verificaSessaoAberta();
 /* Verifica sessão aberta */
 function verificaSessaoAberta(){
     var token;

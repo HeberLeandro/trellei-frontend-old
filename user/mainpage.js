@@ -28,6 +28,8 @@ var bgQuadro = document.getElementById("bgQuadro");
 //Verificar se a sessão aberta e pega nome do user
 var token;
 var boardsList;
+verificaSessao();
+
 function verificaSessao(){
     if(sessionStorage.getItem("token")){
         token = JSON.parse(sessionStorage.getItem("token"));

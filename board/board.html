@@ -14,7 +14,7 @@
   <title></title>
 </head>
 
-<body onload="verificaSessao()">
+<body>
   <div id="background">
     <div class="container-fluid bg-transparent" id="mainContainer">
       <div class="navbar">
@@ -162,20 +162,71 @@
   </div>
 
   <!-- Modal Inside Card -->
-  <div class="modal modal fade" id="modalCard">
-    <div class="modal-dialog">
+  <div class="modal fade" id="modalCard">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <div class="modal-header">
-          <h6 id="resizeCardText"></h6>
-          <textarea class="modal-title" id="textTituloCard">Testando Inside Cards</textarea>
+        <div class="modal-header position-relative">
+          <h6 id="resizeCardTitle"></h6>
+          <textarea class="modal-title" id="textTitleCard" maxlength="100"></textarea>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <ul>
-            <li>Lista para comentários</li>
+        <div class="modal-body position-relative">
+          <div class="h5">Tags</div>
+          <ul class="list-group list-group-horizontal mb-3">
+            <li class=" d-inline-block m-1 p-0">
+              <button class="btn btn-tags" style="background-color: rgb(0, 121, 191);"></button>
+            </li>
+            <li class=" d-inline-block m-1 p-0">
+              <button class="btn btn-tags" style="background-color: rgb(210, 136, 52);"></button>
+            </li>
+            <li class=" d-inline-block m-1 p-0 ">
+              <button class="btn btn-tags" style="background-color: rgb(81, 152, 57);"></button>
+            </li>
+            <li class=" d-inline-block m-1 p-0 ">
+              <div class="dropdown">
+                <button class="btn btn-tags" id="addTag" data-toggle="dropdown" style="background-color: rgb(194, 194, 194);">
+                  <img src="../imagens/add.png">
+                </button>
+                  <div class="dropdown-menu dropdown-menu-left">
+                    <ul class="dropdown-item list-group list-group-horizontal px-2">
+                      <li class="d-inline-block m-1 p-0">
+                        <button class="btn btn-tags" style="background-color: #b8daff;"></button>
+                      </li>
+                      <li class="d-inline-block m-1 p-0">
+                          <button class="btn btn-tags" style="background-color: #c3e6cb;"></button>
+                      </li>
+                      <li class="d-inline-block m-1 p-0">
+                          <button class="btn btn-tags bg-warning"></button>
+                      </li>
+                      <li class="d-inline-block m-1 p-0">
+                          <button class="btn btn-tags bg-danger"></button>
+                      </li>
+                    </ul>
+                  </div>
+              </div>
+            </li>
           </ul>
+          <div class="h5">Comentários</div>
+          <ul class="list-group mb-3" id="comentsList">
+            <li class="list-group-item flex-column align-items-start">
+              <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius
+                blandit.</p>
+            </li>
+            <li class="list-group-item flex-column align-items-start">
+              <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius
+                blandit.</p>
+            </li>
+          </ul>
+          <h6 id="resizeTextComent"></h6>
+          <textarea class="mb-2" id="textComent" placeholder="Escrever um comentário"></textarea>
+          <form id="formDadosCard">
+            <div class="form-group">
+              <h6>Mudar data do cartão</h6>
+              <input class="form-control" type="date" id="dataCard" min="2000-01-01" required>
+            </div>
+          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>

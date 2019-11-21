@@ -27,9 +27,20 @@ var Logout = document.getElementById("Logout");
 var H6Name = document.getElementById("H6Name");
 var spanUsername = document.getElementById("spanUsername");
 
+//Modal que do abre ao clicar no card
+var resizeCardTitle = document.getElementById("resizeCardTitle");
+var textTitleCard = document.getElementById("textTitleCard");
+var comentsList = document.getElementById("comentsList");
+var resizeTextComent = document.getElementById("resizeTextComent");
+var textComent = document.getElementById("textComent");
+var inputData = document.getElementById("dataCard");
+
 var Listas;
 var Board;
 var token;
+var CardClicked;
+
+verificaSessao();
 
 function verificaSessao() {
     if (sessionStorage.getItem("token")) {
@@ -57,7 +68,6 @@ function verificaSessao() {
     } else {
         window.location = "../index.html";
     }
-
     getListas();
 }
 
@@ -77,7 +87,6 @@ function getListas() {
             alert("Erro ao Buscar Listas");
         }
     }
-
     xhttp.open("GET", url, true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send(JSON.stringify(url));
@@ -116,7 +125,7 @@ function adicionarLista(lista) {
     divAddCard.setAttribute("data-toggle", "collapse");
     divAddCard.setAttribute("href", "#divFormCard" + lista.id);
     divAddCard.innerHTML = '<span id="spanAddCard' + lista.id + '" class="span-Add-Card">+ Adicionar cartão</span>' +
-        '<div class="collapse px-0" id="divFormCard' + lista.id + '" onclick="event.stopPropagation()">' +
+        '<div class="collapse px-0 position-relative"  id="divFormCard' + lista.id + '" onclick="event.stopPropagation()">' +
         '<form method="post" id="formNovoCard' + lista.id + '">' +
         '<h6 class="resize-textarea" id="resizeTextarea' + lista.id + '"></h6>' +
         '<textarea autofocus class="form-control mr-1 textarea-nome-do-card" id="inputNomeDoCard' + lista.id + '" placeholder="Titulo do cartão..." required maxlength="100"></textarea>' +
@@ -131,12 +140,9 @@ function adicionarLista(lista) {
     textarea.style.height = window.getComputedStyle(h6AuxSize).height;
     addEvents(lista.id);
     getCards(lista.id, divCards);
-
 }
 
-
 function getCards(lista_id, element) {
-
     var url = "https://tads-trello.herokuapp.com/api/trello/cards/" + token + "/list/" + lista_id;
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -154,7 +160,6 @@ function getCards(lista_id, element) {
     xhttp.open("GET", url, true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send(JSON.stringify(url));
-
 }
 
 //Adiciona Cards as suas respectivas Listas
@@ -168,10 +173,12 @@ function adicionarCard(card, element) {
     span.innerText = card.name;
 
     divCard.appendChild(span);
+    //Envento para passa os dados do card para session
     divCard.addEventListener("click", function(){
-        document.getElementById("resizeCardText").innerText = card.name;
+        CardClicked = card;
+        setCardModal();
+        //Funções do modal la no final
     });
-
     element.insertAdjacentElement("beforeend", divCard);
 }
 
@@ -183,7 +190,7 @@ function resetForm(span, btn, form, div) {
     document.getElementById(div).className = "collapse";
 }
 
-
+//Função para mudar o display dos elementos
 function hideOrShow(element, display) {
     if (display == 'block') {
         if (typeof (element) === 'string') {
@@ -215,7 +222,7 @@ function hideOrShow(element, display) {
 
 }
 
-//Função para adicionar eventos nos forms das listas, para criação de cards
+//Função para adicionar eventos nos em elementos dentro da lista
 function addEvents(lista_id) {
     let textareaName = document.getElementById('textName' + lista_id);
     let textNameResize = document.getElementById('textNameResize' + lista_id);
@@ -231,8 +238,7 @@ function addEvents(lista_id) {
     });
 
     inputText.addEventListener("input", function () {
-        resizeTextarea.innerText = inputText.value;
-        inputText.style.height = window.getComputedStyle(resizeTextarea).height;
+        changeInputsize(resizeTextarea, inputText, false, true);
     });
 
     inputText.addEventListener("keydown", function (e) {
@@ -248,11 +254,11 @@ function addEvents(lista_id) {
             return;
         }
         var data = new Date();
-        var DiaMesAno = data.getDate() + "/" + (data.getMonth() + 1) + "/" + data.getFullYear();
+        var AnoMesDia = data.getFullYear() + "-" + (data.getMonth() + 1) + "-" + data.getDate();
 
         var card = {
             "name": name,
-            "data": DiaMesAno,
+            "data": AnoMesDia,
             "token": token,
             "list_id": lista_id
         }
@@ -277,19 +283,18 @@ function addEvents(lista_id) {
     }
 
     //Renomear Lista
+    //Funçoes para redemecionar a textArea
     var isFocused = false;
     textareaName.addEventListener("focusin", function () {
         isFocused = true;
-        textNameResize.innerText = textareaName.value;
-        textNameResize.style.width = getComputedStyle(textareaName).width;
-        textareaName.style.height = window.getComputedStyle(textNameResize).height;
+        changeInputsize(textNameResize, textareaName, true, true);
     });
 
     textareaName.addEventListener("input", function () {
-        textNameResize.innerText = textareaName.value;
-        textareaName.style.height = window.getComputedStyle(textNameResize).height;
+        changeInputsize(textNameResize, textareaName, false, true);
     });
 
+    //Funçoes que chamam a alteração no nome
     textareaName.addEventListener("focusout", function (e) {
         if (isFocused) {
             changeNameList(textareaName.value, textareaName.getAttribute("name"));
@@ -333,15 +338,12 @@ function addEvents(lista_id) {
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.send(JSON.stringify(newName));
         }else{
-            textNameResize.innerText = textareaName.getAttribute("name");
             textareaName.value = textareaName.getAttribute("name");
-            textNameResize.style.width = getComputedStyle(textareaName).width;
-            textareaName.style.height = window.getComputedStyle(textNameResize).height;
+            changeInputsize(textNameResize, textareaName, true, true);
         }
     }
 
 }
-
 
 //Excluir quadro
 function excluirQuadro() {
@@ -376,13 +378,17 @@ homeIcon.addEventListener("click", function () {
 
 //altera largura do input, para novo nome do quadro
 inputNomeQuadro.addEventListener("keydown", function () {
-    changeInputsize();
+    changeInputsize(spanSize, inputNomeQuadro, true, true);
 });
 
-function changeInputsize() {
-    spanSize.innerText = inputNomeQuadro.value;
-    inputNomeQuadro.style.width = window.getComputedStyle(spanSize).width;
-    inputNomeQuadro.style.height = window.getComputedStyle(spanSize).height;
+function changeInputsize(sizeReference, element, changeWidth, changeHeight) {
+    sizeReference.innerText = element.value;
+    if (changeWidth) {
+        element.style.width = window.getComputedStyle(sizeReference).width;
+    }
+    if (changeHeight) {
+        element.style.height = window.getComputedStyle(sizeReference).height;
+    }
 }
 
 //mostra o input para fazer a alteração do nome
@@ -390,7 +396,7 @@ spanName.addEventListener("click", function () {
     hideOrShow(spanName, 'none');
     hideOrShow(inputNomeQuadro, 'block');
     inputNomeQuadro.value = spanName.innerText;
-    changeInputsize();
+    changeInputsize(spanSize, inputNomeQuadro, true, true);
     inputNomeQuadro.focus();
 });
 
@@ -411,6 +417,7 @@ inputNomeQuadro.addEventListener("focusout", function (e) {
     }
 });
 
+//Serve para limpar espaços extras numa string
 function removeSpaces(string) {
     var corte = string.split(" ");
     var name = "";
@@ -523,3 +530,15 @@ Logout.addEventListener("click", function () {
     localStorage.removeItem("token");
     window.location = "../index.html";
 });
+
+/* MODAL DO CARD */
+//funçao que prepara o modal de acordo com o card clicado
+function setCardModal(){    
+    resizeCardTitle = CardClicked.name;
+    textTitleCard.value = CardClicked.name;
+    console.log(inputData);
+    console.log(inputData.value);
+    inputData.value = CardClicked.data;
+    console.log(inputData.value);
+    console.log(CardClicked.data);
+}

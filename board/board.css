@@ -238,10 +238,12 @@ button#menuUser {
     word-wrap: break-word;
     height: auto;
     min-height: 2rem;
+    line-height: normal;
 }
 
 .nome-lista{
     min-height: 2rem;
+    line-height: normal;
     word-wrap: break-word;
     overflow: hidden;
     padding: 0.3rem 0.3rem 0 0.3rem;
@@ -344,12 +346,14 @@ button#menuUser {
     resize: none;
     word-wrap: break-word;
     overflow: hidden;
+    line-height: normal;
 }
 .resize-textarea{
     padding: 0.7rem;
     padding-top: 1rem;
     position: absolute;
     visibility: hidden;
+    max-width: 100%;
 }
 
 .div-cards{
@@ -381,8 +385,62 @@ button#menuUser {
     display: block;
 }
 
-/*Web kit scroll bar*/
+/*Modal Card*/
+.btn-tags {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+}
 
+#addTag img{
+    height: 2rem;
+    width: 2rem;
+    padding: 0.2rem;
+}
+
+#resizeTextComent,
+#resizeCardTitle {
+    display: inline-block;
+    position: absolute; 
+    /* visibility: hidden; */
+    padding: 1rem 1rem 0.5rem 0.3rem !important;
+    min-width: 5rem;
+    width: auto;
+    max-width: 80%;
+    word-wrap: break-word;
+    height: auto;
+    min-height: 2rem;
+    line-height: normal;
+}
+#textComent,
+#textTitleCard {
+    min-height: 2rem;
+    word-wrap: break-word;
+    overflow: hidden;
+    padding: 0.3rem 0.3rem 0 0.5rem;
+    min-width: 80%;
+    max-width: 80%;
+    width: 80%;
+    font-weight: 600;
+    background-color: transparent;
+    border: none;
+    resize: none;
+    line-height: normal;
+}
+
+#textComent{
+    font-weight: normal;
+    border: 5px;
+    outline: -webkit-focus-ring-color auto 1px;
+    resize: none;
+}
+
+#textTitleCard,
+#resizeCardTitle {
+    font-size: 1.3rem;
+}
+
+/*Web kit scroll bar*/
 ::-webkit-scrollbar{
     width: 7px;
     background-color: rgba(228, 228, 228, 0.13);
