@@ -430,8 +430,9 @@ button#menuUser {
 
 #textComent{
     font-weight: normal;
-    border: 5px;
-    outline: -webkit-focus-ring-color auto 1px;
+    border-radius: 0.2rem;
+    border-color: rgb(128, 128, 128) !important;
+    border: 1px solid;
     resize: none;
 }
 
