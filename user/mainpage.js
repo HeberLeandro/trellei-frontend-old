@@ -196,7 +196,7 @@ function hideOrShow(element, display){
 
 //sair da Conta
 Logout.addEventListener("click", function(){
-    sessionStorage.removeItem("token");
     localStorage.removeItem("token");
+    sessionStorage.clear();
     window.location = "../index.html";
 });

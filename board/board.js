@@ -35,6 +35,11 @@ var comentsList = document.getElementById("comentsList");
 var resizeTextComent = document.getElementById("resizeTextComent");
 var textComent = document.getElementById("textComent");
 var inputData = document.getElementById("dataCard");
+var tagInfo = document.getElementById("bg-info");
+var tagSuccess = document.getElementById("bg-success");
+var tagWarning = document.getElementById("bg-warning");
+var tagDanger = document.getElementById("bg-danger");
+var addTag = document.getElementById("addTag");
 var spanCard;
 
 var Listas;
@@ -118,7 +123,7 @@ function adicionarLista(lista) {
     liLista.appendChild(divNomeLista);
     var divCards = document.createElement("div");
     divCards.setAttribute("class", "overflow-auto div-cards");
-    divCards.setAttribute("id", "divCards"+lista.id);
+    divCards.setAttribute("id", "divCards" + lista.id);
     liLista.appendChild(divCards);
     //add card/ div collapse
     var divAddCard = document.createElement("div");
@@ -171,15 +176,20 @@ function adicionarCard(card, element) {
     divCard.setAttribute("class", "card text-nao-selecionavel");
     divCard.setAttribute("data-toggle", "modal");
     divCard.setAttribute("data-target", "#modalCard");
+    divCard.setAttribute("id", card.id);
+    var divTags = document.createElement("div");
+    divTags.setAttribute("class", "d-inline-block");
+    divTags.setAttribute("id", "tags"+card.id);
+    divCard.appendChild(divTags);
     var span = document.createElement("span");
-    span.setAttribute("id", "span"+card.id);
+    span.setAttribute("id", "span" + card.id);
     span.innerText = card.name;
 
     divCard.appendChild(span);
     //Envento para passa os dados do card para session
-    divCard.addEventListener("click", function(){
-        spanCard = document.getElementById("span"+card.id);
-        if(!sessionStorage.getItem(card.id)){
+    divCard.addEventListener("click", function () {
+        spanCard = document.getElementById("span" + card.id);
+        if (!sessionStorage.getItem(card.id)) {
             sessionStorage.setItem(card.id, JSON.stringify(card));
         }
         CardClicked = JSON.parse(sessionStorage.getItem(card.id));
@@ -187,6 +197,8 @@ function adicionarCard(card, element) {
         //Funções do modal la no final
     });
     element.insertAdjacentElement("beforeend", divCard);
+    //Busca das tags para adicionar ao card na tela
+    getTags(card.id);
 }
 
 //função para resetar os form que cria lista e cartões
@@ -324,7 +336,7 @@ function addEvents(lista_id) {
                 "name": name,
                 "token": token
             }
-    
+
             var url = "https://tads-trello.herokuapp.com/api/trello/lists/rename";
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
@@ -333,16 +345,16 @@ function addEvents(lista_id) {
                     textareaName.setAttribute("name", obj.name);
                     //textareaName.value = textareaName.defaultValue;
                     textareaName.value = obj.name;
-    
+
                 } else if (this.readyState == 4 && this.status == 400) {
                     alert("Erro ao Renomear Quadro");
                 }
             }
-    
+
             xhttp.open("PATCH", url, true);
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.send(JSON.stringify(newName));
-        }else{
+        } else {
             textareaName.value = textareaName.getAttribute("name");
             changeInputsize(textNameResize, textareaName, true, true);
         }
@@ -530,32 +542,49 @@ formNovaLista.addEventListener("submit", function (e) {
 
 //sair da Conta
 Logout.addEventListener("click", function () {
-    sessionStorage.removeItem("token");
     localStorage.removeItem("token");
+    sessionStorage.clear();
     window.location = "../index.html";
 });
 
 /* MODAL DO CARD */
+//Limpar as antigas tags no modal
+function removeElementsByClass(className){
+    var elements = document.getElementsByClassName(className);
+    while(elements.length > 0){
+        elements[0].parentNode.removeChild(elements[0]);
+    }
+}
 //funçao que prepara o modal de acordo com o card clicado
-function setCardModal(){ 
-    console.log(CardClicked);
+function setCardModal() {
+    let tags = document.getElementById("tags"+CardClicked.id).children;
+    removeElementsByClass("tag");
+    for (let i = 0; i < tags.length; i++) {
+        let li = document.createElement("li");
+        li.setAttribute("class", "d-inline-block m-1 p-0 tag");
+        let btn = document.createElement("button");
+        btn.setAttribute("class","btn btn-tags");
+        btn.style.backgroundColor = getComputedStyle(tags[i]).backgroundColor;
+        li.appendChild(btn);
+        addTag.insertAdjacentElement("beforebegin", li);
+    }
     textTitleCard.value = CardClicked.name;
     inputData.value = CardClicked.data;
-    modalCard.addEventListener("mouseover", function(){
+    modalCard.addEventListener("mouseover", function () {
         changeInputsize(resizeCardTitle, textTitleCard, true, true);
-        modalCard.removeEventListener("mouseover", function(){});
+        modalCard.removeEventListener("mouseover", function () { });
     });
 }
 
 //Funçoes para redemecionar a textaera do titulo do card
-textTitleCard.addEventListener("input", function(){
-    changeInputsize(resizeCardTitle,textTitleCard, true, true);
+textTitleCard.addEventListener("input", function () {
+    changeInputsize(resizeCardTitle, textTitleCard, true, true);
 });
 
 var cardIsFocused = false;
 textTitleCard.addEventListener("focusin", function () {
     cardIsFocused = true;
-    changeInputsize(resizeCardTitle,textTitleCard, true, true);
+    changeInputsize(resizeCardTitle, textTitleCard, true, true);
 });
 
 //Funçoes que chamam a alteração no nome
@@ -601,8 +630,140 @@ function changeNameCard(newName, oldName) {
         xhttp.open("PATCH", url, true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.send(JSON.stringify(newName));
-    }else{
+    } else {
         textTitleCard.value = CardClicked.name;
-        changeInputsize(resizeCardTitle,textTitleCard, true, true);
+        changeInputsize(resizeCardTitle, textTitleCard, true, true);
     }
+}
+
+//Busca dos Coments 
+function getComents() {
+    var url = "https://tads-trello.herokuapp.com/api/trello/cards/" + token + "/" + CardClicked.id + "/comments";
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var obj = JSON.parse(this.responseText);
+            console.log(obj);
+
+        } else if (this.readyState == 4 && this.status == 400) {
+            alert("Erro ao Buscar Comentários");
+        }
+    }
+
+    xhttp.open("GET", url, true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(JSON.stringify(url));
+}
+
+//Busca das Tags
+function getTags(cardId) {
+    var url = "https://tads-trello.herokuapp.com/api/trello/cards/" + token + "/" + cardId + "/tags";
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var obj = JSON.parse(this.responseText);
+            for (let i = 0; i < obj.length; i++) {
+                adicionarTag(obj[i].id, obj[i].trello_cards[0].id, false);
+            }
+
+        } else if (this.readyState == 4 && this.status == 400) {
+            alert("Erro ao Buscar Tags");
+        }
+    }
+    xhttp.open("GET", url, true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(JSON.stringify(url));
+}
+
+//Adiciona tag no card (na tela)
+function adicionarTag(tagId, cardId, addInModal) {
+    var tag;
+    if (tagId == "2") {
+        tag = "info";
+    }
+    else if (tagId == "12") {
+        tag = "success";
+    }
+    else if (tagId == "22") {
+        tag = "danger";
+    }
+    else if (tagId == "32") {
+        tag = "warning";
+    }
+    var divTag = document.createElement("div");
+    divTag.setAttribute("class", "card d-inline-block w-min bg-"+tag);
+    document.getElementById("tags"+cardId).appendChild(divTag);
+
+    if (addInModal) {
+        let li = document.createElement("li");
+        li.setAttribute("class", "d-inline-block m-1 p-0 tag");
+        let btn = document.createElement("button");
+        btn.setAttribute("class","btn btn-tags bg-"+tag);
+        li.appendChild(btn);
+        addTag.insertAdjacentElement("beforebegin", li);
+    }
+}
+
+function setTag(tagId){
+    var Tag = {
+        "card_id": CardClicked.id, 
+        "tag_id": tagId, 
+        "token": token,
+    }
+
+    var url = "https://tads-trello.herokuapp.com/api/trello/cards/addtag";
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var obj = JSON.parse(this.responseText);
+            adicionarTag(obj.trelloTagId, obj.trelloCardId, true);
+
+        } else if (this.readyState == 4 && this.status == 400) {
+            alert("Essa tag já esta sendo usada!");
+        }
+    }
+    xhttp.open("POST", url, true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(JSON.stringify(Tag));
+}
+
+tagInfo.addEventListener("click", function () {
+    setTag("2");
+});
+
+tagDanger.addEventListener("click", function () {
+    setTag("22");
+});
+
+tagSuccess.addEventListener("click", function () {
+    setTag("12");
+});
+
+tagWarning.addEventListener("click", function () {
+    setTag("32");
+});
+
+//Excluir Card
+function excluirCard(){
+    var card = { 
+        "card_id": CardClicked.id, 
+        "token": token 
+    }
+
+    var url = "https://tads-trello.herokuapp.com/api/trello/cards/delete";
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var obj = JSON.parse(this.responseText);
+            console.log(obj.message);
+            var card = document.getElementById(CardClicked.id);
+            card.parentNode.removeChild(card);
+
+        } else if (this.readyState == 4 && this.status == 400) {
+            alert("Não foi possivel Excluir o card");
+        }
+    }
+    xhttp.open("DELETE", url, true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(JSON.stringify(card));
 }

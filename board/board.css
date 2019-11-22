@@ -385,11 +385,20 @@ button#menuUser {
     display: block;
 }
 
+.w-min {
+    min-width: 20%;
+    margin: 0.2rem;
+}
+
 /*Modal Card*/
 .btn-tags {
     width: 2.5rem;
     height: 2.5rem;
     padding: 0;
+}
+
+.btn-tags:focus {
+    box-shadow: none;
 }
 
 #addTag img{
