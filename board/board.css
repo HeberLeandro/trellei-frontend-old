@@ -402,7 +402,7 @@ button#menuUser {
 #resizeCardTitle {
     display: inline-block;
     position: absolute; 
-    /* visibility: hidden; */
+    visibility: hidden;
     padding: 1rem 1rem 0.5rem 0.3rem !important;
     min-width: 5rem;
     width: auto;

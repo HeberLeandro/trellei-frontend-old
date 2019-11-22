@@ -145,13 +145,13 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Tem certeza que deseja excluir?</h5>
+          <h5 class="modal-title">Tem certeza que deseja excluir o Quadro?</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          Ao apagar o Quadro automaticamente as listas e cartões dentro dele serão excluídos em sequência.
+          Ao excluir o Quadro automaticamente as listas e cartões dentro dele serão excluídos em sequência.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
@@ -160,6 +160,27 @@
       </div>
     </div>
   </div>
+
+    <!-- Modal Apagar Card-->
+    <div class="modal fade" id="excluirCard">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Tem certeza que deseja excluir esse Cartão?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                Ao excluir Cartão você perderá todos o seus comentários e tags.
+              </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Sim</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
   <!-- Modal Inside Card -->
   <div class="modal fade" id="modalCard">
@@ -224,10 +245,10 @@
             <form id="formDadosCard">
               <div class="form-group w-25">
                 <h6>Mudar Data do Cartão</h6>
-                <input class="form-control" type="date" id="dataCard" min="2000-01-01" required>
+                <input class="form-control" type="date" id="dataCard" min="2000-01-01" max="3000-12-31" required>
               </div>
               <div class="form-group w-25">
-                <h6>Mudar o Cartão para lista:</h6>
+                <h6>Mudar o Cartão de lista:</h6>
                 <select class="form-control" id="selectListas">
                   <option value="1">1 (lista atual)</option>
                   <option value="2">2</option>
@@ -237,7 +258,8 @@
             </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" data-toggle="modal" data-target="#excluirCard">Excluir Cartão</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar e salvar</button>
         </div>
       </div>
     </div>

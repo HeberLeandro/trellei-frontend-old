@@ -28,17 +28,20 @@ var H6Name = document.getElementById("H6Name");
 var spanUsername = document.getElementById("spanUsername");
 
 //Modal que do abre ao clicar no card
+var modalCard = document.getElementById("modalCard");
 var resizeCardTitle = document.getElementById("resizeCardTitle");
 var textTitleCard = document.getElementById("textTitleCard");
 var comentsList = document.getElementById("comentsList");
 var resizeTextComent = document.getElementById("resizeTextComent");
 var textComent = document.getElementById("textComent");
 var inputData = document.getElementById("dataCard");
+var spanCard;
 
 var Listas;
 var Board;
 var token;
 var CardClicked;
+var CardReseived = false;
 
 verificaSessao();
 
@@ -166,22 +169,25 @@ function getCards(lista_id, element) {
 function adicionarCard(card, element) {
     var divCard = document.createElement("div");
     divCard.setAttribute("class", "card text-nao-selecionavel");
-    divCard.setAttribute("id", card.id);
     divCard.setAttribute("data-toggle", "modal");
     divCard.setAttribute("data-target", "#modalCard");
     var span = document.createElement("span");
+    span.setAttribute("id", "span"+card.id);
     span.innerText = card.name;
 
     divCard.appendChild(span);
     //Envento para passa os dados do card para session
     divCard.addEventListener("click", function(){
-        CardClicked = card;
+        spanCard = document.getElementById("span"+card.id);
+        if(!sessionStorage.getItem(card.id)){
+            sessionStorage.setItem(card.id, JSON.stringify(card));
+        }
+        CardClicked = JSON.parse(sessionStorage.getItem(card.id));
         setCardModal();
         //Funções do modal la no final
     });
     element.insertAdjacentElement("beforeend", divCard);
 }
-
 
 //função para resetar os form que cria lista e cartões
 function resetForm(span, btn, form, div) {
@@ -276,7 +282,6 @@ function addEvents(lista_id) {
                 alert("Erro ao criar novo Cartão");
             }
         }
-
         xhttp.open("POST", url, true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.send(JSON.stringify(card));
@@ -284,9 +289,9 @@ function addEvents(lista_id) {
 
     //Renomear Lista
     //Funçoes para redemecionar a textArea
-    var isFocused = false;
+    var listIsFocused = false;
     textareaName.addEventListener("focusin", function () {
-        isFocused = true;
+        listIsFocused = true;
         changeInputsize(textNameResize, textareaName, true, true);
     });
 
@@ -294,17 +299,17 @@ function addEvents(lista_id) {
         changeInputsize(textNameResize, textareaName, false, true);
     });
 
-    //Funçoes que chamam a alteração no nome
+    //Funçoes que chamam a alteração no nome da Lista
     textareaName.addEventListener("focusout", function (e) {
-        if (isFocused) {
+        if (listIsFocused) {
             changeNameList(textareaName.value, textareaName.getAttribute("name"));
-            isFocused = false;
+            listIsFocused = false;
         }
     });
 
     textareaName.addEventListener("keydown", function (e) {
         if (e.keyCode == 13) {
-            isFocused = false;
+            listIsFocused = false;
             textareaName.blur();
             changeNameList(textareaName.value, textareaName.getAttribute("name"));
         }
@@ -342,7 +347,6 @@ function addEvents(lista_id) {
             changeInputsize(textNameResize, textareaName, true, true);
         }
     }
-
 }
 
 //Excluir quadro
@@ -533,12 +537,72 @@ Logout.addEventListener("click", function () {
 
 /* MODAL DO CARD */
 //funçao que prepara o modal de acordo com o card clicado
-function setCardModal(){    
-    resizeCardTitle = CardClicked.name;
+function setCardModal(){ 
+    console.log(CardClicked);
     textTitleCard.value = CardClicked.name;
-    console.log(inputData);
-    console.log(inputData.value);
     inputData.value = CardClicked.data;
-    console.log(inputData.value);
-    console.log(CardClicked.data);
+    modalCard.addEventListener("mouseover", function(){
+        changeInputsize(resizeCardTitle, textTitleCard, true, true);
+        modalCard.removeEventListener("mouseover", function(){});
+    });
+}
+
+//Funçoes para redemecionar a textaera do titulo do card
+textTitleCard.addEventListener("input", function(){
+    changeInputsize(resizeCardTitle,textTitleCard, true, true);
+});
+
+var cardIsFocused = false;
+textTitleCard.addEventListener("focusin", function () {
+    cardIsFocused = true;
+    changeInputsize(resizeCardTitle,textTitleCard, true, true);
+});
+
+//Funçoes que chamam a alteração no nome
+textTitleCard.addEventListener("focusout", function (e) {
+    if (cardIsFocused) {
+        changeNameCard(textTitleCard.value, CardClicked.name);
+        cardIsFocused = false;
+    }
+});
+
+textTitleCard.addEventListener("keydown", function (e) {
+    if (e.keyCode == 13) {
+        cardIsFocused = false;
+        textTitleCard.blur();
+        changeNameCard(textTitleCard.value, CardClicked.name);
+    }
+});
+
+//Mudar no do Card
+function changeNameCard(newName, oldName) {
+    name = removeSpaces(newName);
+    if (name != "" && name != oldName) {
+        var newName = {
+            "token": token,
+            "card_id": CardClicked.id,
+            "name": name,
+        }
+
+        var url = "https://tads-trello.herokuapp.com/api/trello/cards/rename";
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var obj = JSON.parse(this.responseText);
+                CardClicked = obj;
+                spanCard.innerText = obj.name;
+                sessionStorage.setItem(CardClicked.id, JSON.stringify(CardClicked));
+
+            } else if (this.readyState == 4 && this.status == 400) {
+                alert("Erro ao Renomear Card");
+            }
+        }
+
+        xhttp.open("PATCH", url, true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send(JSON.stringify(newName));
+    }else{
+        textTitleCard.value = CardClicked.name;
+        changeInputsize(resizeCardTitle,textTitleCard, true, true);
+    }
 }
