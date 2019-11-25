@@ -439,6 +439,7 @@ button#menuUser {
 
 #textComent{
     font-weight: normal;
+    min-height: 3rem;
     border-radius: 0.2rem;
     border-color: rgb(128, 128, 128) !important;
     border: 1px solid;
@@ -448,6 +449,10 @@ button#menuUser {
 #textTitleCard,
 #resizeCardTitle {
     font-size: 1.3rem;
+}
+
+.modal-input {
+    width: auto;
 }
 
 /*Web kit scroll bar*/

@@ -146,9 +146,6 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Tem certeza que deseja excluir o Quadro?</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
         </div>
         <div class="modal-body">
           Ao excluir o Quadro automaticamente as listas e cartões dentro dele serão excluídos em sequência.
@@ -167,9 +164,6 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Tem certeza que deseja excluir esse Cartão?</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
         </div>
         <div class="modal-body">
           Ao excluir Cartão você perderá todos o seus comentários e tags.
@@ -189,9 +183,6 @@
         <div class="modal-header position-relative">
           <h6 id="resizeCardTitle"></h6>
           <textarea class="modal-title" id="textTitleCard" maxlength="100"></textarea>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
         </div>
         <div class="modal-body position-relative">
           <div class="h5">Etiquetas</div>
@@ -223,36 +214,26 @@
           </ul>
           <div class="h5">Comentários</div>
           <ul class="list-group mb-3" id="comentsList">
-            <li class="list-group-item flex-column align-items-start">
-              <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius
-                blandit.</p>
-            </li>
-            <li class="list-group-item flex-column align-items-start">
-              <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius
-                blandit.</p>
-            </li>
           </ul>
           <h6 id="resizeTextComent"></h6>
-          <textarea class="mb-2" id="textComent" placeholder="Escrever um comentário"></textarea>
+          <textarea class="mb-2" id="textComent" placeholder="Escrever um comentário" maxlength="500"></textarea>
           <form id="formDadosCard">
-            <div class="form-group w-25">
+            <div class="form-group">
               <h6>Mudar Data do Cartão</h6>
-              <input class="form-control" type="date" id="dataCard" min="2000-01-01" max="3000-12-31" required>
+              <input class="form-control  modal-input" type="date" id="dataCard" min="2000-01-01" max="3000-12-31" required>
             </div>
-            <div class="form-group w-25">
+            <div class="form-group">
               <h6>Mudar o Cartão de lista:</h6>
-              <select class="form-control" id="selectListas">
-                <option value="1">1 (lista atual)</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
+              <select class="form-control  modal-input" id="selectList">
               </select>
             </div>
+            <div class="modal-footer mt-5">
+              <button type="button" class="btn btn-danger" data-dismiss="modal" data-toggle="modal"
+                data-target="#excluirCard">Excluir Cartão</button>
+              <button type="submit" class="btn btn-primary">Fechar e salvar</button>
+              <button type="button" id="closeModal" hidden class="btn" data-dismiss="modal"></button>
+            </div>
           </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal" data-toggle="modal"
-            data-target="#excluirCard">Excluir Cartão</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar e salvar</button>
         </div>
       </div>
     </div>
