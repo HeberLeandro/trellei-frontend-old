@@ -78,7 +78,7 @@ function verificaSessao() {
     } else {
         window.location = "../index.html";
     }
-    getListas();
+    //getListas();
 }
 
 function getListas() {
@@ -152,8 +152,8 @@ function adicionarLista(lista) {
     getCards(lista.id, divCards);
 }
 
-function getCards(lista_id, element) {
-    var url = "https://tads-trello.herokuapp.com/api/trello/cards/" + token + "/list/" + lista_id;
+function getCards(listaId, element) {
+    var url = "https://tads-trello.herokuapp.com/api/trello/cards/" + token + "/list/" + listaId;
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {

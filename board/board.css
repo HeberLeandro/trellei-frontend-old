@@ -207,6 +207,17 @@ button#menuUser {
 }
 
 /* Listas */
+/*muda max width da lista para n cobrir o icon*/
+.delete-icon{
+    position: absolute;
+    right: 0;
+    padding: 0;
+}
+.delete-icon img{
+    max-height: 1.3rem;
+    max-width: 1.3rem;
+}
+
 .lista {
     display: flex;
     max-height: 40rem;
