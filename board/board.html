@@ -101,36 +101,6 @@
             <ul class="row list-group list-group-horizontal justify-content-center justify-content-md-start justify-content-lg-start justify-content-xl-start"
               id="allListas">
 
-              <li class="lista flex-column col col col-11 col-sm-5 col-md-3 col-lg-3 col-xl-2" id="33332">
-                <div class="divNomeLista align-items-center">
-                  <h6 class="nome-lista-resize" id="textNameResize33332" style="width: 241.063px;">To Do</h6>
-                  <textarea class="nome-lista" id="textName33332" spellcheck="false" maxlength="100" name="To Do"
-                    style="height: 45px; width: 241.063px;">AAAAAAAAA</textarea>
-                  <!--  prototipo do delete card  -->
-                    <button type="button" class="btn delete-icon">
-                      <img src="../imagens/delete.png" alt="">
-                    </button>
-                </div>
-                <div class="overflow-auto div-cards" id="divCards33332"></div>
-                <div class="card add-card text-nao-selecionavel" id="divAddCard33332" onclick="hideOrShow('spanAddCard33332', 'none')"
-                  data-toggle="collapse" href="#divFormCard33332">
-                  <span id="spanAddCard33332" class="span-Add-Card">+ Adicionar cartão</span>
-                  <div class="collapse px-0 position-relative" id="divFormCard33332" onclick="event.stopPropagation()">
-                    <form method="post" id="formNovoCard33332">
-                      <h6 class="resize-textarea" id="resizeTextarea33332"></h6>
-                      <textarea autofocus="" class="form-control mr-1 textarea-nome-do-card" id="inputNomeDoCard33332"
-                        placeholder="Titulo do cartão..." required="" maxlength="100"></textarea>
-                      <div class="d-flex justify-content-between">
-                        <input type="submit" class="mt-2 form-control btn-Criar-Card btn" id="btnCriarCard33332" value="Criar">
-                        <button type="button" class="close mr-1" aria-label="Close" onclick="resetForm('spanAddCard33332','btnCriarCard33332', 'formNovoCard33332', 'divFormCard33332')">
-                          <span aria-hidden="true">×</span>
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </li>
-
               <li class="col col col-11 col-sm-5 col-md-3 col-lg-3 col-xl-2 text-nao-selecionavel" id="liCriarLista" onclick="hideOrShow('spanAddLista', 'none')"
                 data-toggle="collapse" href="#divFormLista">
                 <div class="card" id="cardAddList">
@@ -163,7 +133,7 @@
   </div>
 
 
-  <!-- Modal Apagar Quadro-->
+  <!-- Modal Excluir Quadro-->
   <div class="modal fade" id="excluirQuadro">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -181,6 +151,24 @@
     </div>
   </div>
 
+    <!-- Modal Excluir Lista-->
+    <div class="modal fade" id="excluirLista">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Tem certeza que deseja excluir essa Lista?</h5>
+          </div>
+          <div class="modal-body">
+            Ao excluir a Lista automaticamente os cartões dentro dela serão excluídos, junto com seus comentários e etiquetas.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="excluirLista()">Sim</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   <!-- Modal Apagar Card-->
   <div class="modal fade" id="excluirCard">
     <div class="modal-dialog">
@@ -189,7 +177,7 @@
           <h5 class="modal-title">Tem certeza que deseja excluir esse Cartão?</h5>
         </div>
         <div class="modal-body">
-          Ao excluir Cartão você perderá todos o seus comentários e tags.
+          Ao excluir Cartão você perderá todos o seus comentários e etiquetas.
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
@@ -243,7 +231,7 @@
           <form id="formDadosCard">
             <div class="form-group">
               <h6>Mudar Data do Cartão</h6>
-              <input class="form-control  modal-input" type="date" id="dataCard" min="2000-01-01" max="3000-12-31" required>
+              <input class="form-control  modal-input" type="date" id="dataCard" min="2000-01-01" max="2119-12-31" required>
             </div>
             <div class="form-group">
               <h6>Mudar o Cartão de lista:</h6>

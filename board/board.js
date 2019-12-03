@@ -48,7 +48,6 @@ var Listas;
 var Board;
 var token;
 var CardClicked;
-var CardReseived = false;
 
 verificaSessao();
 
@@ -78,7 +77,7 @@ function verificaSessao() {
     } else {
         window.location = "../index.html";
     }
-    //getListas();
+    getListas();
 }
 
 function getListas() {
@@ -87,7 +86,6 @@ function getListas() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             Listas = JSON.parse(this.responseText);
-            // console.log(Listas);
             for (let i = 0; i < Listas.length; i++) {
                 adicionarLista(Listas[i]);
 
@@ -106,6 +104,7 @@ function adicionarLista(lista) {
     var liLista = document.createElement("li");
     liLista.setAttribute("class", "lista flex-column col col col-11 col-sm-5 col-md-3 col-lg-3 col-xl-2");
     liLista.setAttribute("id", lista.id);
+    liLista.setAttribute("name", lista.name);
 
     var divNomeLista = document.createElement("div");
     divNomeLista.setAttribute("class", "divNomeLista align-items-center");
@@ -122,6 +121,14 @@ function adicionarLista(lista) {
     textarea.value = lista.name;
     h6AuxSize.innerText = textarea.value;
     divNomeLista.appendChild(textarea);
+    var btnExcluirLista = document.createElement("button");
+    btnExcluirLista.setAttribute("class","btn delete-icon");
+    btnExcluirLista.setAttribute("type", "button");
+    btnExcluirLista.setAttribute("data-toggle", "modal");
+    btnExcluirLista.setAttribute("data-target", "#excluirLista");
+    btnExcluirLista.setAttribute("id", "excluir"+lista.id);
+    btnExcluirLista.innerHTML = '<img src="../imagens/delete.png">';
+    divNomeLista.appendChild(btnExcluirLista);
     liLista.appendChild(divNomeLista);
     var divCards = document.createElement("div");
     divCards.setAttribute("class", "overflow-auto div-cards");
@@ -243,12 +250,13 @@ function hideOrShow(element, display) {
 }
 
 //Função para adicionar eventos nos em elementos dentro da lista
-function addEvents(lista_id) {
-    let textareaName = document.getElementById('textName' + lista_id);
-    let textNameResize = document.getElementById('textNameResize' + lista_id);
-    let form = document.getElementById('formNovoCard' + lista_id);
-    let inputText = document.getElementById('inputNomeDoCard' + lista_id);
-    let resizeTextarea = document.getElementById('resizeTextarea' + lista_id);
+function addEvents(listaId) {
+    let textareaName = document.getElementById('textName' + listaId);
+    let textNameResize = document.getElementById('textNameResize' + listaId);
+    let form = document.getElementById('formNovoCard' + listaId);
+    let inputText = document.getElementById('inputNomeDoCard' + listaId);
+    let resizeTextarea = document.getElementById('resizeTextarea' + listaId);
+    let btnExluirLista = document.getElementById('excluir' + listaId)
 
     //Criar Card
     form.addEventListener("submit", function (e) {
@@ -282,7 +290,7 @@ function addEvents(lista_id) {
             "name": name,
             "data": AnoMesDia,
             "token": token,
-            "list_id": lista_id
+            "list_id": listaId
         }
 
         var url = "https://tads-trello.herokuapp.com/api/trello/cards/new";
@@ -290,7 +298,7 @@ function addEvents(lista_id) {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var obj = JSON.parse(this.responseText);
-                adicionarCard(obj, document.getElementById("divCards" + lista_id));
+                adicionarCard(obj, document.getElementById("divCards" + listaId));
 
 
             } else if (this.readyState == 4 && this.status == 400) {
@@ -330,12 +338,12 @@ function addEvents(lista_id) {
         }
     });
 
-    //Mudar no da Lista
+    //Mudar nome da Lista
     function changeNameList(newName, oldName) {
         name = removeSpaces(newName);
         if (name != "" && name != oldName) {
             var newName = {
-                "list_id": lista_id,
+                "list_id": listaId,
                 "name": name,
                 "token": token
             }
@@ -346,11 +354,11 @@ function addEvents(lista_id) {
                 if (this.readyState == 4 && this.status == 200) {
                     var obj = JSON.parse(this.responseText);
                     textareaName.setAttribute("name", obj.name);
-                    //textareaName.value = textareaName.defaultValue;
+                    document.getElementById(listaId).setAttribute("name", obj.name);
                     textareaName.value = obj.name;
 
                 } else if (this.readyState == 4 && this.status == 400) {
-                    alert("Erro ao Renomear Quadro");
+                    alert("Erro ao Renomear Lista");
                 }
             }
 
@@ -362,6 +370,34 @@ function addEvents(lista_id) {
             changeInputsize(textNameResize, textareaName, true, true);
         }
     }
+
+    //Chamar modal para excluir a lista
+    btnExluirLista.addEventListener("click", function(){
+        sessionStorage.setItem("delete", JSON.stringify(listaId));
+    });
+}
+
+//Excluir Lista
+function excluirLista(){
+    var listId = JSON.parse(sessionStorage.getItem("delete"))
+    var list = {
+        "list_id": listId,
+        "token": token
+    }
+
+    var url = "https://tads-trello.herokuapp.com/api/trello/lists/delete"
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById(listId).remove();
+        } else if (this.readyState == 4 && this.status == 400) {
+            alert("Erro! Não foi possivel excluir essa Lista.");
+        }
+    }
+
+    xhttp.open("DELETE", url, true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(JSON.stringify(list));
 }
 
 //Excluir quadro
@@ -529,7 +565,6 @@ formNovaLista.addEventListener("submit", function (e) {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var obj = JSON.parse(this.responseText);
-            console.log(obj);
             adicionarLista(obj);
             resetForm('spanAddLista', 'btnCriarLista', 'formNovaLista', 'divFormLista');
 
@@ -569,6 +604,7 @@ function setCardModal() {
     for (let i = 0; i < tags.length; i++) {
         let li = document.createElement("li");
         li.setAttribute("class", "d-inline-block m-1 p-0 tag");
+        li.setAttribute("id", tags[i].getAttribute("name"));
         let btn = document.createElement("button");
         btn.setAttribute("class","btn btn-tags");
         btn.style.backgroundColor = getComputedStyle(tags[i]).backgroundColor;
@@ -624,11 +660,9 @@ textTitleCard.addEventListener("keydown", function (e) {
 formDadosCard.addEventListener("submit", function(e){
     var closeM = document.getElementById("closeModal");
     e.preventDefault();
-    console.log(inputData.value);
     if (inputData.value != CardClicked.data) {
         changeDateCard(CardClicked.id, inputData.value);
     }
-    console.log(selectList.value);
     if (selectList.value != CardClicked.trelloListId) {
         changeListCard(CardClicked.id, selectList.value);
     }
@@ -649,10 +683,9 @@ function changeDateCard(cardId, data){
         if (this.readyState == 4 && this.status == 200) {
             var obj = JSON.parse(this.responseText);
             sessionStorage.setItem(obj.id, JSON.stringify(obj));
-            console.log(obj);
 
         } else if (this.readyState == 4 && this.status == 400) {
-            console.log("erro ao mudar data");
+            alert("não foi possivel mudar a data");
         }
     }
 
@@ -676,12 +709,10 @@ function changeListCard(cardId, listId){
             var obj = JSON.parse(this.responseText);
             sessionStorage.setItem(obj.id, JSON.stringify(obj));
             document.getElementById(obj.id).remove();
-            adicionarCard(obj, document.getElementById("divCards"+obj.trelloListId))
-            console.log(obj);
-
+            adicionarCard(obj, document.getElementById("divCards"+obj.trelloListId));
 
         } else if (this.readyState == 4 && this.status == 400) {
-            console.log("erro ao mudar Card de Lista");
+           alert("erro ao mudar o cartão de Lista");
         }
     }
 
@@ -692,11 +723,12 @@ function changeListCard(cardId, listId){
 
 //Select List para mudar card de lista
 function setSelectList(){
-    for (const i of Listas) {
+    var listas = document.getElementsByClassName("lista");
+    for (const i of listas) {
         var op = document.createElement("option");
         op.setAttribute("class","select-op");
-        op.value = i.id;
-        op.innerText = i.name;
+        op.value = i.getAttribute("id");
+        op.innerText = i.getAttribute("name");
         if (i.id == CardClicked.trelloListId) {
             op.innerText += " (Lista Atual)";
             op.setAttribute("selected", "selected");
@@ -796,11 +828,13 @@ function adicionarTag(tagId, cardId, addInModal) {
     }
     var divTag = document.createElement("div");
     divTag.setAttribute("class", "card d-inline-block w-min bg-"+tag);
+    divTag.setAttribute("name", tag);
     document.getElementById("tags"+cardId).appendChild(divTag);
 
     if (addInModal) {
         let li = document.createElement("li");
         li.setAttribute("class", "d-inline-block m-1 p-0 tag");
+        li.setAttribute("id", tag);
         let btn = document.createElement("button");
         btn.setAttribute("class","btn btn-tags bg-"+tag);
         li.appendChild(btn);
@@ -832,19 +866,35 @@ function setTag(tagId){
 }
 
 tagInfo.addEventListener("click", function () {
-    setTag("2");
+    if (!document.getElementById("info")) {
+        setTag("2");
+    }else{
+        alert("Essa Etiqueta já foi colocada nessa cartão");
+    }
 });
 
 tagDanger.addEventListener("click", function () {
-    setTag("22");
+    if (!document.getElementById("danger")) {
+        setTag("22");
+    }else{
+        alert("Essa Etiqueta já foi colocada nessa cartão");
+    }
 });
 
 tagSuccess.addEventListener("click", function () {
-    setTag("12");
+    if (!document.getElementById("success")) {
+        setTag("12");
+    }else{
+        alert("Essa Etiqueta já foi colocada nessa cartão");
+    }
 });
 
 tagWarning.addEventListener("click", function () {
-    setTag("32");
+    if (!document.getElementById("warning")) {
+        setTag("32");
+    }else{
+        alert("Essa Etiqueta já foi colocada nessa cartão");
+    }
 });
 
 function saveComment(comment){
@@ -860,7 +910,6 @@ function saveComment(comment){
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var obj = JSON.parse(this.responseText);
-                console.log(obj);
                 adicionarComments(obj.comment);
                 textComent.value = "";
                 textComent.blur();
@@ -901,7 +950,6 @@ function excluirCard(){
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var obj = JSON.parse(this.responseText);
-            console.log(obj.message);
             var card = document.getElementById(CardClicked.id);
             card.parentNode.removeChild(card);
 
