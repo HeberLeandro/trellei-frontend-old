@@ -391,7 +391,7 @@ function excluirLista(){
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById(listId).remove();
         } else if (this.readyState == 4 && this.status == 400) {
-            alert("Erro! Não foi possivel excluir essa Lista.");
+            alert("Erro! Não foi possivel excluir esse Quadro.");
         }
     }
 
@@ -506,6 +506,7 @@ function changeNameBoard(newName) {
                 Board.name = obj.name;
                 sessionStorage.setItem("BoardClicked", JSON.stringify(Board));
                 spanName.innerText = name;
+                title[0].innerText = name + " | Trellei";
 
             } else if (this.readyState == 4 && this.status == 400) {
                 alert("Erro ao Renomear Quadro");
@@ -541,7 +542,7 @@ function changeColor(btn) {
             sessionStorage.setItem("BoardClicked", JSON.stringify(Board));
 
         } else if (this.readyState == 4 && this.status == 400) {
-            alert("Erro ao Renomear Quadro");
+            alert("Erro ao mudar cor do Quadro");
         }
     }
 
@@ -685,7 +686,7 @@ function changeDateCard(cardId, data){
             sessionStorage.setItem(obj.id, JSON.stringify(obj));
 
         } else if (this.readyState == 4 && this.status == 400) {
-            alert("não foi possivel mudar a data");
+            alert("Erro ao mudar a data do cartão");
         }
     }
 
@@ -712,7 +713,7 @@ function changeListCard(cardId, listId){
             adicionarCard(obj, document.getElementById("divCards"+obj.trelloListId));
 
         } else if (this.readyState == 4 && this.status == 400) {
-           alert("erro ao mudar o cartão de Lista");
+           alert("Erro ao mudar o cartão de Lista");
         }
     }
 
@@ -754,6 +755,7 @@ function changeNameCard(newName, oldName) {
                 var obj = JSON.parse(this.responseText);
                 CardClicked = obj;
                 spanCard.innerText = obj.name;
+
                 sessionStorage.setItem(CardClicked.id, JSON.stringify(CardClicked));
 
             } else if (this.readyState == 4 && this.status == 400) {
@@ -857,7 +859,7 @@ function setTag(tagId){
             adicionarTag(obj.trelloTagId, obj.trelloCardId, true);
 
         } else if (this.readyState == 4 && this.status == 400) {
-            alert("Essa Etiqueta já esta sendo usada!");    
+            alert("Erro ao colocar Etiqueta!");    
         }
     }
     xhttp.open("POST", url, true);
@@ -869,7 +871,7 @@ tagInfo.addEventListener("click", function () {
     if (!document.getElementById("info")) {
         setTag("2");
     }else{
-        alert("Essa Etiqueta já foi colocada nessa cartão");
+        alert("Essa Etiqueta já foi colocada nesse cartão");
     }
 });
 
@@ -877,7 +879,7 @@ tagDanger.addEventListener("click", function () {
     if (!document.getElementById("danger")) {
         setTag("22");
     }else{
-        alert("Essa Etiqueta já foi colocada nessa cartão");
+        alert("Essa Etiqueta já foi colocada nesse cartão");
     }
 });
 
@@ -885,7 +887,7 @@ tagSuccess.addEventListener("click", function () {
     if (!document.getElementById("success")) {
         setTag("12");
     }else{
-        alert("Essa Etiqueta já foi colocada nessa cartão");
+        alert("Essa Etiqueta já foi colocada nesse cartão");
     }
 });
 
@@ -893,7 +895,7 @@ tagWarning.addEventListener("click", function () {
     if (!document.getElementById("warning")) {
         setTag("32");
     }else{
-        alert("Essa Etiqueta já foi colocada nessa cartão");
+        alert("Essa Etiqueta já foi colocada nesse cartão");
     }
 });
 
