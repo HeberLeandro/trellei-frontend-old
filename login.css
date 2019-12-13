@@ -2,18 +2,26 @@ html, body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     height: 100%;
 }
+/*LOGO*/
+#Logo img{
+    margin: auto;
+    display: flex;
+    border-radius: 0.25rem;
+    height: 4.2rem;
+}
+
 /* Div e Form LOGIN e Cadastro */
     #formLogin,#formCadastro {
         font-size: 1.6em;
     }
 
     #divCadastro {
-        margin-top: 10%;
+        margin-top: 5%;
         display: none;
     }
 
     #divLogin {
-        margin-top: 10%;
+        margin-top: 5%;
     }
 
     .col h1{
