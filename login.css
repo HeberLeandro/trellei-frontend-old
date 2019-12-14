@@ -16,12 +16,7 @@ html, body {
     }
 
     #divCadastro {
-        margin-top: 5%;
         display: none;
-    }
-
-    #divLogin {
-        margin-top: 5%;
     }
 
     .col h1{

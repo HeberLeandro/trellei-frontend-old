@@ -141,7 +141,7 @@ function adicionarLista(lista) {
     divAddCard.setAttribute("onclick", "hideOrShow('spanAddCard" + lista.id + "', 'none')");
     divAddCard.setAttribute("data-toggle", "collapse");
     divAddCard.setAttribute("href", "#divFormCard" + lista.id);
-    divAddCard.innerHTML = '<span id="spanAddCard' + lista.id + '" class="span-Add-Card">+ Adicionar cartão</span>' +
+    divAddCard.innerHTML = '<span id="spanAddCard' + lista.id + '" class="span-Add-Card">+ Adicionar Cartão</span>' +
         '<div class="collapse px-0 position-relative"  id="divFormCard' + lista.id + '" onclick="event.stopPropagation()">' +
         '<form method="post" id="formNovoCard' + lista.id + '">' +
         '<h6 class="resize-textarea" id="resizeTextarea' + lista.id + '"></h6>' +
