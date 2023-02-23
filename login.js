@@ -1,3 +1,7 @@
+// Base URL
+var BaseURL = "http://localhost:8080/api/v1/"
+
+
 // Divs Login, Cadastro
 var divLogin = document.getElementById("divLogin");
 var divCadastro = document.getElementById("divCadastro");
@@ -15,8 +19,9 @@ var formLogin = document.getElementById("formLogin");
 var formCadastro = document.getElementById("formCadastro");
 
 //Campos do form Cadastro
-var nomeCadastro = document.getElementById("nomeCadastro");
-var usernameCadastro = document.getElementById("usernameCadastro");
+var firstnameCadastro = document.getElementById("firstnameCadastro");
+var lastnameCadastro = document.getElementById("lastnameCadastro");
+var emailCadastro = document.getElementById("emailCadastro");
 var senhaCadastro = document.getElementById("senhaCadastro");
 
 //Campos do form Login
@@ -64,35 +69,51 @@ function buscarUsuario(token){
 //evento do form Cadastro
 formCadastro.addEventListener("submit",function(e){
     e.preventDefault();
-    var usuario = {
-        "name": nomeCadastro.value,
-        "username": usernameCadastro.value,
+
+    let url = BaseURL + "auth/register";
+
+    let user = {
+        "firstname": firstnameCadastro.value,
+        "lastname": lastnameCadastro.value,
+        "email": emailCadastro.value,
         "password": senhaCadastro.value
     }
-        
-    var url = "https://tads-trello.herokuapp.com/api/trello/users/new";
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            var obj = JSON.parse(this.responseText);
-            alertSucessoCadastro.style.display = "block";
-            formCadastro.reset();
-            divCadastro.style.display = "none";
-            divLogin.style.display = "block";
-        }
-    
-        else if (this.readyState == 4 && this.status == 400) {
-            alertErroCadastro.style.display = "block";
-            usernameCadastro.value = "";
-            usernameCadastro.focus();
-        }
-    }
-    
-    
-    xhttp.open("POST", url, true);
-    xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send(JSON.stringify(usuario));
 
+    // Options to be given as parameter 
+    // in fetch for making requests
+    // other then GET
+    let options = {
+        method: 'POST',
+        body: JSON.stringify(user),
+        headers: {"Content-type": "application/json; charset=UTF-8"},
+    }
+
+    fetch(url, options).then(response => {
+        if (response.ok) {
+            response.json().then((responseJson) => {
+                console.log(responseJson);
+                alertSucessoCadastro.style.display = "block";
+                formCadastro.reset();
+                divCadastro.style.display = "none";
+                divLogin.style.display = "block";
+            })
+        }
+
+       else if (response.status == 400) {
+            response.json().then((responseJson) => {
+                console.log(responseJson);
+            })
+        }
+
+       else if(response.status == 409) {
+            response.json().then((responseJson) => {
+                console.log(responseJson);
+                alertErroCadastro.style.display = "block";
+                emailCadastro.value = "";
+                emailCadastro.focus();
+            })
+        }
+      });
 });
 
 //evento do form Login

@@ -27,7 +27,7 @@
         <div class="alert alert-primary col-sm-12 col-md-12 col-lg-12" id="alertErroCadastro">
           <button type="button" class="close" id="btnErroCadastro">
             <span aria-hidden="true">&times;</span>
-          </button> <h5>Esse nome de usuário já está sendo ultilizado!</h5>
+          </button> <h5>Esse email já está sendo ultilizado.</h5>
         </div>
   
         <div class="alert alert-success col-sm-12 col-md-12 col-lg-12" id="alertSucessoCadastro">
@@ -70,12 +70,16 @@
           </div>
           <form id="formCadastro" class="was-validated">
             <div class="form-group">
-              <label>Nome</label>
-              <input type="text" class="form-control" id="nomeCadastro" placeholder="Digite seu nome" required>
+              <label>Primeiro Nome</label>
+              <input type="text" class="form-control" id="firstnameCadastro" placeholder="Digite seu primeiro nome" required>
             </div>
             <div class="form-group">
-              <label>Usuário</label>
-              <input type="text" class="form-control" id="usernameCadastro" placeholder="Digite seu nome de usuario" required>
+              <label>Ultimo Nome</label>
+              <input type="text" class="form-control" id="lastnameCadastro" placeholder="Digite seu ultimo nome" required>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="text" class="form-control" id="emailCadastro" placeholder="Digite seu email" required>
             </div>
             <div class="form-group">
               <label>Senha</label>
