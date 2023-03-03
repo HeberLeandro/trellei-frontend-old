@@ -18,16 +18,18 @@
     <div class="container">
       <div class="row justify-content-center" id="divGridLayout">
         <!-- Alerts -->
-        <div class="alert alert-warning col-sm-12 col-md-12 col-lg-12" id="alertErroLogin">
-          <button type="button" class="close" id="btnErroLogin">
+        <div class="alert col-sm-12 col-md-12 col-lg-12 mt-2" id="alertDiv">
+          <button type="button" class="close" id="btnCloseAlert">
            <span aria-hidden="true">&times;</span>
-          </button> <h5>Login ou Senha incorretos.</h5>
-        </div>
-    
-        <div class="alert alert-primary col-sm-12 col-md-12 col-lg-12" id="alertErroCadastro">
-          <button type="button" class="close" id="btnErroCadastro">
-            <span aria-hidden="true">&times;</span>
-          </button> <h5>Esse email já está sendo ultilizado.</h5>
+          </button> <h4 class="alert-heading" id="alertHeading">Umpossible to proceed.</h4>
+          <hr>
+            <p> Email is mandatory. </p>
+            <hr>
+            <p> Password is mandatory. </p>
+            <hr>
+            <p> Last name is mandatory. </p>
+            <hr>
+            <p> First name is mandatory. </p>
         </div>
   
         <div class="alert alert-success col-sm-12 col-md-12 col-lg-12" id="alertSucessoCadastro">
@@ -40,7 +42,7 @@
           <img src="imagens/Trellei.png" class="bg-primary px-3 py-2" alt="Trellei">
         </div>
         <!-- Div Login -->
-        <div class="col col-sm-12 col-md-8 col-lg-8 mt-5" id="divLogin"> 
+        <div class="col col-sm-12 col-md-8 col-lg-8 mt-5 mb-5" id="divLogin"> 
           <h1>Fazer Login</h1>
           <div id="divA">
             <a id="mostrarCadastro" href="#">Criar uma conta</a>     

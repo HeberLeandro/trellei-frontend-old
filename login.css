@@ -57,7 +57,7 @@ html, body {
     }
 
 /* Alert */
-    #alertErroLogin {
+    #alertErrors {
         display: none;
     }
 

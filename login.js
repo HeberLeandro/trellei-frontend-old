@@ -7,12 +7,9 @@ var divLogin = document.getElementById("divLogin");
 var divCadastro = document.getElementById("divCadastro");
 
 //Alerts & Btns
-var alertErroLogin = document.getElementById("alertErroLogin");
-var alertErroCadastro = document.getElementById("alertErroCadastro");
-var alertSucessoCadastro = document.getElementById("alertSucessoCadastro");
-var btnErroLogin = document.getElementById("btnErroLogin");
-var btnErroCadastro = document.getElementById("btnErroCadastro");
-var btnSucessoCadastro = document.getElementById("btnSucessoCadastro");
+var alertDiv = document.getElementById("alertDiv");
+var btnCloseAlert = document.getElementById("btnCloseAlert");
+var alertHeading = document.getElementById("alertHeading");
 
 // Forms
 var formLogin = document.getElementById("formLogin");
@@ -135,7 +132,7 @@ formLogin.addEventListener("submit",function(e){
             else sessionStorage.setItem("token", token);
             buscarUsuario(JSON.parse(token));
 
-        }else if (this.readyState == 4 && this.status == 400){
+        } else if (this.readyState == 4 && this.status == 400){
             alertErroLogin.style.display = "block";
             formLogin.reset();
             usernameLogin.focus();
@@ -146,6 +143,12 @@ formLogin.addEventListener("submit",function(e){
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send(JSON.stringify(usuario));
 });
+
+
+function displayAlert(title, messages) {
+
+    alertHeading
+}
 
 
 // Show/hide Login e cadastro
@@ -159,15 +162,7 @@ mostrarLogin.addEventListener("click", function(){
     divLogin.style.display = "block";
 });
 
-//Alerts Close
-btnErroLogin.addEventListener("click", function(){
-    alertErroLogin.style.display = "none";
-});
-
-btnErroCadastro.addEventListener("click", function(){
-    alertErroCadastro.style.display = "none";
-});
-
-btnSucessoCadastro.addEventListener("click", function(){
-    alertSucessoCadastro.style.display = "none";
+//Alert Close
+btnCloseAlert.addEventListener("click", function(){
+    alertDiv.style.display = "none";
 });
