@@ -3,8 +3,8 @@ var BaseURL = "http://localhost:8080/api/v1/"
 
 
 // Divs Login, Cadastro
-var divLogin = document.getElementById("divLogin");
-var divCadastro = document.getElementById("divCadastro");
+var divSingIn = document.getElementById("divSignIn");
+var divSignUp = document.getElementById("divSignUp");
 
 //Alerts & Btns
 var alertDiv = document.getElementById("alertDiv");
@@ -12,23 +12,23 @@ var btnCloseAlert = document.getElementById("btnCloseAlert");
 var alertHeading = document.getElementById("alertHeading");
 
 // Forms
-var formLogin = document.getElementById("formLogin");
-var formCadastro = document.getElementById("formCadastro");
+var formSingIn = document.getElementById("formSingIn");
+var formSingUp = document.getElementById("formSingUp");
 
 //Campos do form Cadastro
-var firstnameCadastro = document.getElementById("firstnameCadastro");
-var lastnameCadastro = document.getElementById("lastnameCadastro");
-var emailCadastro = document.getElementById("emailCadastro");
-var senhaCadastro = document.getElementById("senhaCadastro");
+var firstnameSignUp = document.getElementById("firstnameSignUp");
+var lastnameSignUp = document.getElementById("lastnameSignUp");
+var emailSignUp = document.getElementById("emailSignUp");
+var passwordSignUp = document.getElementById("passwordSignUp");
 
 //Campos do form Login
-var usernameLogin = document.getElementById("usernameLogin");
-var senhaLogin = document.getElementById("senhaLogin");
-var manterConectado = document.getElementById("manterConectado");
+var emailSignIn = document.getElementById("emailSignIn");
+var passwordSignIn = document.getElementById("passwordSignIn");
+var keepSigned = document.getElementById("keepSigned");
 
 //elemeto a
-var mostrarCadastro = document.getElementById("mostrarCadastro");
-var mostrarLogin = document.getElementById("mostrarLogin");
+var showSignUp = document.getElementById("showSignUp");
+var showSignIn = document.getElementById("showSignIn");
 
 verificaSessaoAberta();
 /* Verifica sessão aberta */
@@ -46,14 +46,13 @@ function verificaSessaoAberta(){
 
 //Pegar Nome do usuario
 function buscarUsuario(token){
-    var url = "https://tads-trello.herokuapp.com/api/trello/users/"+token;
+    var url = BaseURL+token;
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var user = this.responseText;
             if(user != ""){
                 sessionStorage.setItem("user",user);
-                formLogin.submit();
             }
         }
     }
@@ -64,16 +63,16 @@ function buscarUsuario(token){
 }
 
 //evento do form Cadastro
-formCadastro.addEventListener("submit",function(e){
+formSingUp.addEventListener("submit",function(e){
     e.preventDefault();
 
     let url = BaseURL + "auth/register";
 
     let user = {
-        "firstname": firstnameCadastro.value,
-        "lastname": lastnameCadastro.value,
-        "email": emailCadastro.value,
-        "password": senhaCadastro.value
+        "firstname": firstnameSignUp.value,
+        "lastname": lastnameSignUp.value,
+        "email": emailSignUp.value,
+        "password": passwordSignUp.value
     }
 
     // Options to be given as parameter 
@@ -86,83 +85,119 @@ formCadastro.addEventListener("submit",function(e){
     }
 
     fetch(url, options).then(response => {
-        if (response.ok) {
+        if (response.status == 200) {
             response.json().then((responseJson) => {
-                console.log(responseJson);
-                alertSucessoCadastro.style.display = "block";
-                formCadastro.reset();
-                divCadastro.style.display = "none";
-                divLogin.style.display = "block";
+                displayAlert("User created successfully.", response.status);
+                formSingUp.reset();
+                showSignIn.click();
+
             })
         }
 
        else if (response.status == 400) {
             response.json().then((responseJson) => {
                 console.log(responseJson);
+                displayAlert("Umpossible to proceed.", "alert-error", responseJson.errors);
             })
         }
 
        else if(response.status == 409) {
             response.json().then((responseJson) => {
                 console.log(responseJson);
-                alertErroCadastro.style.display = "block";
-                emailCadastro.value = "";
-                emailCadastro.focus();
+                emailSignUp.value = "";
+                displayAlert("Umpossible to proceed.", "alert-info", responseJson.errors);
             })
         }
       });
 });
 
 //evento do form Login
-formLogin.addEventListener("submit",function(e){
+formSingIn.addEventListener("submit",function(e){
     e.preventDefault();
-    var usuario = {
-        "username": usernameLogin.value,
-        "password": senhaLogin.value
+
+    let url = BaseURL + "auth/authenticate";
+
+    let user = {
+        "email": emailSignIn.value,
+        "password": passwordSignIn.value
     }
-    
-    var url = "https://tads-trello.herokuapp.com/api/trello/login";
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            var obj = JSON.parse(this.responseText);
-            var token = JSON.stringify(obj.token);
-            if(manterConectado.checked) localStorage.setItem("token", token);
 
-            else sessionStorage.setItem("token", token);
-            buscarUsuario(JSON.parse(token));
+    let options = {
+        method: 'POST',
+        body: JSON.stringify(user),
+        headers: {"Content-type": "application/json; charset=UTF-8"},
+    }
 
-        } else if (this.readyState == 4 && this.status == 400){
-            alertErroLogin.style.display = "block";
-            formLogin.reset();
-            usernameLogin.focus();
+    fetch(url, options).then(response => {
+        if (response.status == 200) {
+            response.json().then((responseJson) => {
+                console.log(responseJson);
+                var token = JSON.stringify(responseJson.token);
+                if(keepSigned) localStorage.setItem("token", token);
+
+                else sessionStorage.setItem("token", token);
+
+                buscarUsuario(responseJson.token);
+                location.href = 'user/mainpage.html';
+            })
         }
-    }
-    
-    xhttp.open("POST", url, true);
-    xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send(JSON.stringify(usuario));
+
+        else {
+            response.json().then((responseJson) => {
+                console.log(responseJson);
+                passwordSignIn.value = "";
+                passwordSignIn.focus();
+                displayAlert("User or Passaword incorrect.", "alert-info");
+
+            })
+        }
+
+      });
 });
 
 
-function displayAlert(title, messages) {
+function displayAlert(header, divStyle, jsonMsg) {
+    clearAlertDiv();
+    alertDiv.style.display = "block";
+    alertDiv.classList.add(divStyle);
+    alertHeading.innerText = header;
+    listJsonMessages(jsonMsg);
+}
 
-    alertHeading
+function listJsonMessages(jsonMsg) {
+    jsonMsg.forEach(text => {
+        let line = document.createElement('hr');
+        let paragraph = document.createElement('p');
+        paragraph.innerText = text;
+        alertDiv.appendChild(line);
+        alertDiv.appendChild(paragraph)
+    });
 }
 
 
 // Show/hide Login e cadastro
-mostrarCadastro.addEventListener("click", function(){
-    divLogin.style.display = "none";
-    divCadastro.style.display = "block";
+showSignUp.addEventListener("click", function(){
+    divSingIn.style.display = "none";
+    divSignUp.style.display = "block";
 });
 
-mostrarLogin.addEventListener("click", function(){
-    divCadastro.style.display = "none";
-    divLogin.style.display = "block";
+showSignIn.addEventListener("click", function(){
+    divSignUp.style.display = "none";
+    divSingIn.style.display = "block";
 });
 
-//Alert Close
+//Alert Close and clear
 btnCloseAlert.addEventListener("click", function(){
     alertDiv.style.display = "none";
 });
+
+function clearAlertDiv(){
+    document.querySelectorAll('#alertDiv > p,hr').forEach(el => {
+        el.parentNode.removeChild(el)
+    })
+    alertDiv.classList.remove('alert-warning');
+    alertDiv.classList.remove('alert-success');
+    alertDiv.classList.remove('alert-error');
+    alertDiv.classList.remove('alert-info');
+}
+

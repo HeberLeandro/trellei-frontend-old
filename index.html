@@ -17,77 +17,66 @@
   <body>
     <div class="container">
       <div class="row justify-content-center" id="divGridLayout">
-        <!-- Alerts -->
+
+        <!-- Alert -->
         <div class="alert col-sm-12 col-md-12 col-lg-12 mt-2" id="alertDiv">
           <button type="button" class="close" id="btnCloseAlert">
            <span aria-hidden="true">&times;</span>
-          </button> <h4 class="alert-heading" id="alertHeading">Umpossible to proceed.</h4>
-          <hr>
-            <p> Email is mandatory. </p>
-            <hr>
-            <p> Password is mandatory. </p>
-            <hr>
-            <p> Last name is mandatory. </p>
-            <hr>
-            <p> First name is mandatory. </p>
+          </button> <h4 class="alert-heading" id="alertHeading"></h4>
         </div>
-  
-        <div class="alert alert-success col-sm-12 col-md-12 col-lg-12" id="alertSucessoCadastro">
-          <button type="button" class="close" id="btnSucessoCadastro">
-            <span aria-hidden="true">&times;</span>
-          </button> <h5>Novo usuário cadastrado com sucesso!</h5>
-        </div>
-        <!-- -->
+        
+         <!-- Logo -->
         <div class="col col-12 mt-5" id="Logo">
           <img src="imagens/Trellei.png" class="bg-primary px-3 py-2" alt="Trellei">
         </div>
+
         <!-- Div Login -->
-        <div class="col col-sm-12 col-md-8 col-lg-8 mt-5 mb-5" id="divLogin"> 
-          <h1>Fazer Login</h1>
-          <div id="divA">
-            <a id="mostrarCadastro" href="#">Criar uma conta</a>     
+        <div class="col col-sm-12 col-md-8 col-lg-8 mt-5 mb-5" id="divSignIn"> 
+          <h1>Sign in</h1>
+          <div class="changeModal">
+            <span>Don't have an account? </span> <a id="showSignUp" href="#"><span>Sign up now.</span></a>     
           </div>
-          <form id="formLogin" action="user/mainpage.html"> 
+          <form id="formSingIn"> 
             <div class="form-group">
-              <label>Usuário</label>
-              <input type="text" class="form-control" id="usernameLogin" placeholder="Digite o usuario" required>
+              <label>Email</label>
+              <input type="email" class="form-control" id="emailSignIn" placeholder="Email" required>
             </div>
             <div class="form-group">
-              <label>Senha</label>
-              <input type="password" class="form-control" id="senhaLogin" placeholder="Digite a senha" required>
+              <label>Password</label>
+              <input type="password" class="form-control" id="passwordSignIn" placeholder="Password" required>
             </div>
             <div class="custom-control custom-checkbox checkbox-lg">
-                <input type="checkbox" class="custom-control-input" id="manterConectado">
-                <label class="custom-control-label" for="manterConectado">Mantenha-me conectado</label>
+                <input type="checkbox" class="custom-control-input" id="keepSigned">
+                <label class="custom-control-label" for="keepSigned">Keep me signed in</label>
             </div>
-            <button type="submit" class="btn btn-primary">Entrar</button>
+            <button type="submit" class="btn btn-primary">Sign in</button>
           </form> 
         </div>
 
         <!-- Div Cadastro -->
-        <div class="col col-sm-12 col-md-8 col-lg-8 mt-5" id="divCadastro">
-          <h1>Criar uma Conta</h1>
-          <div id="divA">
-            <a id="mostrarLogin" href="#">Fazer login</a>     
+        <div class="col col-sm-12 col-md-8 col-lg-8 mt-5" id="divSignUp">
+          <h1>Sing up</h1>
+          <div class="changeModal">
+            <span>Already have an account? </span> <a id="showSignIn" href="#">Sign In.</a>     
           </div>
-          <form id="formCadastro" class="was-validated">
+          <form id="formSingUp" class="was-validated">
             <div class="form-group">
-              <label>Primeiro Nome</label>
-              <input type="text" class="form-control" id="firstnameCadastro" placeholder="Digite seu primeiro nome" required>
+              <label>First Name</label>
+              <input type="text" class="form-control" id="firstnameSignUp" placeholder="First Name" required>
             </div>
             <div class="form-group">
-              <label>Ultimo Nome</label>
-              <input type="text" class="form-control" id="lastnameCadastro" placeholder="Digite seu ultimo nome" required>
+              <label>Last Name</label>
+              <input type="text" class="form-control" id="lastnameSignUp" placeholder="Last Name" required>
             </div>
             <div class="form-group">
               <label>Email</label>
-              <input type="text" class="form-control" id="emailCadastro" placeholder="Digite seu email" required>
+              <input type="text" class="form-control" id="emailSignUp" placeholder="Email" required>
             </div>
             <div class="form-group">
-              <label>Senha</label>
-              <input type="password" class="form-control" id="senhaCadastro" placeholder="Digite sua senha" required>
+              <label>Password</label>
+              <input type="password" class="form-control" id="passwordSignUp" placeholder="Password" required>
             </div>
-            <button type="submit" class="btn btn-primary">Cadastrar</button>
+            <button type="submit" class="btn btn-primary">Create Account</button>
             </form> 
         </div>
 

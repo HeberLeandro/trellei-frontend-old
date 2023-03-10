@@ -11,24 +11,17 @@ html, body {
 }
 
 /* Div e Form LOGIN e Cadastro */
-    #formLogin,#formCadastro {
-        font-size: 1.6em;
+    #formSingIn,#formSingUp {
+        font-size: 1.2em;
     }
 
-    #divCadastro {
+    #divSignUp {
         display: none;
     }
 
     .col h1{
         margin-bottom: 0;
         font-size: 3em;
-    }
-    #divA {
-        margin-bottom: 1em;
-    }
-
-    #divA a{
-        font-size: 1.2em;
     }
 
     .col input {
@@ -56,15 +49,11 @@ html, body {
         margin-bottom: 1em;
     }
 
+    .changeModal a{
+        text-decoration: none;
+    }
+
 /* Alert */
-    #alertErrors {
-        display: none;
-    }
-
-    #alertErroCadastro {
-        display: none;
-    }
-
-    #alertSucessoCadastro {
+    #alertDiv {
         display: none;
     }
