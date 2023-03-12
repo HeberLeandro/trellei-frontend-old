@@ -46,20 +46,26 @@ function verificaSessaoAberta(){
 
 //Pegar Nome do usuario
 function buscarUsuario(token){
-    var url = BaseURL+token;
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            var user = this.responseText;
-            if(user != ""){
-                sessionStorage.setItem("user",user);
-            }
+
+    var url = BaseURL+"users/"+token;
+
+    fetch(url, {
+        headers: {
+            Authorization: 'Bearer '+token,
         }
-    }
-    
-    xhttp.open("GET", url, true);
-    xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send(JSON.stringify(url)); 
+    }) .then(resp => {
+        if (resp.status == 200) {
+            resp.json().then((resp) => {
+                console.log(resp);
+                sessionStorage.setItem("user", JSON.stringify(resp));
+                location = 'user/mainpage.html';
+            })
+        } 
+        else {
+            localStorage.removeItem("token");
+            sessionStorage.clear();
+        }
+    })
 }
 
 //evento do form Cadastro
@@ -87,7 +93,7 @@ formSingUp.addEventListener("submit",function(e){
     fetch(url, options).then(response => {
         if (response.status == 200) {
             response.json().then((responseJson) => {
-                displayAlert("User created successfully.", response.status);
+                displayAlert("User created successfully.", "alert-success");
                 formSingUp.reset();
                 showSignIn.click();
 
@@ -96,14 +102,12 @@ formSingUp.addEventListener("submit",function(e){
 
        else if (response.status == 400) {
             response.json().then((responseJson) => {
-                console.log(responseJson);
-                displayAlert("Umpossible to proceed.", "alert-error", responseJson.errors);
+                displayAlert("Umpossible to proceed.", "alert-danger", responseJson.errors);
             })
         }
 
        else if(response.status == 409) {
             response.json().then((responseJson) => {
-                console.log(responseJson);
                 emailSignUp.value = "";
                 displayAlert("Umpossible to proceed.", "alert-info", responseJson.errors);
             })
@@ -116,12 +120,10 @@ formSingIn.addEventListener("submit",function(e){
     e.preventDefault();
 
     let url = BaseURL + "auth/authenticate";
-
     let user = {
         "email": emailSignIn.value,
         "password": passwordSignIn.value
     }
-
     let options = {
         method: 'POST',
         body: JSON.stringify(user),
@@ -131,27 +133,22 @@ formSingIn.addEventListener("submit",function(e){
     fetch(url, options).then(response => {
         if (response.status == 200) {
             response.json().then((responseJson) => {
-                console.log(responseJson);
                 var token = JSON.stringify(responseJson.token);
-                if(keepSigned) localStorage.setItem("token", token);
+                if(keepSigned.checked) localStorage.setItem("token", token);
 
                 else sessionStorage.setItem("token", token);
-
                 buscarUsuario(responseJson.token);
-                location.href = 'user/mainpage.html';
             })
         }
 
         else {
             response.json().then((responseJson) => {
-                console.log(responseJson);
                 passwordSignIn.value = "";
                 passwordSignIn.focus();
-                displayAlert("User or Passaword incorrect.", "alert-info");
+                displayAlert("Email address / password combinations is incorrect.", "alert-danger");
 
             })
         }
-
       });
 });
 
@@ -165,6 +162,7 @@ function displayAlert(header, divStyle, jsonMsg) {
 }
 
 function listJsonMessages(jsonMsg) {
+    if(jsonMsg === null || undefined) return;
     jsonMsg.forEach(text => {
         let line = document.createElement('hr');
         let paragraph = document.createElement('p');
@@ -174,6 +172,15 @@ function listJsonMessages(jsonMsg) {
     });
 }
 
+function clearAlertDiv(){
+    document.querySelectorAll('#alertDiv > p,hr').forEach(el => {
+        el.parentNode.removeChild(el)
+    })
+    alertDiv.classList.remove('alert-warning');
+    alertDiv.classList.remove('alert-success');
+    alertDiv.classList.remove('alert-danger');
+    alertDiv.classList.remove('alert-info');
+}
 
 // Show/hide Login e cadastro
 showSignUp.addEventListener("click", function(){
@@ -190,14 +197,3 @@ showSignIn.addEventListener("click", function(){
 btnCloseAlert.addEventListener("click", function(){
     alertDiv.style.display = "none";
 });
-
-function clearAlertDiv(){
-    document.querySelectorAll('#alertDiv > p,hr').forEach(el => {
-        el.parentNode.removeChild(el)
-    })
-    alertDiv.classList.remove('alert-warning');
-    alertDiv.classList.remove('alert-success');
-    alertDiv.classList.remove('alert-error');
-    alertDiv.classList.remove('alert-info');
-}
-

@@ -39,14 +39,12 @@ function verificaSessao(){
         window.location = "../index.html";
     }
     var user = JSON.parse(sessionStorage.getItem("user"));
-    var name = user.name;
-    var tmp = name.split(" ");
-    for (let i = 0; i < tmp.length && i < 2; i++){
-        spanMenuUser.innerHTML += tmp[i][0];
-    }
-    spanMenuUser.setAttribute("title", name + "("+ user.username +")");
-    spanUsername.innerText = "("+ user.username + ")";
-    H6Name.innerText = user.name;
+    console.log(user);
+    let fullName = user.firstName+" "+user.lastName;
+    spanMenuUser.innerText = user.firstName[0].toUpperCase() + user.lastName[0].toUpperCase();
+    spanMenuUser.setAttribute("title", fullName + "("+ user.email +")");
+    spanUsername.innerText = "("+ user.email + ")";
+    H6Name.innerText = fullName;
     getBoards();
 }
 
