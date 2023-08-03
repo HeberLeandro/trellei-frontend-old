@@ -1,3 +1,7 @@
+// Base URL
+var BaseURL = "http://localhost:8080/api/v1/"
+
+
 var divUserHome = document.getElementById("divUserHome");
 //Menu user
 var divMenuUser = document.getElementById("divMenuUser");
@@ -26,15 +30,15 @@ var btnCriarQuadro = document.getElementById("btnCriarQuadro");
 var bgQuadro = document.getElementById("bgQuadro");
 
 //Verificar se a sessão aberta e pega nome do user
-var token;
+var userAuth;
 var boardsList;
 verificaSessao();
 
 function verificaSessao(){
-    if(sessionStorage.getItem("token")){
-        token = JSON.parse(sessionStorage.getItem("token"));
-    }else if (localStorage.getItem("token")) {
-        token = JSON.parse(localStorage.getItem("token"));
+    if(sessionStorage.getItem("userAuth")){
+        userAuth = JSON.parse(sessionStorage.getItem("userAuth"));
+    }else if (localStorage.getItem("userAuth")) {
+        userAuth = JSON.parse(localStorage.getItem("userAuth"));
     }else{
         window.location = "../index.html";
     }
@@ -49,23 +53,23 @@ function verificaSessao(){
 }
 
 function getBoards(){
-    var url =  "https://tads-trello.herokuapp.com/api/trello/boards/"+token;
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            boardsList = JSON.parse(this.responseText);
-            for (let i = 0; i < boardsList.length; i++) {
-                listarNovoBoard(boardsList[i]);
-            }
+    var url =  BaseURL + "boards/"+ userAuth.userId;
 
-        }else if (this.readyState == 4 && this.status == 400){
-            alert("Erro ao listar quadros");
-        }
-    }
-    
-    xhttp.open("GET", url, true);
-    xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send(JSON.stringify(url));
+    fetch(url, {
+        headers: {
+            Authorization: 'Bearer '+userAuth.token,
+        }}).then(resp => {
+            if (resp.status == 200) {
+                resp.json().then((boardListObj) => {
+                    for (let i = 0; i < boardListObj.length; i++) {
+                        listarNovoBoard(boardListObj[i]);
+                    }
+                })
+            }    
+            else {
+              alert("Erro ao listar quadros");
+            }
+    });
 }
 
 function listarNovoBoard(board){
@@ -102,35 +106,40 @@ criarQuadro.addEventListener("click", function(){
 //criar novo quadro
 formNovoQuadro.addEventListener("submit", function(e){
     e.preventDefault();
+
     cor = getComputedStyle(bgQuadro);
-    var quadro = {
+    var url =  BaseURL+"boards";
+
+    var createBoard = {
         "name": inputNomeDoQuadro.value,
-        "color": cor.backgroundColor,
-        "token": token
+        "color": cor.backgroundColor
     }
 
-    var url =  "https://tads-trello.herokuapp.com/api/trello/boards/new";
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            var obj = JSON.parse(this.responseText);
-            listaQuadros[length] = obj;
+        // Options to be given as parameter 
+    // in fetch for making requests
+    // other then GET
+    let options = {
+        method: 'POST',
+        body: JSON.stringify(createBoard),
+        headers: {"Content-type": "application/json; charset=UTF-8",  "Authorization": 'Bearer '+userAuth.token},
+    }
+
+    fetch(url, options).then(response => {
+        if (response.status == 200) {
+            response.json().then((boardResp) => {
             hideOrShow(novoQuadrobg, 'none');
             inputNomeDoQuadro.value = "";
             divUserHome.classList.add("overflow-auto");
-            listarNovoBoard(obj);
+            listarNovoBoard(boardResp);
 
-        }else if (this.readyState == 4 && this.status == 400){
+            })
+        } else {
             alert("Erro ao criar novo quadro");
             hideOrShow(novoQuadrobg, 'none');
             inputNomeDoQuadro.value = "";
             divUserHome.classList.add("overflow-auto");
         }
-    }
-    
-    xhttp.open("POST", url, true);
-    xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send(JSON.stringify(quadro));
+    });
 });
 
 //fecha criação do novo quadro

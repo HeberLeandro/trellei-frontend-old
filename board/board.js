@@ -46,16 +46,16 @@ var spanCard;
 
 var Listas;
 var Board;
-var token;
+var userAuth;
 var CardClicked;
 
 verificaSessao();
 
 function verificaSessao() {
-    if (sessionStorage.getItem("token")) {
-        token = JSON.parse(sessionStorage.getItem("token"));
-    } else if (localStorage.getItem("token")) {
-        token = JSON.parse(localStorage.getItem("token"));
+    if (sessionStorage.getItem("userAuth")) {
+        userAuth = JSON.parse(sessionStorage.getItem("userAuth"));
+    } else if (localStorage.getItem("userAuth")) {
+        userAuth = JSON.parse(localStorage.getItem("userAuth"));
     } else {
         window.location = "../index.html";
     }
@@ -81,7 +81,7 @@ function verificaSessao() {
 }
 
 function getListas() {
-    var url = "https://tads-trello.herokuapp.com/api/trello/lists/" + token + "/board/" + Board.id;
+    var url = "https://tads-trello.herokuapp.com/api/trello/lists/" + userAuth.userId + "/board/" + Board.id;
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -160,7 +160,7 @@ function adicionarLista(lista) {
 }
 
 function getCards(listaId, element) {
-    var url = "https://tads-trello.herokuapp.com/api/trello/cards/" + token + "/list/" + listaId;
+    var url = "https://tads-trello.herokuapp.com/api/trello/cards/" + userAuth.userId + "/list/" + listaId;
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {

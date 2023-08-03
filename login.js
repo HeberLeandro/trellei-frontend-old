@@ -33,25 +33,25 @@ var showSignIn = document.getElementById("showSignIn");
 verificaSessaoAberta();
 /* Verifica sessão aberta */
 function verificaSessaoAberta(){
-    var token;
-    if(sessionStorage.getItem("token")){
-        token = JSON.parse(sessionStorage.getItem("token"));
-    }else if (localStorage.getItem("token")) {
-        token = JSON.parse(localStorage.getItem("token"));
+    var userAuth;
+    if(sessionStorage.getItem("userAuth")){
+        userAuth = JSON.parse(sessionStorage.getItem("userAuth"));
+    }else if (localStorage.getItem("userAuth")) {
+        userAuth = JSON.parse(localStorage.getItem("userAuth"));
     }else{
         return;
     }
-    buscarUsuario(token);
+    buscarUsuario(userAuth);
 }
 
 //Pegar Nome do usuario
-function buscarUsuario(token){
+function buscarUsuario(userAuth){
 
-    var url = BaseURL+"users/"+token;
+    var url = BaseURL+"users/"+userAuth.userId;
 
     fetch(url, {
         headers: {
-            Authorization: 'Bearer '+token,
+            Authorization: 'Bearer '+userAuth.token,
         }
     }) .then(resp => {
         if (resp.status == 200) {
@@ -62,7 +62,7 @@ function buscarUsuario(token){
             })
         } 
         else {
-            localStorage.removeItem("token");
+            localStorage.removeItem("userAuth");
             sessionStorage.clear();
         }
     })
@@ -133,11 +133,11 @@ formSingIn.addEventListener("submit",function(e){
     fetch(url, options).then(response => {
         if (response.status == 200) {
             response.json().then((responseJson) => {
-                var token = JSON.stringify(responseJson.token);
-                if(keepSigned.checked) localStorage.setItem("token", token);
+                var userAuth = responseJson;
+                if(keepSigned.checked) localStorage.setItem("userAuth", JSON.stringify(userAuth));
 
-                else sessionStorage.setItem("token", token);
-                buscarUsuario(responseJson.token);
+                else sessionStorage.setItem("userAuth", JSON.stringify(userAuth));
+                buscarUsuario(userAuth);
             })
         }
 
