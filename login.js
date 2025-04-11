@@ -130,6 +130,8 @@ formSingIn.addEventListener("submit",function(e){
         headers: {"Content-type": "application/json; charset=UTF-8"},
     }
 
+
+
     fetch(url, options).then(response => {
         if (response.status == 200) {
             response.json().then((responseJson) => {

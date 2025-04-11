@@ -32,7 +32,7 @@ var bgQuadro = document.getElementById("bgQuadro");
 //Verificar se a sessão aberta e pega nome do user
 var userAuth;
 var boardsList;
-verificaSessao();
+//verificaSessao();
 
 function verificaSessao(){
     if(sessionStorage.getItem("userAuth")){
@@ -203,7 +203,7 @@ function hideOrShow(element, display){
 
 //sair da Conta
 Logout.addEventListener("click", function(){
-    localStorage.removeItem("token");
+    localStorage.removeItem("userAuth");
     sessionStorage.clear();
     window.location = "../index.html";
 });

@@ -49,7 +49,7 @@ var Board;
 var userAuth;
 var CardClicked;
 
-verificaSessao();
+//verificaSessao();
 
 function verificaSessao() {
     if (sessionStorage.getItem("userAuth")) {
